@@ -1,0 +1,22 @@
+<table>
+  <tr>
+    <td colspan="2"><br /><br />
+      <b style="font-size: medium; color: #1DACB2"> Assigned Rooms</b>
+      <% assigned_rooms = @service.rooms %>
+    </td>
+  </tr>
+  <% if assigned_rooms.empty? %>
+    <tr>
+      <td colspan="2">
+        No rooms are assigned to this service.
+      </td>
+    </tr>
+  <% else %>
+    <% assigned_rooms.each do |room| %>
+      <tr>
+        <td><%= room.name %></td>
+        <td><%= link_to 'Delete', delete_selected_option_service_path(@service.id, :delete_id => room.id, :delete_type => 'Room'), :remote => true, :method => 'delete', :confirm => "Are you sure?", :style => "color: salmon" %></td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>

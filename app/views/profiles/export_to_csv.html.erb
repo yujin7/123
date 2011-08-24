@@ -1,0 +1,6 @@
+<% CSV.generate(:col_sep => ";") do |csv| %>
+  <% csv << ["ID FIRS-TNAME LAST-NAME ROLE-NAME EMAIL STATUS"] %>
+  <% @profiles.each do |profile| %>
+    <% csv << [profile.id, profile.first_name, profile.last_name, profile.role_name, profile.email, profile.status] %>
+  <% end %>
+<% end %>

@@ -1,0 +1,142 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/room_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <div class="midrighttop">
+              <div class="midrighttopleft"></div>
+              <div class="midrighttopcenter">
+                <div class="midrighttoplinks">
+                  <div style="float:right">
+                    <div class="midrighttoplinkdiv">
+                      <%= link_to "New Room" , new_room_path,  :class => 'midrighttoplink'%>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="midrighttopright"></div>
+            </div>
+
+            <div class="dataheaddiv" style="width:850px; text-align: left; border: 0; font-weight: bold;" >
+              Search Criteria
+            </div>
+            <div class="search_tab_right">
+              <%= form_tag(search_rooms_path, :method=>'post', :multipart => true) do %>
+                Name : <%= text_field_tag "name", params[:name] %>
+                Capacity :<%= text_field_tag "capacity", params[:capacity] %>
+                Status : <%= select_tag :status,  options_for_select(["Active" ,"Inactive"],params[:status])  %>
+                <%= submit_tag 'Search', :class => "input_button"%>
+              <%end%>
+            </div>
+            <%= form_tag delete_selected_rooms_path, :method => :delete do %>
+              <div class="data" >
+                <div class="datahead">
+                  <div class="dataheaddiv" style="width: 100%; text-align: left; border: 0">
+                    <%= select_tag :per_page, options_for_select([10, 20, 30, 50], params[:per_page]), :onchange => "reload_with_new_param('per_page', this.value)"  %>
+                  </div>
+
+                </div>
+                <div class="datahead">
+                  <div class="dataheadoptions">
+                    <input type="checkbox" id="total_rooms" onclick="select_all_rooms(<%= @rooms.length %>)"/>
+                  </div>
+                  <div class="dataheaddiv" style="width:190px ">
+                    Name
+                    <% if params[:by] == 'ASC' %>
+                      <%= link_to image_tag("arrow.gif", :width => "8", :height => "9", :border => "0"), :action => 'index', :order => 'name', :by => 'DESC' %>
+                    <% else %>
+                      <%= link_to image_tag("uparrow.gif", :width => "8", :height => "9", :border => "0"), :action => 'index', :order => 'name', :by => 'ASC' %>
+                    <% end %>
+                  </div>
+                  <div class="dataheaddiv" style="width:190px" >
+                    Location Outlet
+                    <% if params[:by] == 'ASC' %>
+                      <%= link_to image_tag("arrow.gif", :width => "8", :height => "9", :border => "0"), :action => 'index', :order => 'location_id', :by => 'DESC' %>
+                    <% else %>
+                      <%= link_to image_tag("uparrow.gif", :width => "8", :height => "9", :border => "0"), :action => 'index', :order => 'location_id', :by => 'ASC' %>
+                    <% end %>
+                  </div>
+                  <div class="dataheaddiv" style="width:190px"  >
+                    Capacity
+                  </div>
+                  <div class="dataheaddiv" style="width:220px" >
+                    Status
+                  </div>
+                </div>
+                <% i = 0 %>
+                <% @rooms.each do |room|  %>
+                  <div class="datahead" style="background-color: <%= cycle("#cce9ed","#f0f8fa") %>">
+                    <div class="datarowoptions">
+                      <input type="checkbox" name="room_ids[]" id="room_<%= i %>" value="<%= room.id %>"/>
+                    </div>
+
+                    <div class="dataheaddivwhite" style="width:190px; padding-left: 5px">
+                      <%= link_to room.name, room_path(room)%>
+                    </div>
+                    <div class="databellowdiv" style="width:190px">
+                      <%=  room.location.nil? ? "Unknown" :  room.location.name  %>
+                    </div>
+                    <div class="databellowdiv" style="width:190px">
+                      <%=  room.capacity.nil? ? "Unknown" :  room.capacity  %>
+                    </div>
+
+                    <div class="dataheaddivwhite" style="width:220px" >
+                      <div id="status_<%= room.id %>"></div>
+                      <%= select_tag :status, options_for_select([['Active', 'Active'], ['Inactive', 'Inactive']],  room.status), :onchange => "update_room_status('#{ room.id }', this.value)"  %>
+                    </div>
+                  </div>
+                  <% i += 1 %>
+                <% end %>
+              </div>
+              <div style="clear: both; height: 10px"></div>
+              <div class="pagination">
+                <%= will_paginate @rooms  %>
+              </div>
+              <div style="clear: both; height: 10px"></div>
+              <%= submit_tag 'Delete', :onclick => "return validate_rooms_to_delete(#{@rooms.length})" , :class => "input_button" %>
+            <% end %>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

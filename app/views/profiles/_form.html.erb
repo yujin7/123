@@ -1,0 +1,160 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/profile_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <%= form_for @profile, :html => { :multipart => true } do |f| %>
+              <h3 style="color:#FFFFFF; padding-left:5%">New Profile</h3>
+              <table  style="padding-left: 5%">
+                <tr>
+                  <td>First Name</td>
+                  <td>
+                    <%= f.text_field :first_name, :size => '20x2'  %>
+                    <div style='color: red;'><%= validation_errors @profile.errors['first_name'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Last Name</td>
+                  <td>
+                    <%= f.text_field :last_name, :size => '20x2'  %>
+                    <div style='color: red;'><%= validation_errors @profile.errors['last_name'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Role Name</td>
+                  <td>
+                    <%= f.select :role_name, options_for_select(['Consultant', 'Therapist', 'Csd'].map{|role_name| [role_name.capitalize, role_name]}, @profile.role_name)  %>
+                    <div style='color: red;'><%= validation_errors @profile.errors['role_name'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Date of Birth</td>
+                  <td>
+                    <%= f.date_select :date_of_birth,  :start_year => 1950  %>
+                    <div style='color: red;'><%= validation_errors @profile.errors['date_of_birth'] %></div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Residentail Address</td>
+                  <td>
+                    <%= f.text_area :residential_addr ,:size => '25x3'  %>
+                    <div style='color: red;'><%= validation_errors @profile.errors['residential_addr'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td> Studio</td>
+                  <td>
+                    <%= f.text_field :studio, :size => '20x2'  %>
+                    <div style='color: red;'><%= validation_errors @profile.errors['studio'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Studio Joined Date</td>
+                  <td>
+                    <%= f.date_select :studio_joined_date  %>
+                    <div style='color: red;'><%= validation_errors @profile.errors['studio'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Studio Assigned </td>
+                  <td>
+                    <%= f.text_field :studio_assigned,:size => '20x2'  %>
+                    <div style='color: red;'><%= validation_errors @profile.errors['studio_assigned'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Residence Contact</td>
+                  <td>
+                    <%= f.text_field :contact_residence,:size => '20x2'  %>
+                    <div style='color: red;'><%= validation_errors @profile.errors['contact_residence'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Contact </td>
+                  <td>
+                    <%= f.text_field :contact_hp,:size => '20x2'  %>
+                    <div style='color: red;'><%= validation_errors @profile.errors['contact_hp'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Email</td>
+                  <td>
+                    <%= f.text_field :email,:size => '20x2'  %>
+                    <div style='color: red;'><%= validation_errors @profile.errors['email'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td> Leave Entitlement</td>
+                  <td>
+                    <%= f.text_field :leave_entitlement, :size => '20x2' %>
+                    <div style='color: red;'><%= validation_errors @profile.errors['leave_entitlement'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Supervisor</td>
+                  <td>
+                    <%= f.text_field :supervisor,:size => '20x2'  %>
+                    <div style='color: red;'><%= validation_errors @profile.errors['supervisor '] %></div>
+                  </td>
+                </tr>
+
+
+                <tr>
+                  <td></td>
+                  <td><%= f.submit @profile.new_record? ? "Create"  : "Update", :class => 'input_button' %>
+                    <%= button_to_function 'Cancel', "window.location.href= '#{profiles_path}'", :class => 'input_button' %>
+                  </td>
+                </tr>
+              </table>
+            <% end %>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

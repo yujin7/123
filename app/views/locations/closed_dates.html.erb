@@ -1,0 +1,57 @@
+
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/location_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <div class="midrighttop">
+              <div class="midrighttopleft"></div>
+              <div class="midrighttopcenter">
+                <div class="midrighttoplinks">
+                  <div style="float: right">
+                    <div class="midrighttoplinkdiv">
+                      <%= link_to 'Add Closed Date', new_closed_date_location_path(@location.id), :remote => true,  :class => 'midrighttoplink' %>
+                    </div>
+                    <div class="midrighttoplinkdiv">
+                      <%= link_to 'Back to details', location_path(@location.id),  :class => 'midrighttoplink' %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="midrighttopright"></div>
+            </div>
+            <div class="datahead" style="width:100%">
+              <div class="dataheaddiv" style="width:20%">
+                Closed Date
+              </div>
+              <div class="dataheaddiv" style="width:30%">
+                Description
+              </div>
+              <div class="dataheaddiv" style="width:30%">
+                Actions
+              </div>
+            </div>
+            <div id="closed_dates_messages"></div>
+            <div id="closed_date_form" style="display: none">
+              <%= render :partial => 'closed_dates_form' %>
+            </div>
+            <div id="closed_date_table">
+              <%= render :partial => 'closed_dates_table' %>
+            </div>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+

@@ -1,0 +1,49 @@
+<div class="midleft">
+  <div class="searchimg">
+    SEARCH GUEST LIST
+  </div>
+  <div class="midbgsearchrepeat">
+    <div class="guest">Guest Name
+      <%= form_tag search_guests_path, :method => :get do %>
+        <div>
+          <%= text_field_tag :guest_query %>
+        </div>
+      </div>
+    <div class="midbar" id="click"><span id="advanced_search_id">+ </span> Advanced Search</div>
+      <div>
+        <div id="advanced_search_tab" style="display: none">
+          <div class="guest">
+            <div style="padding-left:20px">
+              <%= check_box_tag :active %>Active
+              <%= check_box_tag :inactive %> Inactive
+            </div>
+          </div>
+          <div style="padding-left:20px">
+            <%= submit_tag 'Search', :class => 'button' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <%= form_tag filter_guest_guests_path, :method => :get do%>
+      <div>
+        <div id="click_filter" class="midbar"><span id="filter_list_id">+ </span>Filter List by</div>
+        <div>
+          <div class="guest">
+            <div id="filter_guest_tab" style="display: none">
+              <%= check_box_tag :all_guest %> All Guests <br/>
+              <%= check_box_tag :guests_this_week %>New Guest this week <br/>
+              <%= check_box_tag :birth_date %>Birthday this Month <br/>
+              <%= check_box_tag :therapist %>By Consultant/Therapist <br/>
+              <%= check_box_tag :top_spenders %>Top Spenders <br/>
+              <%= check_box_tag :recently_viewed %>Recently Viewed <br/><br/>
+              <%= submit_tag 'Submit', :class => 'button' %>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    <% end %>
+    <div class="midleftbottom"></div>
+  </div>
+
+</div>

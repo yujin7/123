@@ -1,0 +1,127 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/product_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <%= form_for [@product, @inventory], :html => { :multipart => true } do |f| %>
+              <h3 style="color:#FFFFFF; padding-left:5%">New Inventory</h3>
+              <table style="padding-left: 5%">
+                <tr>
+                  <td>   Inventory Name</td>
+                  <td>
+                    <%= f.text_field :name , :size => '20' %>
+                    <div style='color: red;'><%= validation_errors @inventory.errors['name'] %></div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Barcode</td>
+                  <td>
+                    <%= f.text_field :barcode , :size => '20'  %>
+                    <div style='color: red;'><%= validation_errors @inventory.errors['barcode'] %></div>
+
+                  </td>
+                </tr>
+                <tr>
+                  <td>Description</td>
+                  <td>
+                    <%= f.text_area :description, :size => '25x3' %>
+                    <div style='color: red;'><%= validation_errors @inventory.errors['description'] %></div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Retail Price</td>
+                  <td>
+                    <%= f.text_field :retail_price, :size => 10 %>$
+                    <div style='color: red;'><%= validation_errors @inventory.errors['retail_price'] %></div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Cost Price</td>
+                  <td><%= f.text_field :cost_price, :size => 10 %>$
+                    <div style='color: red;'><%= validation_errors @inventory.errors['cost_price'] %></div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Stock Balance</td>
+                  <td>
+                    <%= f.text_field :stock_balance, :size => 10 %>
+                    <div style='color: red;'><%= validation_errors @inventory.errors['stock_balance'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Balance</td>
+                  <td>
+                    <%= f.text_field :balance_alert, :size => 10 %>
+                    <div style='color: red;'><%= validation_errors @inventory.errors['balance_alert'] %></div>
+                  </td>
+                </tr>
+              </table>
+              <table>
+                <tr>
+                  <td colspan="2">
+                    <b>Quantity of products:&nbsp;&nbsp;&nbsp;</b><%= @product.quantity %>
+                    <div id="assign_locations_message" style="color:red; background-color: #EDEDED"></div>
+                    <table>
+                      <tr>
+                        <th colspan="2">
+                          <div class="datahead" style="width:500px">
+                            <div class="dataheaddiv" style="width:500px; text-align: center">
+                              <b style="font-size: 15px;">Assign to locations</b>
+                            </div>
+                          </div>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th>Location </th>
+                        <th>Quantity</th>
+                      </tr>
+                      <% location_ids = [] %>
+                      <% @locations.each do |location| %>
+                        <tr>
+                          <td colspan="2">
+                            <div id="<%= location.id %>_message" style="color:red; background-color: #EDEDED"></div>
+                            <div class="datahead" style="background-color: <%= cycle("#cce9ed","#f0f8fa") %>;width:100%;">
+                              <div class="databellowdiv" style="width:5%">
+                                <%= check_box_tag :"#{location.id}_selected" %>
+                              </div>
+                              <div class="databellowdiv" style="width:45%">
+                                <%= location.name.capitalize %>
+                              </div>
+                              <div class="dataheaddivwhite" style="width:45%">
+                                <%= text_field_tag :"#{location.id}_quantity", '', :size => 8  %>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <% location_ids << location.id %>
+                      <% end %>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+              <table>
+                <tr>
+                  <td></td>
+                  <td><%= f.submit 'Submit', :onclick => "return validate_locations_products(#{location_ids}, #{@product.quantity})", :class => 'input_button' %>
+                    <%= button_to_function 'Cancel', "window.location.href= '#{product_path(@product.id)}'", :class => 'input_button' %>
+                  </td>
+                </tr>
+              </table>
+            <% end %>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>

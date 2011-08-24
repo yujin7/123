@@ -1,0 +1,62 @@
+<table cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td colspan="3">
+      <%= link_to "Manage Guests" %> &nbsp;
+      <%= link_to "Find Duplicates" %>&nbsp;
+      <%=link_to "Custome Fields"%>&nbsp;
+      <hr />
+    </td>
+  </tr>
+  <tr>
+    <td width="20%">
+      <b>Search Guest List</b>
+      <br />
+      Guest Name <br />
+      <input type="text" name="guest_search" />
+      <br /><br />
+      Advance search
+      <input type="button" value="Search" />
+    </td>
+    <td>
+      <table width="100%" height="100%" border="2">
+        <tr>
+          <td>
+            <%= select_tag :per_page, options_for_select([10, 20, 30, 50], params[:per_page]), :onchange => "reload_with_new_param('per_page', this.value)" %>
+          </td>
+          <td colspan="7"  align="right">
+            <%= link_to "New Guest"  %>&nbsp; | &nbsp;
+            <%= link_to "Export" %>&nbsp; | &nbsp;
+            <%= link_to "Deactivate" %>&nbsp; | &nbsp;
+            <%= link_to "Delete" %>&nbsp; | &nbsp;
+            <%= link_to "Print"  %>
+          </td>
+        </tr>
+        <tr>
+          <th><input type="checkbox" name=""/></th>
+          <th>Name</th>
+          <th>Location</th>
+          <th>Guest ID</th>
+          <th>Latest Activity</th>
+          <th>Date & Time</th>
+          <th>Email</th>
+          <th>Phone</th>
+
+        </tr>
+        <% @guests.each do |guest|  %>
+          <tr align="center" onclick="">
+            <td><input type="checkbox" name=""/></td>
+            <td><%= guest.login %></td>
+            <td><%= guest.location %></td>
+            <td><%= guest.id %></td>
+            <td><%= guest.latest_activity %></td>
+            <td><%= guest.created_at %></td>
+            <td><%= guest.email %></td>
+            <td><%= guest.phone %></td>
+          </tr>
+          <%= will_paginate @guests  %>
+        <%end%>
+
+      </table>
+    </td>
+  </tr>
+</table>

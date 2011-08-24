@@ -1,0 +1,125 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/payment_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <div class="midrighttop">
+              <div class="midrighttopleft"></div>
+              <div class="midrighttopcenter">
+                <div class="midrighttoplinks">
+                  <div style="float:right">
+                    <div class="midrighttoplinkdiv">
+                      <%= link_to "New GiftVoucher" ,   new_gift_voucher_path,  :class => 'midrighttoplink'%>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="midrighttopright"></div>
+            </div>
+            <div class="data" >
+              <div class="datahead">
+                <div class="dataheaddiv" style="width: 20%; text-align: left; border: 0">
+                  <%= select_tag :per_page, options_for_select([10, 20, 30, 50], params[:per_page]), :onchange => "reload_with_new_param('per_page', this.value)"%>
+                </div>
+                <div class="dataheaddiv" style="width: 79.8%; text-align: left; border: 0">
+                  <%= will_paginate @gift_vouchers  %>
+                </div>
+              </div>
+              <div class="datahead">
+                <div class="dataheadoptions" style="width:100px">
+                  Serial No
+                </div>
+                <div class="dataheaddiv" style="width:150px">
+                  Percentage Discount
+                </div>
+                <div class="dataheaddiv" style="width:150px" >
+                  Discount Amount
+                </div>
+                <div class="dataheaddiv" style="width:200px">
+                  Validity
+                </div>
+                <div class="dataheaddiv" style="width:240px">
+                  Action
+                </div>
+              </div>
+              <% @gift_vouchers.each do |gift_voucher|  %>
+                <div class="datahead" style="background-color: <%= cycle("#cce9ed","#f0f8fa") %>">
+                  <div class="datarowoptions" style="width:100px">
+                    <%= link_to gift_voucher.serial_no, gift_voucher_path(gift_voucher) %>
+                  </div>
+                  <div class="dataheaddivwhite" style="width:150px">
+                    <%= gift_voucher.percentage_discount.nil? ? "Unknown" : gift_voucher.percentage_discount %> %
+                  </div>
+                  <div class="databellowdiv" style="width:150px">
+                    $<%= gift_voucher.discount_amount.nil? ? "Unknown" : gift_voucher.discount_amount%>
+                  </div>
+                  <div class="dataheaddivwhite" style="width:200px">
+                    <%= gift_voucher.valid_upto.nil? ? "Unknown" : gift_voucher.valid_upto.strftime("%a, %B %d, %Y at %l:%M %p") %>
+                  </div>
+                  <div class="databellowdiv" style="width:240px">
+                    <%= link_to 'Edit',   edit_gift_voucher_path(gift_voucher) %>
+                    <%= link_to 'Delete',   gift_voucher_path(gift_voucher), :confirm => "Are you sure?", :method=>:delete %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+            <div style="clear: both; height: 10px"></div>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

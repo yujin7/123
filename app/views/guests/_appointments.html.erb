@@ -1,0 +1,68 @@
+<% if !appointments.empty? %>
+
+  <div class="datahead">
+    <!--
+    <div class="dataheadoptions" style="width:30px">
+      <input type="checkbox" id="total_guests" onclick="select_all_guests(<%= appointments.length %>)"/>
+    </div>
+    -->
+    <div class="dataheaddiv" style="width:120px">
+      Booking #
+    </div>
+    <div class="dataheaddiv" style="width:155px">
+      Appointment
+    </div>
+    <div class="dataheaddiv" style="width:100px">
+      Status
+    </div>
+    <div class="dataheaddiv">
+      Service
+    </div>
+    <div class="dataheaddiv" style="width:150px">
+      Staff
+    </div>
+    <div class="dataheaddiv" style="width:90px">
+      Room
+    </div>
+    <div class="dataheaddiv" style="width:100px">
+      Booking date
+    </div>
+  </div>
+  <% i = 0 %>
+  <% for appointment in appointments %>
+    <div class="datahead" style="background-color: <%= cycle("#cce9ed","#f0f8fa") %>;">
+      <!--
+      <div class="datarowoptions" style="width:30px">
+        <input type="checkbox" name="appointment_ids[]" id="guest_<%= i %>" value="<%= appointment.id %>"/>
+      </div>
+      -->
+      <div class="dataheaddivwhite" style="width:120px; padding-left: 5px">
+        <%= link_to appointment.booking_id, appointment_path(appointment) %>
+      </div>
+      <div class="databellowdiv" style="width:155px; ">
+        <%= appointment.time_in.strftime("%d %b %Y %H:%M %p") %>
+      </div>
+      <div class="dataheaddivwhite" style="width:100px">
+        <%= appointment.status %>
+      </div>
+      <div class="databellowdiv">
+        <%= appointment.service ? (link_to appointment.service.service_name, service_path(appointment.service)) : "No service" %>
+      </div>
+      <div class="dataheaddivwhite" style="width:150px">
+        <%= appointment.employee ? (link_to appointment.employee.name, employee_path(appointment.employee)) : "No staff" %>
+      </div>
+      <div class="databellowdiv" style="width:90px">
+        <%= appointment.room ? (link_to appointment.room.name, room_path(appointment.employee)) : "No room" %>
+      </div>
+      <div class="dataheaddivwhite" style="width:100px">
+        <%= appointment.created_at.strftime("%d %b %Y") %>
+      </div>
+    </div>
+    <% i += 1 %>
+  <% end %>
+<% else %>
+  <div style="padding: 50px;">
+    No appointment for this guest
+  </div>
+
+<% end %>

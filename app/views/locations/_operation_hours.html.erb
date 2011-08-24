@@ -1,0 +1,59 @@
+<br />
+<br /><br />
+<div class="datahead" style="width:600px">
+  <div class="dataheaddiv" style="width:600px; text-align: center">
+    <b style="font-size: 15px;">Operating hours</b>
+  </div>
+</div>
+<table>
+  <tr style="width:600px">
+    <td style="width:100px">Select Week:</td>
+    <td colspan="2" style="width:500px">
+      <select name="select_week_dropdown" onchange="show_operation_hours(this.value,<%= @location.id %>)">
+        <option value="regular">Regular Schedule</option>
+        <% (1..52).each do |current_week| %>
+          <% wkBegin = Date.commercial(Date.today.year, current_week, 1) %>
+          <% wkEnd = Date.commercial(Date.today.year, current_week, 7) %>
+          <option value="<%= wkBegin %>" <%= wkBegin == @current_wkBegin ? 'selected=true' : '' %>><%= wkBegin.to_datetime.strftime('%b %d') %> - <%= wkEnd.to_datetime.strftime('%b %d')%></option>
+        <% end %>
+      </select>
+      <div id="operation_hours_table_errors" style="color: red"></div>
+    </td>
+  </tr>
+  <tr style="width:600px">
+    <td style="width:100px"></td>
+    <td style="width:250px">Open Time</td>
+    <td style="width:250px">Close Time</td>
+  </tr>
+  <% week_begin = @current_wkBegin %>
+  <% (0..6).each do |operating_day| %>
+    <tr style="width:600px">
+      <td id="<%= operating_day %>" style="width:100px"><%= WEEK_DAYS[operating_day - 6]+'('+week_begin.month.to_s+'/'+week_begin.day.to_s+')' %></td>
+      <td style="width:250px">
+        <div id="<%= week_begin.to_s+'_open_time_update_status' %>" style="background-color:#EDEDED"></div>
+        <select id="<%= WEEK_DAYS[operating_day].to_s %>_open" name="<%= WEEK_DAYS[operating_day].to_s %>_open_time" onchange="update_operation_time(this.value, 'open_time',<%= @location.id %>, '<%= week_begin.to_s %>')">
+          <% (00..23).each do |hour| %>
+            <% ['00', '15', '30', '45'].each do |minute| %>
+              <% display_hour = (hour > 12 ? ((12+hour)-24) : (hour == 00 ? 12 : hour)) %>
+              <option value="<%= week_begin %> <%= (hour.to_s.length == 1 ? '0'+hour.to_s : hour.to_s)+':'+minute.to_s %>"<%= @selected_open_hours.include?(week_begin.to_s+' '+(hour.to_s.length == 1 ? '0'+hour.to_s : hour.to_s)+':'+minute.to_s) ? 'selected=true' : '' %>><%= display_hour.to_s+':'+minute.to_s+' '+(hour > 12 ? 'PM' : 'AM') %></option>
+            <% end %>
+          <% end %>
+          <option value="<%= week_begin.to_s+' 23:59' %>"<%= @selected_close_hours.include?(week_begin.to_s+' 23:59') ? 'selected=true' : '' %>>11:59 PM</option>
+        </select>
+      </td>
+      <td style="width:250px">
+        <div id="<%= week_begin.to_s+'_close_time_update_status' %>" style="background-color:#EDEDED"></div>
+        <select id="<%= WEEK_DAYS[operating_day].to_s %>_close" name="<%= WEEK_DAYS[operating_day].to_s %>_close_time" onchange="update_operation_time(this.value, 'close_time',<%= @location.id %>, '<%= week_begin.to_s %>')">
+          <% (00..23).each do |hour| %>
+            <% ['00', '15', '30', '45'].each do |minute| %>
+              <% display_hour = (hour > 12 ? ((12+hour)-24) : (hour == 00 ? 12 : hour)) %>
+              <option value="<%= week_begin %> <%= (hour.to_s.length == 1 ? '0'+hour.to_s : hour.to_s)+':'+minute.to_s %>"<%= @selected_close_hours.include?(week_begin.to_s+' '+(hour.to_s.length == 1 ? '0'+hour.to_s : hour.to_s)+':'+minute.to_s) ? 'selected=true' : '' %>><%= display_hour.to_s+':'+minute.to_s+' '+(hour > 12 ? 'PM' : 'AM') %></option>
+            <% end %>
+          <% end %>
+          <option value="<%= week_begin.to_s+' 23:59' %>"<%= @selected_close_hours.include?(week_begin.to_s+' 23:59') ? 'selected=true' : '' %>>11:59 PM</option>
+        </select>
+      </td>
+    </tr>
+    <% week_begin += 1 %>
+  <% end %>
+</table>

@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Expressions International</title>
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <%= stylesheet_link_tag 'style.css', 'application.css', 'jquery.notifyBar.css', :media => "all", :cache => true %>
+    <%=javascript_include_tag 'jquery',  'jquery-ui', 'application', 'rails', 'jrails', 'images', 'jquery.notifyBar', :cache => "all" %>
+    <%= csrf_meta_tag %>
+    <% if !flash[:error].nil? or !flash[:notice].nil? %>
+      <script>
+        $(function () {
+          $.notifyBar({
+            html: "<%= !flash[:error].nil? ? flash[:error] : flash[:notice] -%>",
+            cls: "<%= !flash[:error].nil? ? 'error' : 'success' -%>",
+            close: true,
+            delay: 2500,
+            animationSpeed: "normal"
+          });
+        });
+      </script>
+    <% end %>
+  </head>
+  <body>
+    <div id="main">
+      <%= yield %>
+    </div>
+  </body>
+</html>

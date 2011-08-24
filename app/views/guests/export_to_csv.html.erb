@@ -1,0 +1,7 @@
+<% CSV.generate(:col_sep => ";") do |csv| %>
+  <% csv << ["ID NAME LOCATION EMAIL PHONE STATUS"] %>
+  <% @guests.each do |guest| %>
+    <% guest_location = !guest.location.nil? ? guest.location.name : "Unknown" %>
+    <% csv << [guest.id, guest.name, guest_location, guest.email, guest.billing_telephone, guest.status] %>
+  <% end %>
+<% end %>

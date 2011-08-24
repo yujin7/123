@@ -1,0 +1,80 @@
+<div style="width: 100%; text-align: left; border: 0pt none;" class="dataheaddiv">
+  <div style="float:left;padding-left: 5px;">Progress Notes</div>
+</div>
+<div style="width: 100%;">
+  <div style="padding-left: 50px;padding-top: 50px;padding-bottom: 10px;">
+    <div id="guest_progress_note_form">
+      <% form_for GuestNote.new, :url => create_note_guest_path(@guest), :remote => true do |f| %>
+        <%= hidden_field :guest_note, :note_type, :value => 'progress' %>
+        <input type="hidden" name="note_type" value="progress" />
+        <div id="progress_note_status" style="color:red;"></div>
+        <%= f.text_area :note, :cols => "50", :rows => "8", :id => "progress_note_note" %>
+        <br />
+        <%= f.submit "Add Progress Notes" %>
+      <% end %>
+    </div>
+
+    <div id="progress_note_list">
+      <% for progres_note in @guest.progress_notes %>
+        <%= render :partial => "note", :locals => {:note => progres_note} %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div style="width: 99.3%; text-align: left; border: 0pt none;" class="dataheaddiv">
+  <div style="float:left;padding-left: 5px;">Customer Notes</div>
+</div>
+<div>
+  <div style="padding-left: 50px;padding-top: 50px;padding-bottom: 10px;">
+    <div id="guest_customer_note_form">
+      <% form_for GuestNote.new, :url => create_note_guest_path(@guest), :remote => true do |f| %>
+        <%= hidden_field :guest_note, :note_type, :value => 'customer' %>
+        <input type="hidden" name="note_type" value="customer" />
+        <div id="customer_note_status" style="color:red;"></div>
+        <%= f.text_area :note, :cols => "50", :rows => "8", :id => "customer_note_note" %>
+        <br />
+        <%= f.submit "Add Customer Notes" %>
+      <% end %>
+    </div>
+
+    <div id="customer_note_list">
+      <% for customer_note in @guest.customer_notes %>
+        <%= render :partial => "note", :locals => {:note => customer_note} %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div style="width: 99.3%;text-align: left; border: 0pt none;" class="dataheaddiv">
+  <div style="float:left;padding-left: 5px;">Allergies</div>
+</div>
+<div>
+  <div style="padding-left: 50px;padding-top: 50px;padding-bottom: 10px;">
+    <div id="guest_allergies_form">
+      <% form_for @guest, :url => update_field_guest_path(@guest), :remote => true do |f| %>
+        <input type="hidden" name="field_name" value="allergies" />
+        <div id="allergies_status"></div>
+        <%= f.text_area :allergies, :cols => "50", :rows => "8" %>
+        <br />
+        <%= f.submit "Save", :onclick => "jQuery('#allergies_status').html('')" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div style="width: 99.3%; text-align: left; border: 0pt none;" class="dataheaddiv">
+  <div style="float:left;padding-left: 5px;">Medications/Formulas</div>
+</div>
+<div>
+  <div style="padding-left: 50px;padding-top: 50px;padding-bottom: 10px;">
+    <div id="guest_formulas_form">
+      <% form_for @guest, :url => update_field_guest_path(@guest), :remote => true do |f| %>
+        <input type="hidden" name="field_name" value="formulas" />
+        <div id="formulas_status"></div>
+        <%= f.text_area :formulas, :cols => "50", :rows => "8" %>
+        <br />
+        <%= f.submit "Save", :onclick => "jQuery('#formulas_status').html('')" %>
+      <% end %>
+    </div>
+  </div>
+</div>

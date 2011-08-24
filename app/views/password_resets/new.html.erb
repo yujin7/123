@@ -1,0 +1,35 @@
+<%= form_tag password_resets_path do %>
+
+  <table class="logintab" border="0">
+    <tr>
+      <td>
+        <div class="logintext">Username</div>
+      </td>
+      <td>
+        <div class="logintextcol">:</div>
+        <%= text_field_tag :login,'', :class => "textboxbg" %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="logintext">Email</div>
+      </td>
+      <td>
+        <div class="logintextcol">:</div>
+        <%= text_field_tag :email,'', :class => "textboxbg" %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+
+      </td>
+      <td>
+        <div class="forgottext"></div>
+        <div style="padding-left: 10%">
+          <%= submit_tag "Reset Password" , :class => 'input_button' %>
+          <%= link_to 'Cancel', login_url, :style => 'color:#1F77B6; font-weight: bold' %>
+        </div>
+      </td>
+    </tr>
+  </table>
+<% end %>

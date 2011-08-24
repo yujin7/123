@@ -1,0 +1,23 @@
+<table>
+  <tr>
+    <td colspan="4">
+      <br /><br />
+      <b style="font-size: medium; color: #1DACB2"> Assigned Equipments</b>
+      <% assigned_equipments = @service.equipments %>
+    </td>
+  </tr>
+  <% if assigned_equipments.empty? %>
+    <tr>
+      <td colspan="4">
+        No equipments have been used to this service.
+      </td>
+    </tr>
+  <% else %>
+    <% assigned_equipments.each do |equipment| %>
+      <tr>
+        <td><%= equipment.name %></td>
+        <td><%= link_to 'Delete', delete_selected_option_service_path(@service.id, :delete_id => equipment.id, :delete_type => 'Equipment'), :remote => true, :method => 'delete', :confirm => "Are you sure?", :style => "color: salmon"  %></td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>

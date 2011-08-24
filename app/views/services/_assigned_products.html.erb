@@ -1,0 +1,31 @@
+<table>
+  <tr>
+    <td colspan="4">
+      <br /><br />
+      <b style="font-size: medium; color: #1DACB2"> Assigned Products</b>
+      <% assigned_products = @service.products_services %>
+    </td>
+  </tr>
+  <% if assigned_products.empty? %>
+    <tr>
+      <td colspan="4">
+        No products have been used to this service.
+      </td>
+    </tr>
+  <% else %>
+    <tr>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Cost</th>
+      <th></th>
+    </tr>
+    <% assigned_products.each do |product| %>
+      <tr>
+        <td><%= product.product.nil? ? 'Name Unknown' : product.product.name %></td>
+        <td><%= product.quantity %></td>
+        <td>$<%= product.product_cost %></td>
+        <td><%= link_to 'Delete', delete_selected_option_service_path(@service.id, :delete_id => product.id, :delete_type => 'Product'), :remote => true, :method => 'delete', :confirm => "Are you sure?", :style => "color: salmon"  %></td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>

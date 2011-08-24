@@ -1,0 +1,202 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/appointment_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render 'search_appointment' %>
+          <div class="midright">
+
+            <table style="border: 0" cellpadding="2" cellspacing="2">
+
+              <tr>
+                <td>
+                  <h2>Customer details</h2>
+                </td>
+
+              </tr>
+
+              <tr>
+                <td>Customer name: </td>
+                <td><%= @print_invoice.customer_name %> </td>
+              </tr>
+
+              <tr>
+                <td>Customer email:</td>
+                <td><%=  @print_invoice.customer_email %></td>
+              </tr>
+
+              <tr>
+                <td>Billing Address 1:</td>
+                <td><%= @print_invoice.billing_address1 %></td>
+              </tr>
+
+              <tr>
+                <td>Billing Address 2:</td>
+                <td><%= @print_invoice.billing_address2 %></td>
+              </tr>
+
+              <tr>
+                <td>Customer Billing phone:</td>
+                <td><%=  @print_invoice.customer_billing_phone %></td>
+              </tr>
+
+
+              <tr>
+                <td>Customer order number:</td>
+                <td>1</td>
+              </tr>
+
+              <tr>
+                <td>
+                  Date created
+                </td>
+                <td>
+                  <%=  @print_invoice.date_created %>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  Total
+                </td>
+                <td>
+                  <%=  @print_invoice.total %>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  Amount paid
+                </td>
+                <td>
+                  <%=  @print_invoice.amount_paid %>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  Balance Due
+                </td>
+                <td>
+                  <%=  @print_invoice.balance_due %>
+                </td>
+              </tr>
+            </table>
+
+            <table cellpadding="2" cellspacing="2">
+              <tr>
+                <td>
+                  <h3> Receipt Number# </h3>
+                </td>
+                <td>
+                  <%=  @print_invoice.id  %>
+                </td>
+              </tr>
+            </table>
+            <br />
+            <table cellpadding="2" cellspacing="2">
+              <tr>
+                <td>
+                  <h2>Payment Details</h2>
+                </td>
+              </tr>
+              <% if @print_invoice.payment_mode == 'Cash' %>
+                <tr>
+                  <td>
+                    Cash
+                  </td>
+                  <td>
+                    <%= @print_invoice.cash %>
+                  </td>
+                </tr>
+              <% else %>
+                <tr>
+                  <td>
+                    Card type
+                  </td>
+                  <td>
+                    <%= @print_invoice.card_type %>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Address1
+                  </td>
+                  <td>
+                    <%= @print_invoice.address1 %>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Address2
+                  </td>
+                  <td>
+                    <%= @print_invoice.address2 %>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Street
+                  </td>
+                  <td>
+                    <%= @print_invoice.street %>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    City
+                  </td>
+                  <td>
+                    <%= @print_invoice.city %>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Phone1
+                  </td>
+                  <td>
+                    <%= @print_invoice.phone1 %>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Pin-code
+                  </td>
+                  <td>
+                    <%= @print_invoice.pin_code %>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Country
+                  </td>
+                  <td>
+                    <%= @print_invoice.country %>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Enter Card number
+                  </td>
+                  <td>
+                    <%= @print_invoice.card_number %>
+                  </td>
+                </tr>
+              <% end %>
+            </table>
+            <%= button_to_function "Print this invoice", "javascript:print();", :class => 'input_button'  %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=  button_to_function 'Cancel', "window.location.href= '#{appointments_path}'", :class => 'input_button' %>
+
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+

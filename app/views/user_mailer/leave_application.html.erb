@@ -1,0 +1,1 @@
+<%= @application.type_of_leave %> leave has been applied by the employee <%= Employee.find(@application.employee_id).name %> from <%= @application.from.strftime("%b %d, %Y") %> to <%= @application.to.strftime("%b %d, %Y") %>.<br /> The reason for the leave: "<%= @application.reason_for_leave %>"

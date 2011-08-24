@@ -1,0 +1,134 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/profile_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <div class="midrighttop">
+              <div class="midrighttopleft"></div>
+              <div class="midrighttopcenter">
+                <div class="midrighttoplinks">
+                  <div style="float:right">
+                    <div class="midrighttoplinkdiv">
+                      <%= link_to "New Profile" , new_profile_path, :class => 'midrighttoplink' %>
+                    </div>
+                    <div class="midrighttoplinkdiv">
+                      <a id="login_link" href="#" class="midrighttoplink">Export</a>
+                    </div>
+                    <div class="midrighttoplinkdiv">
+                      <%= link_to_function "Print", "javascript:print()", :class => 'midrighttoplink', :media => 'print'  %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="midrighttopright"></div>
+            </div>
+            <div class="dataheaddiv" style="width:850px; text-align: left; border: 0; font-weight: bold;" >
+              Search Criteria
+            </div>
+            <div class="search_tab_right">
+              <%= form_tag( search_profiles_path, :method=>'post', :multipart => true) do %>
+                Name : <%= text_field_tag "name", params[:name] %>
+                Email :<%= text_field_tag "email", params[:email] %>
+                Status : <%= select_tag :status,  options_for_select(["None", "Active" ,"Inactive"],params[:status])  %>
+                <%= submit_tag 'Search', :class => "input_button"%>
+              <%end%>
+            </div>
+            <%= form_tag  delete_selected_profiles_path, :method => :delete do %>
+              <div class="data" style="padding-top: 10px">
+                <div class="datahead">
+                  <div class="dataheaddiv" style="width: 100%; text-align: left; border: 0">
+                    <%= select_tag :per_page, options_for_select([10, 20, 30, 50], params[:per_page]), :onchange => "reload_with_new_param('per_page', this.value)"  %>
+                  </div>
+
+                </div>
+                <div class="datahead">
+                  <div class="dataheadoptions">
+                    <input type="checkbox" id="total_profiles" onclick="select_all_profiles(<%= @profiles.length %>)"/>
+                  </div>
+                  <div class="dataheaddiv" style="width:190px; text-align: left; padding-left: 4px">
+                    Name
+                    <% if params[:by] == 'ASC' %>
+                      <%= link_to image_tag("uparrow.gif", :width => "8", :height => "9", :border => "0"), :action => 'index', :order => 'first_name', :by => 'DESC' %>
+                    <% else %>
+                      <%= link_to image_tag("arrow.gif", :width => "8", :height => "9", :border => "0"), :action => 'index', :order => 'first_name', :by => 'ASC' %>
+                    <% end %>
+                  </div>
+                  <div class="dataheaddiv" style="width:190px" >
+                    Role name
+                  </div>
+                  <div class="dataheaddiv" style="width:206px">
+                    Email
+                    <% if params[:by] == 'ASC' %>
+                      <%= link_to image_tag("uparrow.gif", :width => "8", :height => "9", :border => "0"), :action => 'index', :order => 'email', :by => 'DESC' %>
+                    <% else %>
+                      <%= link_to image_tag("arrow.gif", :width => "8", :height => "9", :border => "0"), :action => 'index', :order => 'email', :by => 'ASC' %>
+                    <% end %>
+                  </div>
+                  <div class="dataheaddiv" style="width:200px">
+                    Status
+                  </div>
+                </div>
+                <% i = 0 %>
+                <% @profiles.each do |profile|  %>
+                  <div class="datahead" style="background-color: <%= cycle("#cce9ed","#f0f8fa") %>">
+                    <div class="datarowoptions">
+                      <input type="checkbox" name="profile_ids[]" id="profile_<%= i %>" value="<%= profile.id %>"/>
+                    </div>
+                    <div class="dataheaddivwhite" style="width:190px; padding-left: 7px">
+                      <%= link_to profile.first_name,profile_path(profile)%>
+                    </div>
+                    <div class="databellowdiv" style="width:190px">
+                      <%= profile.role_name.nil? ? "Unknown" : profile.role_name %>
+                    </div>
+                    <div class="dataheaddivwhite" style="width:206px">
+                      <%=  profile.email.nil? ? "Unknown" : profile.email %>
+                    </div>
+                    <div class="databellowdiv" style="width:200px">
+                      <div id="status_<%=  profile.id %>"></div>
+                      <%= select_tag :status, options_for_select([['Active', 'Active'], ['Inactive', 'Inactive']],  profile.status), :onchange => "update_profile_status('#{profile.id }', this.value)"  %>
+                    </div>
+                  </div>
+                  <% i += 1 %>
+                <% end %>
+              </div>
+              <div style="clear: both; height: 10px"></div>
+              <div class="pagination">
+                <%= will_paginate @profiles  %>
+              </div>
+              <div style="clear: both; height: 10px"></div>
+              <%= submit_tag 'Delete', :onclick => "return validate_profiles_to_delete(#{@profiles.length})", :class => 'input_button'  %>
+            <% end %>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+<div id="login_form" style='display:none'>
+  <br />
+  <p id="pdf_link">&nbsp;&nbsp;<%= link_to "Export as (PDF)", profiles_path(:format => "pdf") %></p>
+  <p>&nbsp;&nbsp;<%= link_to "Export to xls", export_to_xls_profiles_path %></p>
+  <p>&nbsp;&nbsp;<%= link_to "Export to csv", export_to_csv_profiles_path %></p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

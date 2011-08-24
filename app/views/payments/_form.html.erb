@@ -1,0 +1,170 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/payment_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <%= form_for @payment, :multiple => true do |f| %>
+              <table>
+                <tr>
+                  <td>
+                    Select Guest:
+                  </td>
+                  <td>
+                    <%= f.select :guest_id,[["Select"]]+Guest.all(:select => "name, id").map{|guest| [guest.name, guest.id]} %>
+                    <div style='color: red;'><%= validation_errors @payment.errors['guest_id'] %></div>
+                    <span style="color:18959E"><%= link_to 'Add new guest', new_guest_path, :style => "color:#18959E" %></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>Staff name</b></td>
+                  <td><%= f.select :employee_id,[["Select"]]+Employee.all(:select => "name, id").map{|employee| [employee.name, employee.id]} %>
+                    <div style='color: red;'><%= validation_errors @payment.errors['employee_id'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>Package Name</b></td>
+                  <td>
+                    <% @packages = Package.all %>
+                    <%= f.select :package_id, [["Select", ""]]+Package.all(:select => "id, name").map {|package| [package.name,package.id] } %>
+                    <div style='color: red;'><%= validation_errors @payment.errors['package_id'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>Services</b></td>
+                  <td>
+                    <%= f.select :service_ids, options_for_select(Service.all(:select => "service_name, id").map {|r| [r.service_name,r.id] }, (params[:payment] ? params[:payment][:service_ids] : @payment.services.all(:select => "services.id").map{|l| l.id})), {}, {:multiple => true, :size => 5} %>
+                    <div style='color: red;'><%= validation_errors @payment.errors['service_ids'] %></div>
+                  </td>
+                </tr>
+              </table>
+              <table>
+                <tr>
+                  <td>
+                    <div class="dataheaddiv" style="width:500px; text-align: center; padding-left: 50px">
+                      <b style="font-size: 15px;">Order Products</b>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="datahead" style="background-color:#EDEDED; width:550px">
+                      <div class="databellowdiv" style="width:25%">
+                        Product
+                      </div>
+                      <div class="dataheaddivwhite" style="width:36%">
+                        Quantity
+                      </div>
+                      <div class="databellowdiv" style="width:37%">
+                        Cost
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="height: 100px; overflow: scroll; width: 550px">
+                      <table>
+                        <% product_ids = [] %>
+                        <% Product.all.each do |product| %>
+                          <tr>
+                            <td>
+                              <div id="<%= product.id %>_message" style="color:red; background-color: #EDEDED; width: 550px"></div>
+                              <div class="datahead" style="background-color: <%= cycle("#cce9ed","#f0f8fa") %>;width:550px">
+                                <div class="databellowdiv" style="width:5%">
+                                  <%= check_box_tag :"#{product.id}_selected" %>
+                                </div>
+                                <div class="databellowdiv" style="width:20%">
+                                  <%= product.name.capitalize %>
+                                </div>
+                                <div class="dataheaddivwhite" style="width:36%">
+                                  <%= text_field_tag :"#{product.id}_quantity", '', :size => 8  %>
+                                </div>
+                                <div class="databellowdiv" style="width:37%">
+                                  $<%= text_field_tag :"#{product.id}_amount", '', :size => 8 %>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          <% product_ids << product.id %>
+                        <% end %>
+
+                      </table>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+              <table>
+                <tr>
+                  <td><b>Gift Voucher</b></td>
+                  <% @gift_vouchers = GiftVoucher.all %>
+                  <td><%= f.select :gift_voucher_id,[["Select", ""]]+GiftVoucher.all(:select => " serial_no, id").map{|gift_voucher| [ gift_voucher.serial_no, gift_voucher.id]} %>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>Discount</b></td>
+                  <td><%= select_tag "selected_discount", options_for_select(['No','Yes']), :onchange => "get_discount_type(this.value)" %>
+                    <div id="percentage_field" style=" display: none">
+                      <%= f.text_field :discount, :size => '5x2'%>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>Remarks</b></td>
+                  <td><%=f.text_area :remarks, :size => '25x2'  %>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>Taxable amount</b></td>
+                  <td><%= f.text_field :taxable_amount, :size => '10x2'  %>
+                    <div style='color: red;'><%= validation_errors @payment.errors['taxable_amount'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>Status</b></td>
+                  <td><%= f.select :status, options_for_select(['Pending', 'Paid'].map{|status| [status.capitalize, status]}, @payment.status)%>
+                    <div style='color: red;'><%= validation_errors @payment.errors['status'] %></div></td>
+                </tr>
+                <tr>
+                  <td valign="top"><b>Payment Mode</b></td>
+                  <td>
+                    <%= select_tag :payment_mode, options_for_select(['Cash', 'Card']) , :onchange => "show_payment_type(this.value)" %>
+                    <div id="by_card" style="display: none">
+
+                      <div id="card_type">
+                        Card type: <%= select_tag :card_type, options_for_select(['AMEX', 'VISA', 'MASTER']) %>
+                      </div>
+                      <div id="number_for_card">
+                        Card Number : <%= text_field_tag :card_number %>
+                      </div>
+                    </div>
+                    <div id="by_cash">
+                      Cash: <%= text_field_tag :cash %>
+                    </div>
+                    <div style='color: red;'><%= validation_errors @payment.errors['payment_mode'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>
+                    <%= f.submit @payment.new_record? ? "Create"  : "Update", :onclick => "return validate_products_selected_for_service(#{product_ids}, '')", :class => 'input_button' %>
+                    <%= button_to_function 'Cancel', "window.location.href= '#{payments_path}'", :class => 'input_button' %>
+                  </td>
+                </tr>
+              </table>
+            <% end %>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+

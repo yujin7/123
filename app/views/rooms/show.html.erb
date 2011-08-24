@@ -1,0 +1,51 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/room_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <table cellpadding="0" cellspacing ="0" width="100%" >
+              <tr>
+                <td width="25%">
+                  <table>
+                    <tr>
+                      <td colspan="5">
+                        <b>  Name: </b>  <%= @room.name %> 
+                      </td>
+                    </tr >
+                    <tr>
+                      <td colspan="2">
+                        <b> Capacity : </b> <%=@room.capacity%>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="3">
+                        <b>Status : </b><%= @room.status%>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td >
+                        <%= button_to_function 'Edit' ,  "window.location.href= '#{edit_room_path(@room)}'", :class => 'input_button' %>
+                      </td>
+                      <td>
+                        <%= button_to_function 'Back', "window.location.href= '#{rooms_path}'", :class => 'input_button' %>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+

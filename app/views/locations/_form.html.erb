@@ -1,0 +1,105 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/location_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <%= form_for @location do |f| %>
+              <table>
+                <tr>
+                  <td colspan="2" align="center">
+                    <br /><b>Create New Location:</b> Step(1 of 2)<br /><br />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Name</td>
+                  <td><%= f.text_field :name, :size => '20'  %>
+                    <div style='color: red;'><%= validation_errors @location.errors['name'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Location code</td>
+                  <td><%= f.text_field :code_number, :size => '20' %>
+                    <div style='color: red;'><%= validation_errors @location.errors['code_number'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Location Email</td>
+                  <td><%= f.text_field :location_email_id %>
+                    <div style='color: red;'><%= validation_errors @location.errors['location_email_id'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Address1</td>
+                  <td><%= f.text_area :address1, :size => '25x3'  %>
+                    <div style='color: red;'><%= validation_errors @location.errors['address1'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Address2</td>
+                  <td><%= f.text_area :address2, :size => '25x3' %>
+                    <div style='color: red;' ><%= validation_errors @location.errors['address2'] %>              </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Street</td>
+                  <td><%= f.text_field :street, :size => '20' %>
+                    <div style='color: red;' ><%= validation_errors @location.errors['street'] %>              </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>City</td>
+                  <td><%= f.text_field :city, :size => '20' %>
+                    <div style='color: red;' ><%= validation_errors @location.errors['city'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Post Code</td>
+                  <td><%= f.text_field :post_code,:size => '20'  %>
+                    <div style='color: red;' ><%= validation_errors @location.errors['post_code'] %>              </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Country</td>
+                  <td><%= f.country_select :country, ["Singapore"], {}, { :style => "width: 200px;"} %>
+                    <div style='color: red;' ><%= validation_errors @location.errors['country'] %>              </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Phone1</td>
+                  <td><%= f.text_field :phone1,:size => '20' %>
+                    <div style='color: red;' ><%= validation_errors @location.errors['phone1'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Phone2</td>
+                  <td><%= f.text_field :phone2, :size => '20' %>
+                    <div style='color: red;' ><%= validation_errors @location.errors['phone2'] %> </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Fax</td>
+                  <td><%= f.text_field :fax, :size => '20' %>
+                    <div style='color: red;' ><%= validation_errors @location.errors['fax'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td><%= f.submit @location.new_record? ? "Continue"  : "Update", :class => 'input_button' %>
+                    <%= button_to_function 'Cancel', "window.location.href= '#{locations_path}'", :class => 'input_button' %>
+                  </td>
+                </tr>
+              </table>
+            <% end %>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>

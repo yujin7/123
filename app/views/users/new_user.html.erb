@@ -1,0 +1,100 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/manage_login' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <%= form_for @user, :url => {:action => 'create_user'}, :html => { :multipart => true } do   |form| %>
+              <table>
+                <h3 style="color:#FFFFFF">Add User</h3>
+                <tr>
+                  <td><%= form.label :login, "Login" %></td>
+                  <td colspan="2"><%= form.text_field :login, :size => '20x2' %>
+                    <div style='color: red;'><%= validation_errors @user.errors['login'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><%= form.label :email, "Email"%></td>
+                  <td colspan="2"><%= form.text_field :email, :size => '20x2' %>
+                    <div style='color: red;'><%= validation_errors @user.errors['email'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Employee</td>
+                  <% @employees = Employee.all %>
+                  <td colspan="2"><%= form.select :employee_id, @employees.map{|r| [r.name,r.id]}  %>
+                    <div style='color: red;'><%= validation_errors @user.errors['employee_id'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Primary Location</td>
+                  <td style="width:300px">
+                    Select Country
+                    <div>
+                      <%= country_select :selected_country, '', ["Singapore"], {}, { :style => "width: 200px;", :onchange => "get_location_oulets(this.value, 'user_primary_location_id')"} %>
+                    </div>
+                  </td>
+                  <td>
+                    Location Outlet
+                    <% @locations = Location.all(:conditions => ["country = 'Singapore'"]) %>
+                    <div>
+                      <%= form.select :primary_location_id, @locations.map{|r| [r.name,r.id]} %>
+                    </div>
+
+                    <div style='color: red;'>
+                      <%= validation_errors @user.errors['primary_location_id'] %>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><%= form.label :password, "Password" %></td>
+                  <td colspan="2"><%= form.password_field :password, :size => '20x2' %>
+                    <div style='color: red;'><%= validation_errors @user.errors['password'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><%= form.label :password_confirmation, "Password Confirmation" %></td>
+                  <td colspan="2"><%= form.password_field :password_confirmation, :size => '20x2' %>
+                    <div style='color: red;'><%= validation_errors @user.errors['password_confirmation'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><b><%= form.label :roles, "Roles" %></b></td>
+                  <td colspan="2">
+                    <% for role in Role.find(:all) %>
+                      <%= check_box_tag "user[role_ids][]", role.id, @user.roles.include?(role) %>
+                      <%= role.name %>
+                    <% end %>
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td colspan="2"><%= form.submit @user.new_record? ? "Create"  : "Update", :class => 'input_button' %>
+                    <%= button_to_function 'Cancel', "window.location.href= '#{manage_role_users_path}'", :class => 'input_button' %>
+                  </td>
+                </tr>
+              </table>
+            <% end %>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+

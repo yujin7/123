@@ -1,0 +1,132 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/payment_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <div class="midrighttop">
+              <div class="midrighttopleft"></div>
+              <div class="midrighttopcenter">
+                <div class="midrighttoplinks">
+                  <div style="float:right">
+                    <div class="midrighttoplinkdiv">
+                      <%= link_to "New Payment" , new_payment_path,  :class => 'midrighttoplink'%>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="midrighttopright"></div>
+            </div>
+            <div class="data" >
+              <div class="datahead">
+                <div class="dataheaddiv" style="width: 20%; text-align: left; border: 0">
+                  <%= select_tag :per_page, options_for_select([10, 20, 30, 50], params[:per_page]), :onchange => "reload_with_new_param('per_page', this.value)"%>
+                </div>
+                <div class="dataheaddiv" style="width: 79.8%; text-align: left; border: 0">
+                  <%= will_paginate @payments  %>
+                </div>
+              </div>
+              <div class="datahead">
+                <div class="dataheadoptions" style="width:100px">
+                  Name
+                </div>
+                <div class="dataheaddiv" style="width:100px">
+                  Package Name
+                </div>
+                <div class="dataheaddiv" style="width:100px" >
+                  Discount
+                </div>
+                <div class="dataheaddiv" style="width:137px">
+                  Services
+                </div>
+                <div class="dataheaddiv" style="width:100px">
+                  Tax Amount
+                </div>
+                <div class="dataheaddiv" style="width:100px">
+                  Gift Voucher
+                </div>
+                <div class="dataheaddiv" style="width:100px">
+                  Payable Amt
+                </div>
+                <div class="dataheaddiv" style="width:100px">
+                  Status
+                </div>
+              </div>
+              <% @payments.each  do |payment| %>
+                <div class="datahead" style="background-color: <%= cycle("#cce9ed","#f0f8fa") %>">
+                  <div class="datarowoptions" style="width:100px">
+                    <%= link_to "PAYMENT-#{payment.id}", payment_path(payment) %>
+                  </div>
+                  <div class="dataheaddivwhite" style="width:100px">
+                    <%= payment.package.nil? ? "Unknown" : payment.package.name %>
+                  </div>
+                  <div class="databellowdiv" style="width:100px">
+                    <%= payment.discount.nil? ? "Unknown" : payment.discount   %>
+                  </div>
+                  <div class="dataheaddivwhite" style="width:137px">
+                    <%=  payment.services.empty? ? "None" : payment.services.map{|r| [r.service_name]}.join(' , ') %>
+                  </div>
+                  <div class="databellowdiv" style="width:100px">
+                    <%= payment.taxable_amount.nil? ? "Unknown" : payment.taxable_amount %>
+                  </div>
+                  <div class="databellowdiv" style="width:100px">
+                    <%= payment.gift_voucher.nil? ? "Unknown" : payment.gift_voucher.discount_amount %>
+                  </div>
+                  <div class="databellowdiv" style="width:100px">
+                    $<%= payment.total_price %>
+                  </div>
+                  <div class="databellowdiv" style="width:100px">
+                    <div id="status_<%= payment.id %>"></div>
+                    <%= select_tag :status, options_for_select([['Pending', 'Pending'], ['Paid', 'Paid']],  payment.status), :onchange => "update_payment_status('#{ payment.id }', this.value)"  %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+            <div style="clear: both; height: 10px"></div>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

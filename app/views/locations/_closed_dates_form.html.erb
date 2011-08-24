@@ -1,0 +1,22 @@
+<script>
+  $(function() {
+    $( "#datepicker" ).datepicker();
+  });
+</script>
+<div>
+  <%= form_for @location_closed_date, :url => (params[:action] == 'new_closed_date' ? add_closed_date_location_path(@location.id) : update_closed_date_location_path(@location.id)), :remote => true, :method => 'post' do |f| %>
+    <div class="datahead" style="width:100%">
+      <div class="databellowdiv" style="width:20%">
+        <%= f.text_field :closed_date, :id => 'datepicker', :size => 17 %>
+      </div>
+      <div class="dataheaddivwhite" style="width:30%">
+        <%= f.text_area :description, :size => '30X2' %>
+      </div>
+      <%= hidden_field_tag :closed_date_id, @location_closed_date.id.nil? ? nil : @location_closed_date.id %>
+      <div class="databellowdiv" style="width:30%">
+        <%= f.submit params[:action] == 'new_closed_date' ? 'Add' : 'Update', :class => 'input_button' %>
+        <%= button_to_function 'Cancel', "$('#closed_date_form').hide();$('#closed_dates_messages').hide(); ", :class => 'input_button' %>
+      </div>
+    </div>
+  <% end %>
+</div>

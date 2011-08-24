@@ -1,0 +1,201 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/service_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <div class="midrighttop">
+              <div class="midrighttopleft"></div>
+              <div class="midrighttopcenter">
+                <div class="midrighttoplinks">
+                  <div style="float:right">
+                    <div class="midrighttoplinkdiv">
+                      <%= link_to "New Service", new_service_path,  :class => 'midrighttoplink'%>
+                    </div>
+                    <div class="midrighttoplinkdiv">
+                      <%= link_to 'Manage Categories', categories_path, :class => 'midrighttoplink' %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="midrighttopright"></div>
+            </div>
+
+            <div class="dataheaddiv" style="width:850px; text-align: left; border: 0; font-weight: bold;" >
+              Search Criteria
+            </div>
+            <div class="search_tab_right">
+              <%= form_tag(search_services_path, :method=>'post') do %>
+                <table>
+                  <tr>
+                    <td>Service name : <%= text_field_tag "name", params[:name], :size => '20' %></td>
+                    <td>Rate range : <%= text_field_tag "phone", params[:phone], :size => '15' %></td>
+                    <td>Time required range : <%= text_field_tag "email", params[:email], :size => '15' %></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">Status : <%= select_tag :status,  options_for_select(["None", "Active" ,"Inactive"],params[:status])  %>
+                      Records per page : <%= select_tag :records_per_page,  options_for_select([10, 20, 30, 50],params[:records_per_page])  %></td>
+                    <td >    <%= submit_tag 'Search', :class => "input_button"%></td>
+                  </tr>
+                </table>
+
+              <%end%>
+            </div>
+
+            <%= form_tag  delete_selected_taxtypes_path, :method => :delete do %>
+              <div class="data" >
+                <div class="datahead">
+                  <div class="dataheaddiv" style="width: 100%; text-align: left; border: 0">
+                    <%= select_tag :per_page, options_for_select([10, 20, 30, 50], params[:per_page]), :onchange => "reload_with_new_param('per_page', this.value)"  %>
+                  </div>
+
+                </div>
+                <div class="datahead">
+                  <div class="dataheadoptions">
+                    <input type="checkbox" id="total_services" onclick="select_all_services(<%= @services.length %>)"/>
+                  </div>
+                  <div class="dataheaddiv" style="width:110px; padding-left: 2px">
+                    Service Name
+                    <% if params[:by] == 'ASC' %>
+                      <%= link_to image_tag("uparrow.gif", :width => "8", :height => "9", :border => "0"), :action => 'index', :order => 'service_name', :by => 'DESC' %>
+                    <% else %>
+                      <%= link_to image_tag("arrow.gif", :width => "8", :height => "9", :border => "0"), :action => 'index', :order => 'service_name', :by => 'ASC' %>
+                    <% end %>
+                  </div>
+                  <div class="dataheaddiv" style="width:90px" >
+                    Category
+                  </div>
+                  <div class="dataheaddiv" style="width:120px">
+                    Sub Category
+                  </div>
+
+                  <div class="dataheaddiv" style="width:100px">
+                    Duration
+                  </div>
+                  <div class="dataheaddiv" style="width:170px">
+                    Staff Recovery Time
+                  </div>
+                  <div class="dataheaddiv" style="width:90px">
+                    Price
+                    <% if params[:by] == 'ASC' %>
+                      <%= link_to image_tag("uparrow.gif", :width => "8", :height => "9", :border => "0"), :action => 'index', :order => 'rate', :by => 'DESC' %>
+                    <% else %>
+                      <%= link_to image_tag("arrow.gif", :width => "8", :height => "9", :border => "0"), :action => 'index', :order => 'rate', :by => 'ASC' %>
+                    <% end %>
+                  </div>
+                  <div class="dataheaddiv" style="width:106px">
+                    Status
+                  </div>
+                </div>
+                <% i = 0 %>
+                <% for service in @services %>
+                  <div class="datahead" style="background-color: <%= cycle("#cce9ed","#f0f8fa") %>">
+                    <div class="datarowoptions">
+                      <input type="checkbox" name="service_ids[]" id="service_<%= i %>" value="<%= service.id %>"/>
+                    </div>
+                    <div class="dataheaddivwhite" style="width:110px; padding-left: 3px">
+                      <%= link_to  "#{service.service_name}", service_path(service.id) %>
+                    </div>
+                    <div class="databellowdiv" style="width:90px">
+                      <%= service.category.nil? ? "Unknown " : service.category.name %>
+                    </div>
+                    <div class="dataheaddivwhite" style="width:120px; padding-left: 2px">
+                      <%=  service.sub_category.nil? ? "Unknown" : service.sub_category.name %>
+                    </div>
+                    <div class="dataheaddivwhite" style="width:100px">
+                      <%= service.duration.nil? ? "Unknown" : service.duration.strftime("%a, %B %d, at %l:%M %p") %>
+                    </div>
+                    <div class="dataheaddivwhite" style="width:170px; padding-left: 3px">
+                      <%= service.staff_recovery_time.nil? ? "Unknown" : service.staff_recovery_time.strftime("%a, %B %d,  at %l:%M %p") %>
+                    </div>
+                    <div class="dataheaddivwhite" style="width:90px; padding-left: 3px">
+                      $<%= service.rate.nil? ? "Unknown" : service.rate  %>
+                    </div>
+                    <div class="databellowdiv" style="width:106px">
+                      <%= service.status.nil? ? "Unknown" : service.status %>
+                    </div>
+                  </div>
+                  <% i += 1 %>
+                <% end %>
+              </div>
+              <div style="clear: both; height: 10px"></div>
+              <div class="pagination">
+                <%= will_paginate @services  %>
+              </div>
+              <div style="clear: both; height: 10px"></div>
+              <%= submit_tag 'Delete', :onclick => "return validate_services_to_delete(#{@services.length})", :class => 'input_button' %>
+            <% end %>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

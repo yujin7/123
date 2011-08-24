@@ -1,0 +1,38 @@
+<%= form_tag password_reset_path, :method => :put do %>
+
+  <table class="logintab" border="0">
+    <tr><td colspan="2" style="color:#1F77B6;">Please enter the new password below and then press "Update Password"..</td></tr>
+    <tr>
+      <td>
+        <div class="logintext">Password:</div>
+      </td>
+      <td>
+        <%= password_field_tag :password,'', :class => "textboxbg" %>
+        <div style="color:red"><%= validation_errors @user.errors['password'] %> </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="logintext">Confirm Password: </div>
+      </td>
+      <td>
+        <%= password_field_tag :password_confirmation,'', :class => "textboxbg" %>.
+        <div style="color:red">
+          <%= validation_errors @user.errors['password_confirmation'] %>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+
+      </td>
+      <td>
+        <div class="forgottext"></div>
+        <div align="right">
+          <%= submit_tag "Update Password" %> <%= link_to 'Cancel', login_url, :style => 'color:#1F77B6; font-weight: bold' %>
+        </div>
+      </td>
+    </tr>
+  </table>
+<% end %>
+

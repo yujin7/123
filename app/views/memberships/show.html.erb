@@ -1,0 +1,67 @@
+
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/membership_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <table>
+              <tr>
+                <td colspan="5">
+                  <b>  Name: </b>  <%= @membership.name.nil? ? "Unknown"  : @membership.name %> 
+                </td>
+              </tr >
+              <td colspan="2">
+                <b> Description: </b><%=  @membership.description.nil? ? "Unknown"  : @membership.description %>
+              </td>
+              <tr>
+                <td colspan="2">
+                  <b> Rewards : </b> <%=@membership.loyalty_rewards.nil? ? "Unknown"  : @membership.loyalty_rewards%>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  <b>Benefits : </b><%= @membership.has_benefits.nil? ? "Unknown"  : @membership.has_benefits%>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  <b>Status : </b><%= @membership.status.nil? ? "Unknown"  : @membership.status%>
+                </td>
+              </tr>
+
+              <tr>
+                <td colspan="3">
+                  <b>Payment Name : </b><%= @membership.payment_plan_name.nil? ? "Unknown" :  @membership.payment_plan_name %>
+                </td>
+              </tr>
+
+              <tr>
+                <td >
+                  <%= button_to_function 'Edit' ,  "window.location.href= '#{edit_membership_path(@membership)}'", :class => 'input_button' %>
+                </td>
+                <td>
+                  <%= button_to_function 'Back', "window.location.href= '#{memberships_path}'", :class => 'input_button' %>
+                </td>
+              </tr>
+            </table>
+
+
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+

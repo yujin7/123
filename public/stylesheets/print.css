@@ -1,0 +1,15 @@
+@media print {
+    .midrighttop{ display: none;}
+    .midleft { display: none;}
+    .beforefooter{ display:none;}
+    .footer{display:none;}
+    .data{display:block;}
+    #file_upload{ display:none;}
+    .guesttop{ display:none;}
+    .toplinks{ display: none;}
+    .top{ display: none;}
+    #delete{ display: none;}
+    .leftcontentgradient{ display :none;}
+    .rightcontentgradient{display :none;}
+    .midbgright{display:none;}
+}

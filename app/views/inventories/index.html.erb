@@ -1,0 +1,122 @@
+
+
+
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/product_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <div class="midrighttop">
+              <div class="midrighttopleft"></div>
+              <div class="midrighttopcenter">
+                <div class="midrighttoplinks">
+                  <div class="midrighttoplinkdiv">
+                    <%=  link_to "New Inventory" , new_product_inventory_path,  :class => 'midrighttoplink'%>
+                  </div>
+                </div>
+              </div>
+              <div class="midrighttopright"></div>
+            </div>
+            <div class="data" >
+              <div class="datahead">
+                <div class="dataheaddiv" style="width: 20%; text-align: left; border: 0">
+                  <%= select_tag :per_page, options_for_select([10, 20, 30, 50], params[:per_page]), :onchange => "reload_with_new_param('per_page', this.value)"  %>
+                </div>
+
+              </div>
+              <div class="datahead">
+                <div class="dataheadoptions">
+                  Name
+                </div>
+                <div class="dataheaddiv" style="width:300px">
+                  Barcode
+                </div>
+                <div class="dataheaddiv" style="width:220px" >
+                  Retail Price
+                </div>
+                <div class="dataheaddiv" style="width:270px">
+                  Cost Price
+                </div>
+                <div class="dataheaddiv" style="width:270px">
+                  Status
+                </div>
+                <div class="dataheaddiv" style="width:270px">
+                  Options
+                </div>
+              </div>
+              <% @inventories.each do |inventory|  %>
+                <div class="datahead" style="background-color: <%= cycle("#cce9ed","#f0f8fa") %>">
+                  <div class="datarowoptions">
+                    <%= link_to inventory.name, inventory_path(inventory)%>
+                  </div>
+                  <div class="dataheaddivwhite" style="width:300px">
+                    <%= inventory.barcode.nil? ? "Unknown" : inventory.barcode  %>
+                  </div>
+                  <div class="databellowdiv" style="width:220px">
+                    <%= inventory.retail_price.nil? ? "Unknown" :  inventory.retail_price %>
+                  </div>
+                  <div class="databellowdiv" style="width:220px">
+                    <%= inventory.cost_price.nil? ? "Unknown" : inventory.cost_price %>
+                  </div>
+                  <div class="databellowdiv" style="width:220px">
+                    <div id="status_<%= inventory.id %>"></div>
+                    <%= select_tag :status, options_for_select([['Active', 'Active'], ['Inactive', 'Inactive']],  inventory.status), :onchange => "update_inventory_status('#{inventory.id }', this.value)"  %>
+                  </div>
+                  <div  class="databellowdiv" style="width:220px">
+                    <%= link_to 'Edit', edit_product_inventory_path(inventory.product_id, inventory) %>
+                    <%= link_to 'Delete',  product_inventory_path(inventory.product_id, inventory), :confirm => "Are you sure?", :method=>:delete %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+              <div style="clear: both; height: 10px"></div>
+            <div class="pagination">
+              <%= will_paginate @inventories  %>
+            </div>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,74 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/taxtype_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <%= form_for @taxtype, :html => { :multipart => true } do |f| %>
+              <h3 style="color:#FFFFFF; padding-left:5%">New Tax Type</h3>
+              <table  style="padding-left: 5%">
+                <tr>
+                  <td> Tax Name</td>
+                  <td><%= f.text_field :name, :size => '20x2'  %>
+                    <div style='color: red;'><%= validation_errors @taxtype.errors['name'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td> Rate </td>
+                  <td><%= f.text_field :rate, :size => '5x2'  %>%
+                    <div style='color: red;'><%= validation_errors @taxtype.errors['rate'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td> Item</td>
+                  <td><%= f.radio_button :item,  "1", :checked => @taxtype.item == true ? true : false %>Yes<%= f.radio_button :item, "0", :checked => @taxtype.item == true ? false : true %>No
+                    <div style='color: red;'><%= validation_errors @taxtype.errors['item'] %></div></td>
+                </tr>
+                
+                <tr>
+                  <td></td>
+                  <td><%= f.submit @taxtype.new_record? ? "Create"  : "Update", :class => 'input_button' %>
+                    <%= button_to_function 'Cancel', "window.location.href= '#{taxtypes_path}'", :class => 'input_button' %>
+                  </td>
+                </tr>
+              </table>
+            <% end %>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

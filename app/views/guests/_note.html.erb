@@ -1,0 +1,6 @@
+<div id="note_<%= note.id %>" style="font-size: 11px;">
+  <span><%= note.note %></span>
+  <span style="color: #999999"><%= note.created_at.strftime("%d %b, %Y %H:%M %P") %>, by <%= note.user ? note.user.full_name : "Unknown" %></span>
+  <%= link_to "Delete", delete_note_guest_path(note), :method => :delete, :confirm => "Are you sure you want to delete this note?", :remote => true, :style => "color: #1DACB2" %>
+</div>
+<div style="clear:both"></div>

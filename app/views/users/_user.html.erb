@@ -1,0 +1,73 @@
+<table>
+  <tr>
+    <td width="40%"></td>
+    <td width="60%">
+      <h1> Guests registration form </h1>
+      <%= form_for @user, :html => { :multipart => true } do   |form| %>
+
+        <div class="formList">
+          <table>
+            <tr><td>
+                <%= form.label :login, "Login" %>
+              </td><td>
+                <%= form.text_field :login %>
+                <div style='color: red;'><%= validation_errors @user.errors['login'] %></div>
+
+              </td></tr>
+            <tr><td>
+                <%= form.label :email, "Email" %>
+              </td><td>
+                <%= form.text_field :email %>
+                <div style='color: red;'><%= validation_errors @user.errors['email'] %></div>
+
+              </td></tr>
+            <tr>
+              <td>
+                Select Country
+              </td>
+              <td>
+                <div>
+                  <%= country_select :selected_country, '', ["Singapore"], {}, { :style => "width: 200px;", :onchange => "get_location_oulets(this.value, 'user_primary_location_id')"} %>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Location Outlet
+                <% @locations = Location.all(:conditions => ["country = 'Singapore'"]) %>
+              </td>
+              <td>
+                <div>
+                  <%= form.select :primary_location_id, @locations.map{|r| [r.name,r.id]} %>
+                </div>
+                <div style='color: red;'>
+                  <%= validation_errors @user.errors['primary_location_id'] %>
+                </div>
+              </td>
+            </tr>
+            <tr><td>
+                <%= form.label :password, "Password" %>
+              </td><td>
+                <%= form.password_field :password %>
+                <div style='color: red;'><%= validation_errors @user.errors['password'] %></div>
+
+              </td></tr>
+            <tr><td>
+                <%= form.label :password_confirmation, "Password confirmation" %>
+              </td><td>
+                <%= form.password_field :password_confirmation %>
+                <div style='color: red;'><%= validation_errors @user.errors['password_confirmation'] %></div>
+
+              </td></tr>
+
+            <tr>
+              <td>
+                <%= form.submit "Register" %><%= link_to 'Cancel', login_url, :style => 'color:#0C8EA4' %></td>
+              <td></td>
+            </tr>
+          </table>
+        <% end %>
+      </div>
+    </td>
+  </tr>
+</table>

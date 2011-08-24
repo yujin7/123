@@ -1,0 +1,60 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/manage_login' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <%= form_for @user, :html => { :multipart => true } do   |form| %>
+              <table>
+                <h3 style ="color:#FFFFFF">Edit User</h3>
+                <tr><td>
+                    <%= form.label :login, "Login" %>
+                  </td><td>
+                    <%= form.text_field :login, :size => '25x2' %>
+                  </td>
+                </tr>
+                <tr><td>
+                    <%= form.label :email, "Email" %>
+                  </td><td>
+                    <%= form.text_field :email,:size => '25x2'  %>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><%= form.label :roles, "Roles" %></td>
+                  <td>
+                    <% for role in Role.find(:all) %>
+                      <%= check_box_tag "user[role_ids][]", role.id, @user.roles.include?(role) %>
+                      <%= role.name %>
+                    <% end %>
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td><%= form.submit @user.new_record? ? "Create"  : "Update", :class => 'input_button' %>
+                    <%= button_to_function 'Cancel', "window.location.href= '#{manage_role_users_path}'", :class => 'input_button' %>
+                  </td>
+                </tr>
+              </table>
+            <% end %>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+
+
+
+

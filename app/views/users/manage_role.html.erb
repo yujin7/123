@@ -1,0 +1,96 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/manage_login' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <div class="midrighttop">
+              <div class="midrighttopleft"></div>
+              <div class="midrighttopcenter">
+                <div class="midrighttoplinks">
+                  <div style="float:right">
+                    <div class="midrighttoplinkdiv">
+                      <%=  link_to "Add User",   new_user_users_path,  :class => 'midrighttoplink'%>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="midrighttopright"></div>
+            </div>
+            <div class="data" >
+              <div class="datahead">
+                <div class="dataheaddiv" style="width: 100%; text-align: left; border: 0">
+                  <%= select_tag :per_page, options_for_select([10, 20, 30, 50], params[:per_page]), :onchange => "reload_with_new_param('per_page', this.value)"  %>
+                </div>
+              </div>
+              <div class="datahead">
+                <div class="dataheadoptions" style="width:190px; text-align: left; ; padding-left: 3px">
+                  Name
+                </div>
+                <div class="dataheaddiv" style="width:210px">
+                  Roles
+                </div>
+                <div class="dataheaddiv" style="width:250px" >
+                  Date Created
+                </div>
+                <div class="dataheaddiv" style="width:190px">
+                  Actions
+                </div>
+              </div>
+              <% @users.each do |user| %>
+                <div class="datahead" style="background-color: <%= cycle("#cce9ed","#f0f8fa") %>">
+                  <div class="datarowoptions" style="width:190px; text-align: left ; padding-left: 3px">
+                    <%= user.login.nil? ? "Unknown" : user.login %>
+                  </div>
+
+                  <div class="dataheaddivwhite" style="width:210px">
+                    <%= user.roles.empty? ? "Unknown" : user.roles.map{|r| r.name}.join(' , ') %>
+                  </div>
+                  <div class="databellowdiv" style="width:250px">
+                    <%= user.created_at.strftime("%a, %B %d, %Y at %l:%M %p")%>
+                  </div>
+                  <div class="dataheaddivwhite" style="width:190px; padding-left: 4px">
+                    <%= link_to 'Edit',  edit_user_path(user.id) %>
+                  </div>
+                </div>
+
+              <% end %>
+            </div>
+              <div style="clear: both; height: 10px"></div>
+            <div class="pagination">
+              <%= will_paginate @users  %>
+            </div>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

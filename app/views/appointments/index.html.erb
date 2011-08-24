@@ -1,0 +1,108 @@
+<%#*<script>%>
+<%#*$(document).ready(function() {%>
+<%#*setTimeout(hideFlashMessages, 10000);%>
+<%#*});%>
+<%#*</script>%>
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/appointment_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render 'search_appointment' %>
+          <div class="midright">
+            <div class="midrighttop">
+              <div class="midrighttopleft"></div>
+              <div class="midrighttopcenter">
+                <div class="midrighttoplinks">
+                  <div style="float:right">
+                    <div class="midrighttoplinkdiv">
+                      <%= link_to "New Appointment" , new_appointment_path, :class => 'midrighttoplink' %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="midrighttopright"></div>
+            </div>
+            <div class="data" >
+              <div class="datahead">
+                <div class="dataheaddiv" style="width: 100%; text-align: left; border: 0">
+                  <%= select_tag :per_page, options_for_select([10, 20, 30, 50], params[:per_page]), :onchange => "reload_with_new_param('per_page', this.value)"  %>
+                </div>
+
+              </div>
+              <div class="datahead">
+                <div class="dataheaddiv">
+                  Guest
+                  <% if params[:by] == 'ASC' %>
+                    <%= link_to image_tag("uparrow.gif", :width => "8", :height => "9", :border => "0"), :action => 'index', :order => 'guest_id', :by => 'DESC' %>
+                  <% else %>
+                    <%= link_to image_tag("arrow.gif", :width => "8", :height => "9", :border => "0"), :action => 'index', :order => 'guest_id', :by => 'ASC' %>
+                  <% end %>                  </div>
+                <div class="dataheaddiv">
+                  Package Name
+                </div>
+                <div class="dataheaddiv">
+                  Room
+                </div>
+                <div class="dataheaddiv">
+                  Staff
+                </div>
+                <div class="dataheaddiv">
+                  Status
+                </div>
+                <div class="dataheaddiv" style="width:150px">
+                  Time In
+                </div>
+                <div class="dataheaddiv" style="width:90px">
+                  Payment
+                </div>
+              </div>
+
+              <% @appointments.each do |appointment|  %>
+                <div class="datahead" style="background-color: <%= cycle("#cce9ed","#f0f8fa") %>">
+                  <div class="databellowdiv" style="padding-left: 4px">
+                    <%= link_to appointment.guest.name , appointment_path(appointment) %>
+                  </div>
+                  <div class="dataheaddivwhite">
+                    <%= appointment.package.nil? ? "Unknown" : appointment.package.name %>
+                  </div>
+                  <div class="databellowdiv">
+                    <%=  appointment.room.nil? ? "Unknown" : appointment.room.name %>
+                  </div>
+                  <div class="dataheaddivwhite">
+                    <%= appointment.employee.nil? ? "Unknown" : appointment.employee.name %>
+                  </div>
+                  <div class="databellowdiv">
+                    <%= appointment.status.nil? ? "Unknown" : appointment.status %>
+                  </div>
+                  <div class="dataheaddivwhite" style="width:150px">
+                    <%= appointment.time_in.strftime("%a, %B %d ").nil? ? "Unknown" : appointment.time_in.strftime("%a, %B %d") %>
+                  </div>
+                  <% if !appointment.appointment_payments.empty? and !appointment.appointment_payments.last.balance_due.to_i == 0 %>
+                    <div style="color: green; text-align: center">
+                      Paid
+                    </div>
+                  <%else%>
+                    <div class="databellowdiv" style="width:90px">
+                      <%= link_to "Take payment", invoice_appointment_path(appointment.id) %>
+                    </div>
+                  <%end%>
+
+                </div>
+              <% end %>
+            </div>
+               <div style="clear: both; height: 10px"></div>
+            <div class="pagination" >
+              <%= will_paginate @appointments  %>
+            </div>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>

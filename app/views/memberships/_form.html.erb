@@ -1,0 +1,205 @@
+
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/membership_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <%= form_for @membership, :html => { :multipart => true } do |f| %>
+              <h3 style="color:#FFFFFF; padding-left:5%">New Membership</h3>
+              <table style="padding-left: 5%">
+                <tr>
+                  <td>  Membership Name</td>
+                  <td><%= f.text_field :name, :size => '20x2'  %>
+                    <div style='color: red;'><%= validation_errors @membership.errors['name'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td> Description </td>
+                  <td>
+                    <%= f.text_area :description, :size => '25x3'  %>
+                    <div style='color: red;'><%= validation_errors @membership.errors['description'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td> Loyalty Rewards</td>
+                  <td>
+                    <%= f.radio_button :loyalty_rewards, "1", :checked => @membership.loyalty_rewards == true ? true : false , :onclick => "show_reward_point(this.value)" %>Yes<%= f.radio_button :loyalty_rewards, "0",:checked => @membership.loyalty_rewards == true ? false : true , :onclick => "show_reward_point(this.value)" %>No
+                    <div style='color: red;'><%= validation_errors @membership.errors['loyalty_rewards'] %></div>
+                  </td>
+                </tr>
+
+                <tr id="reward_point" style=" display: none">
+                  <td>Reward Points </td>
+                  <td>
+                    <%= f.text_field :reward_points, :size => '20x2' %>
+                    <div style='color: red;'><%= validation_errors @membership.errors['reward_points'] %></div>
+                  </td>
+                </tr>
+
+
+                <tr>
+                  <td>Benefits </td>
+                  <td>
+                    <%= f.radio_button :has_benefits, "1", :checked => @membership.has_benefits == true ? true : false, :onclick => "show_benefit(this.value)"  %>Yes<%= f.radio_button :has_benefits, "0",:checked => @membership.has_benefits== true ? false : true, :onclick => "show_benefit(this.value)"%>No
+                    <div style='color: red;'><%= validation_errors @membership.errors['has_benefits'] %></div>
+                  </td>
+                </tr>
+
+                <tr id="member_benefit_fields" style="display:none">
+                  <td>Benefit Description </td>
+                  <td>
+                    <%= f.text_area :benefit_desc, :size => '25x3'   %>
+                    <div style='color: red;'><%= validation_errors @membership.errors['benefit_desc'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Quantity </td>
+                  <td>
+                    <%= f.text_field :quantity, :size => '20x2' %>
+                    <div style='color: red;'><%= validation_errors @membership.errors['quantity'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Expiry Date </td>
+                  <td>
+                    <%= f.date_select :expiry_date%>
+                    <div style='color: red;'><%= validation_errors @membership.errors['expiry_date'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Service Name </td>
+                  <td>
+                    <%= f.select :service_ids, options_for_select(Service.all(:select => "service_name, id").map {|r| [r.service_name,r.id] }, (params[:membership] ? params[:membership][:service_ids] : @membership.services.all(:select => "services.id").map{|l| l.id})), {}, {:multiple => true, :size => 3} %>
+                    <div style='color: red;'><%= validation_errors @membership.errors['service_ids'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Payment Name </td>
+                  <td>
+                    <%= f.text_field :payment_plan_name ,:size => '20x2'%>
+                    <div style='color: red;'><%= validation_errors @membership.errors['payment_plan_name'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Payment Description </td>
+                  <td>
+                    <%= f.text_area :payment_plan_desc, :size => '25x3'   %>
+                    <div style='color: red;'><%= validation_errors @membership.errors['payment_plan_desc'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td> Initiation Fee</td>
+                  <td>
+                    <%= f.text_field :initiation_fee,:size => '20x2' %>
+                    <div style='color: red;'><%= validation_errors @membership.errors['initiation_fee'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Duration </td>
+                  <td>
+                    <%= f.radio_button :duration, "1", :checked => @membership.duration== true ? true : false %>Yes<%= f.radio_button :duration, "0",:checked => @membership.duration== true ? false : true %>No
+                    <div style='color: red;'><%= validation_errors @membership.errors['duration'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Frequency </td>
+                  <td>
+                    <%= f.radio_button :frequency, "1", :checked => @membership.frequency == true ? true : false %>Yes<%= f.radio_button :frequency, "0",:checked => @membership.frequency== true ? false : true %>No
+                    <div style='color: red;'><%= validation_errors @membership.errors['frequency'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Total Price </td>
+                  <td>
+                    $<%= f.text_field :total_price, :size => '10x2' %>
+                    <div style='color: red;'><%= validation_errors @membership.errors['total_price'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Sales Tax  </td>
+                  <td>
+                    $<%= f.text_field :sales_tax,:size => '3' %>
+                    <div style='color: red;'><%= validation_errors @membership.errors['sales_tax'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Comission</td>
+                  <td> <%= select_tag "selected_comission", options_for_select(['None', 'Full', 'Percentage']), :onchange => "get_comission_type(this.value)" %>
+                    <div id="percentage_field" style=" display: none">
+                      <%= f.text_field :comission, :size => 10%>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td><%= f.submit @membership.new_record? ? "Create"  : "Update", :class => 'input_button' %>
+                    <%= button_to_function 'Cancel', "window.location.href= '#{memberships_path}'", :class => 'input_button' %>
+                  </td>
+                </tr>
+              </table>
+            <% end %>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

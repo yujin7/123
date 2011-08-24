@@ -1,0 +1,121 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/product_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <%= form_for @product do |f| %>
+              <h3 style="color:#FFFFFF; padding-left:5%">New Product</h3>
+              <table style="padding-left: 5%">
+                <tr>
+                  <td>Name</td>
+                  <td><%= f.text_field :name, :size => '20x2' %>
+                    <div style='color: red;'><%= validation_errors @product.errors['name'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Description</td>
+                  <td><%= f.text_area :description,:size => '25x3' %>
+                    <div style='color: red;'><%= validation_errors @product.errors['description'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Category</td>
+                  <td>
+                    <%= f.select :category_id, [["Select", ""]]+Category.all(:select => "id, name").map {|category| [category.name,category.id] }, {}, {:onchange => "get_sub_categorie_products(this.value)"} %>
+                    <div style='color: red;'><%= validation_errors @product.errors['category_id'] %></div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Sub category</td>
+                  <td>
+                    <% selected_sub_category = @sub_categories || [] %>
+                    <%= f.select :sub_category_id, selected_sub_category.map{|sub_category| [sub_category.name, sub_category.id]}, {}, {:id => "sub_categories"} %>
+                    <div style='color: red;'><%= validation_errors @product.errors['sub_category_id'] %></div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Brand</td>
+                  <% @product_brands =  ProductBrand.all %>
+                  <td><%= f.select :product_brand_id, @product_brands.map {|r| [r.product_brand,r.id] } %></td>
+                </tr>
+
+                <tr>
+                  <td>Photo</td>
+                  <td><%= f.file_field :avatar,:size => '20x2' %></td>
+                </tr>
+                <tr>
+                  <td>Ingredients</td>
+                  <td><%= f.text_area :ingredients, :size => '25x3' %>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Sales Tax</td>
+                  <td><%= f.text_field :sales_tax, :size => '20x2'%>
+                    <div style='color: red;'><%= validation_errors @product.errors['sales_tax'] %></div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Quantity</td>
+                  <td><%= f.text_field :quantity, :size => '20x2'%>
+                    <div style='color: red;'><%= validation_errors @product.errors['quantity'] %></div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Online Shop</td>
+                  <td><%= f.text_field :online_shop, :size => '20x2'%>
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td><%= f.submit @product.new_record? ? "Create"  : "Update", :class => 'input_button' %>
+                    <%= button_to_function 'Cancel', "window.location.href= '#{products_path}'", :class => 'input_button' %>
+                  </td>
+                </tr>
+              </table>
+            <% end %>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,215 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/service_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <%= form_for @service, :multiple => true do |f| %>
+              <table style="padding-left: 5%">
+                <tr>
+                  <td colspan="2">
+                    <div class="dataheaddiv" style="width:400px; text-align: center">
+                      <b style="font-size: 15px;">New Service</b>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Service Name</td>
+                  <td><%= f.text_field :service_name, :size => '20x2' %>
+                    <div style='color: red;'><%= validation_errors @service.errors[:service_name] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Service Code</td>
+                  <td><%= f.text_field :service_code, :size => '20' %>
+                    <div style='color: red;'><%= validation_errors @service.errors[:service_code] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Category</td>
+                  <td>
+                    <%= f.select :category_id, options_for_select(@categories.map{|category| [category.name, category.id]}), { :prompt => 'Select'}, {:onchange => "get_sub_categories(this.value)"} %>
+                    <div style='color: red;'><%= validation_errors @service.errors[:category_id] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Sub Category</td>
+                  <td>
+                    <%= f.select :sub_category_id, options_for_select([]), {:prompt => '--Select Category First--'}, {} %>
+                    <div style='color: red;'><%= validation_errors @service.errors[:sub_category_id] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Duration</td>
+                  <td><%= f.time_select :duration %>
+                    <div style='color: red;'><%= validation_errors @service.errors[:duration] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Staff Recovery Time</td>
+                  <td><%= f.time_select :staff_recovery_time %>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Room Recovery Time</td>
+                  <td><%= f.time_select :room_recovery_time %></td>
+                </tr>
+                <% if @service.new_record? %>
+                  <tr>
+                    <td colspan="2" style="padding-left:130px">Apply To <%= check_box_tag :applied_to_employee, 1, {}, {:onclick => "$('#select_employees').toggle();"} %>Employee &nbsp;&nbsp;&nbsp;<%= check_box_tag :applied_to_room, 1, {}, {:onclick => "$('#select_rooms').toggle();"} %>Room</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" style="padding-left:130px">
+                      <div style="width: 300px">
+                        <div id="select_employees" style="display:block; float: left">
+                          <%= f.select :employee_ids, options_for_select(Employee.all(:select => "name, id").map {|r| [r.name,r.id] }, (params[:service] ? params[:service][:employee_ids] : @service.employees.all(:select => "employees.id").map{|l| [l.id]})), {}, {:multiple => true, :size => 6, :style => 'min-width:100px'} %>
+                        </div>
+                        <div id="select_rooms" style="display:block; float: right; padding-right: 50px">
+                          <%= f.select :room_ids, options_for_select(Room.all(:select => "name, id").map {|r| [r.name,r.id] }, (params[:service] ? params[:service][:room_ids] : @service.rooms.all(:select => "rooms.id").map{|l| [l.id]})), {}, {:multiple => true, :size => 6, :style => 'min-width:100px'} %>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                <% end %>
+                <tr>
+                  <td><%= f.label :book_online %></td>
+                  <td>
+                    <%= f.radio_button :book_online, true %>Yes <%= f.radio_button :book_online, false %> No
+                    <div style='color: red;'><%= validation_errors @service.errors[:book_online] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Price</td>
+                  <td>$<%= f.text_field :rate, :size => '10x2' %>
+                    <div style='color: red;'><%= validation_errors @service.errors[:rate] %></div>
+                  </td>
+                </tr>
+              </table>
+              <% if @service.new_record? %>
+                <table style="padding-left: 5%">
+                  <tr>
+                    <th>
+                      <div class="dataheaddiv" style="width:500px; text-align: center; padding-left: 50px">
+                        <b style="font-size: 15px;">Additional Options</b>
+                      </div>
+                    </th>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div class="datahead" style="background-color:#EDEDED; width:550px">
+                        <div class="databellowdiv" style="width:25%">
+                          Product
+                        </div>
+                        <div class="dataheaddivwhite" style="width:36%">
+                          Quantity
+                        </div>
+                        <div class="databellowdiv" style="width:37%">
+                          Cost
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div style="height: 100px; overflow: scroll; width: 550px">
+                        <table>
+                          <% product_ids = [] %>
+                          <% Product.all.each do |product| %>
+                            <tr>
+                              <td>
+                                <div id="<%= product.id %>_message" style="color:red; background-color: #EDEDED; width: 550px"></div>
+                                <div class="datahead" style="background-color: <%= cycle("#cce9ed","#f0f8fa") %>;width:550px">
+                                  <div class="databellowdiv" style="width:5%">
+                                    <%= check_box_tag :"#{product.id}_selected" %>
+                                  </div>
+                                  <div class="databellowdiv" style="width:20%">
+                                    <%= product.name.capitalize %>
+                                  </div>
+                                  <div class="dataheaddivwhite" style="width:36%">
+                                    <%= text_field_tag :"#{product.id}_quantity", '', :size => 8  %>
+                                  </div>
+                                  <div class="databellowdiv" style="width:37%">
+                                    $<%= text_field_tag :"#{product.id}_amount", '', :size => 8 %>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                            <% product_ids << product.id %>
+                          <% end %>
+
+                        </table>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding-left:100px">Requires Equipment ? <%= f.check_box :requires_equipment, { :checked => 'true', :onclick => "$('#select_equipments').toggle();"} %></td>
+                  </tr>
+                  <tr>
+                    <td id="select_equipments" style="display:none; padding-left:100px">
+                      <div id="equipment_error" style="color:red; background-color: #EDEDED;"></div>
+                      <div style="float: left">Equipment: &nbsp;</div>
+                      <div>
+                        <%= f.select :equipment_ids, options_for_select(Equipment.all(:select => "name, id").map {|r| [r.name,r.id] }, (params[:service] ? params[:service][:equipment_ids] : @service.equipments.all(:select => "equipments.id").map{|l| [l.id]})), {}, {:multiple => true, :size => 6, :style => 'min-width:100px'} %>
+                      </div>
+                      <div style='color: red;'><%= validation_errors @service.errors[:equipment] %></div>
+                    </td>
+                  </tr>
+                </table>
+              <% end %>
+              <table style="padding-left: 15%">
+                <tr>
+                  <td>Special Notes</td>
+                  <td><%= f.text_area :special_notes, :size => '25x3' %>
+                    <div style='color: red;'><%= validation_errors @service.errors[:special_notes] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td><%= f.submit @service.new_record? ? "Create"  : "Update", :onclick => "return validate_products_selected_for_service(#{product_ids}, 'service')", :class => 'input_button' %>
+                    <%= button_to_function 'Cancel', "window.location.href= '#{services_path}'", :class => 'input_button' %>
+                  </td>
+                </tr>
+              </table>
+            <% end %>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

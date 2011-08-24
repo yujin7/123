@@ -1,0 +1,133 @@
+
+
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/product_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <div class="midrighttop">
+              <div class="midrighttopleft"></div>
+              <div class="midrighttopcenter">
+                <div class="midrighttoplinks">
+                  <div style="float:right">
+                    <div class="midrighttoplinkdiv">
+                      <%= link_to "New Product" ,   new_product_path,  :class => 'midrighttoplink'%>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="midrighttopright"></div>
+            </div>
+
+            <div class="dataheaddiv" style="width:850px; text-align: left; border: 0; font-weight: bold;" >
+              Search Criteria
+            </div>
+            <div class="search_tab_right">
+              <%= form_tag(search_products_path, :method=>'post', :multipart => true) do %>
+                Name :<%= text_field_tag "name", params[:name] %>
+                Status : <%= select_tag :status,  options_for_select(["Active" ,"Inactive"],params[:status])  %>
+                <%= submit_tag 'Search', :class => "input_button"%>
+              <%end%>
+            </div>
+
+            <%= form_tag   delete_selected_products_path, :method => :delete do %>
+              <div class="data" >
+                <div class="datahead">
+                  <div class="dataheaddiv" style="width: 100%; text-align: left; border: 0">
+                    <%= select_tag :per_page, options_for_select([10, 20, 30, 50], params[:per_page]), :onchange => "reload_with_new_param('per_page', this.value)"  %>
+                  </div>
+
+                </div>
+                <div class="datahead">
+                  <div class="dataheadoptions">
+                    <input type="checkbox" id="total_products" onclick="select_all_products(<%= @products.length %>)"/>
+                  </div>
+                  <div class="dataheaddiv" style="width:300px;padding-left: 3px">
+                    Name
+                    <% if params[:by] == 'ASC' %>
+                      <%= link_to image_tag("uparrow.gif", :width => "8", :height => "9", :border => "0"), :action => 'index', :order => 'name', :by => 'DESC' %>
+                    <% else %>
+                      <%= link_to image_tag("arrow.gif", :width => "8", :height => "9", :border => "0"), :action => 'index', :order => 'name', :by => 'ASC' %>
+                    <% end %>
+                  </div>
+                  <div class="dataheaddiv" style="width:220px" >
+                    Category
+                  </div>
+                  <div class="dataheaddiv" style="width:270px">
+                    Status
+                  </div>
+                </div>
+                <% i = 0 %>
+                <% @products.each do |product|  %>
+                  <div class="datahead" style="background-color: <%= cycle("#cce9ed","#f0f8fa") %>">
+                    <div class="datarowoptions">
+                      <input type="checkbox" name="product_ids[]" id="product_<%= i %>" value="<%= product.id %>"/>
+                    </div>
+
+                    <div class="dataheaddivwhite" style="width:300px; padding-left: 7px">
+                      <%= link_to product.name,product_path(product)%>
+                    </div>
+                    <div class="databellowdiv" style="width:220px">
+                      <%= product.category.nil? ? "Unknown" : product.category.name  %>
+                    </div>
+
+                    <div class="databellowdiv" style="width:270px">
+                      <div id="status_<%= product.id %>"></div>
+                      <%= select_tag :status, options_for_select([['Active', 'Active'], ['Inactive', 'Inactive']],  product.status), :onchange => "update_product_status('#{product.id }', this.value)"  %>
+                    </div>
+                  </div>
+                  <% i += 1 %>
+                <% end %>
+              </div>
+              <div style="clear: both; height: 10px"></div>
+              <div class="pagination">
+                <%= will_paginate @products  %>
+              </div>
+              <div style="clear: both; height: 10px"></div>
+              <%= submit_tag 'Delete', :onclick => "return validate_products_to_delete(#{@products.length})", :class => 'input_button'  %>
+            <% end %>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

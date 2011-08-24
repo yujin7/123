@@ -1,0 +1,62 @@
+<table cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+
+  </tr>
+  <tr>
+    
+
+    <td>
+      <%= form_tag  delete_selected_profiles_path, :method => :delete do %>
+        <table width="100%" height="100%" border="2">
+
+          <tr>
+            <td>
+              <%= select_tag :per_page, options_for_select([10, 20, 30, 50], params[:per_page]), :onchange => "reload_with_new_param('per_page', this.value)" %>
+            </td>
+          </tr>
+          <% if !@profiles.empty? %>
+            <tr>
+              <th><input type="checkbox" id="total_profiles" onclick="select_all_profiles(<%= @profiles.length %>)"/></th>
+              <th>Name</th>
+              <th>Role name</th>
+              <th>Email</th>
+              <th>Status</th>
+            </tr>
+            <% i = 0 %>
+            <% @profiles.each do |profile|  %>
+              <tr align="center">
+                <td><input type="checkbox" name="profile_ids[]" id="profile_<%= i %>" value="<%= profile.id %>"/></td>
+                <td><%= link_to profile.first_name,profile_path(profile)%></td>
+                <td><%= profile.role_name %></td>
+                <td><%=  profile.email %></td>
+                <td>
+                  <div id="status_<%=  profile.id %>"></div>
+                  <%= select_tag :status, options_for_select([['Active', 'Active'], ['Inactive', 'Inactive']],  profile.status), :onchange => "update_profile_status('#{profile.id }', this.value)"  %>
+                </td>
+              </tr>
+              <% i += 1 %>
+            <%end%>
+            <tr>
+              <td align="left" colspan="11">
+                <%= submit_tag 'Delete', :onclick => "return validate_profiles_to_delete(#{@profiles.length})"  %>
+              </td>
+            </tr>
+            <tr>
+              <td align="center" colspan="11">
+                <%= will_paginate @profiles%>
+              </td>
+            </tr>
+          <% else %>
+            <tr>
+              <td  colspan="9">No records of profiles found.</td>
+            </tr>
+          <% end %>
+        </table>
+      <% end %>
+    </td>
+  </tr>
+</table>
+
+
+
+

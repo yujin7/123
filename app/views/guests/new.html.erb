@@ -1,0 +1,238 @@
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#click").click(function(){
+      $("#advanced_search_tab").toggle();
+    });
+    $("#click_filter").click(function(){
+      $("#filter_guest_tab").toggle();
+    });
+  });
+</script>
+
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/guest_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "search_filter_guest_tab" %>
+          <div class="midright">
+            <%= form_for @guest, :html => { :multipart => true } do |f| %>
+              <h3 style="color:#FFFFFF; padding-left:5%">New Guest</h3>
+              <table style="padding-left: 5%">
+                <tr>
+                  <td width="30%">Name</td>
+                  <td ><%= f.text_field :name, :size => '20x2'  %>
+                    <div style='color: red;'><%= validation_errors @guest.errors['name'] %></div></td>
+                </tr>
+                <tr>
+                  <td>Email</td>
+                  <td><%= f.text_field :email, :size => '20x2'  %>
+                    <div style='color: red;'><%= validation_errors @guest.errors['email'] %></div></td>
+                </tr>
+                <tr>
+                  <td>Gender</td>
+                  <td><%= f.radio_button :gender, "Male" %>Male<%= f.radio_button :gender, "Female" %>Female
+                    <div style='color: red;'><%= validation_errors @guest.errors['gender'] %></div></td>
+                </tr>
+                <tr>
+                  <td>Date of Birth</td>
+                  <td> <%= f.date_select :date_of_birth, :prompt => { :day => 'Day', :month => 'Month',:year => 'Year' },:start_year => 1900 %>
+                    <div style='color: red;'><%= validation_errors @guest.errors['date_of_birth'] %></div></td>
+                </tr>
+
+                <tr>
+                  <td>Date of Anniversary</td>
+                  <td> <%= f.date_select :date_of_anniversary,:prompt => { :day => 'Day', :month => 'Month',:year => 'Year' }, :start_year => 1900 %>
+                    <div style='color: red;'><%= validation_errors @guest.errors['date_of_anniversary'] %></div></td>
+                </tr>
+                <tr >
+                  <td>Photo</td>
+                  <td > <%= f.file_field :avatar, :size => '20x2' %></td>
+                </tr>
+                <tr width="100%">
+                  <td colspan="2">
+                    <table width="100%">
+                      <tr>
+                        <td>
+                          <b><span id="billing">Billing Address Information</span></b>
+                          <table>
+                            <tr>
+                              <td>Address 1</td>
+                              <td><%= f.text_area :billing_address_one, :size => '25x2' %>
+                                <div style='color: red;'><%= validation_errors @guest.errors['billing_address_one'] %></div></td>
+                            </tr>
+                            <tr>
+                              <td>Address 2</td>
+                              <td><%= f.text_area :billing_address_two, :size => '25x2' %>
+                                <div style='color: red;'><%= validation_errors @guest.errors['billing_address_two'] %></div></td>
+                            </tr>
+                            <tr>
+                              <td>Street</td>
+                              <td><%= f.text_field :billing_street, :size => '20x2'  %>
+                                <div style='color: red;'><%= validation_errors @guest.errors['billing_street'] %></div></td>
+                            </tr>
+                            <tr>
+                              <td>City</td>
+                              <td><%= f.text_field :billing_city, :size => '20x2' %>
+                                <div style='color: red;'><%= validation_errors @guest.errors['billing_city'] %></div></td>
+                            </tr>
+                            <tr>
+                              <td>Country </td>
+                              <td><%= f.country_select :billing_country, ["Singapore"], {}, { :style => "width: 200px;"} %>
+                                <div style='color: red;'><%= validation_errors @guest.errors['billing_country'] %></div></td>
+                            </tr>
+                            <tr>
+                              <td>Pin Code</td>
+                              <td>      <%= f.text_field :billing_pin_code, :size => '20x2' %>
+                                <div style='color: red;'><%= validation_errors @guest.errors['billing_pin_code'] %></div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Telephone</td>
+                              <td> <%= f.text_field :billing_telephone, :size => '20x2' %>
+                                <div style='color: red;'><%= validation_errors @guest.errors['billing_telephone'] %></div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Mobile</td>
+                              <td>    <%= f.text_field :billing_mobile, :size => '20x2' %></td>
+                            <div style='color: red;'><%= validation_errors @guest.errors['billing_mobile'] %></div>
+                      </tr>
+                    </table>
+                  </td>
+                  <td><b>Shipping Address Information</b>
+                    <table>
+                      <tr>
+                        <td>Address 1</td>
+                        <td>   <%= f.text_area :shipping_address_one, :size => '25x2'%></td>
+                      <div style='color: red;'><%= validation_errors @guest.errors['shipping_address_one'] %></div>
+
+                </tr>
+                <tr>
+                  <td>Address 2</td>
+                  <td>      <%= f.text_area :shipping_address_two, :size => '25x2'%></td>
+                <div style='color: red;'><%= validation_errors @guest.errors['shipping_address_two'] %></div>
+                </tr>
+                <tr>
+                  <td>Street</td>
+                  <td>      <%= f.text_field :shipping_street, :size => '20x2' %><div style='color: red;'><%= validation_errors @guest.errors['shipping_street'] %>
+                      <div style='color: red;'><%= validation_errors @guest.errors['shipping_city'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>City</td>
+                  <td>      <%= f.text_field :shipping_city, :size => '20x2' %> </td>
+                </tr>
+                <tr>
+                  <td>Country</td>
+                  <td>    <%= f.country_select :shipping_country, ["Singapore"], {}, { :style => "width: 200px;"} %>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Pin Code</td>
+                  <td>      <%= f.text_field :shipping_pin_code, :size => '20x2' %>
+                    <div style='color: red;'><%= validation_errors @guest.errors['shipping_pin_code '] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Telephone</td>
+                  <td><%= f.text_field :shipping_telephone, :size => '20x2' %>
+                    <div style='color: red;'><%= validation_errors @guest.errors['shipping_telephone'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Mobile</td>
+                  <td>      <%= f.text_field :shipping_mobile, :size => '20x2' %>
+                    <div style='color: red;'><%= validation_errors @guest.errors['shipping_mobile '] %></div>
+                  </td>
+                </tr>
+              </table>
+              </td>
+              </tr>
+
+              </table>
+              </td>
+
+              </tr>
+              <tr>
+                <td><b><span id="preferences">Preferences</span></b></td>
+              </tr>
+              <tr>
+                <td>Mobile</td>
+                <td>
+                  <%= f.check_box :email_alerts %>Email Alerts
+                  <%= f.check_box :sms_alerts %>SMS Alerts
+                </td>
+              </tr>
+              <tr>
+                <td>Spa Location</td>
+                <% @locations = Location.all %>
+                <td><%= f.select :location_id, [["Select", ""]]+Location.all(:select => 'name, id' ).map{|location| [location.name, location.id]}, {}, { :style => "width: 100px;"} %></td>
+              </tr>
+              <tr>
+                <td>Membership</td>
+                <% @memberships = Membership.all %>
+                <td><%= f.select :membership_id, [["Select", ""]]+Membership.all(:select => 'name, id' ).map{|membership| [membership.name, membership.id]}, {}, { :style => "width: 100px;"} %></td>
+              </tr>
+              <tr>
+                <td>Package</td>
+                <td>
+                  <%= f.select :packages_ids, options_for_select(Package.all(:select => "name, id").map {|r| [r.name,r.id] }, (params[:guest] ? params[:guest][:packages_ids] : @guest.packages.all(:select => "packages.id").map{|l| l.id})), {}, {:multiple => true, :size => 5} %>
+                </td>
+              </tr>
+              <tr>
+                <td>Preferred Person</td>
+                <td ><%= select_tag "gender", options_for_select(['Male','Female']), :onchange => "get_gender_type(this.value)" %>
+                  <div  id="gender_type_male">
+                    Preferred Staff:
+                    <% @employees = Employee.all(:conditions => ["gender = 'Male'"] ) %>
+                    <%= f.select :employee_id, @employees.map{|r| [r.name, r.id]} %>
+                  </div>
+
+                  <div id="gender_type_female"  style="display:none">
+                    Preferred Staff:
+                    <% @employees = Employee.all(:conditions => ["gender = 'Female'"]) %>
+                    <%= f.select :employee_id, @employees.map{|r| [r.name, r.id]} %>
+                  </div>
+
+                </td>
+              </tr>
+              <% if custom_fileds = GuestCustomField.get_columns %>
+                <% guest_custom_field = @guest.guest_custom_field || GuestCustomField.new %>
+                <tr>
+                  <td colspan="2"><b><span id="custom">Custom</span></b></td>
+                </tr>
+                <% custom_fileds.each do |field_name, field_type| %>
+                  <tr>
+                    <td>
+                      <%= field_name.split('_').join(' ').to_s.capitalize %>
+                    </td>
+                    <td>
+                      <%= get_guest_custom_field_input(field_name, field_type, guest_custom_field.send(field_name)) %>
+                    </td>
+                  </tr>
+                <% end %>
+              <% end %>
+              <tr>
+                <td></td>
+                <td><%= f.submit @guest.new_record? ? "Create"  : "Update", :class => 'input_button' %>
+                  <%= button_to_function 'Cancel', "window.location.href= '#{guests_path}'", :class => 'input_button' %>
+                </td>
+              </tr>
+              </table>
+            <% end %>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+

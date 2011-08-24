@@ -1,0 +1,62 @@
+
+
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/category_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render '/shared/side_bar' %>
+          <div class="midright">
+            <p>
+              <strong style="color:#FFFFFF"> Ctaegory Name:</strong>
+              <span style="color:#FFFFFF"><%= @category.name %></span>
+            </p>
+            <p>
+              <strong style="color: #F0F0F0"> Enter Sub category </strong>
+            </p>
+            <%= form_tag(add_sub_category_category_path, :method=>'post') do %>
+              <table>
+                <tr>
+                  <td> Sub category name :
+                    <%= text_field_tag "name" %>
+                  </td>
+                </tr>
+                <tr>
+                  <td><%= submit_tag "Create", :class => 'input_button' %>
+                    <%= button_to_function 'Cancel', "window.location.href= '#{categories_path}'", :class => 'input_button' %>
+                  </td>
+                </tr>
+              </table>
+            <%end%>
+            <table>
+              <tr>
+                <td colspan="2"><strong style="color:#fff">Sub Categories</strong></td>
+              </tr>
+              <% sub_categories = @category.sub_categories %>
+              <% if sub_categories.empty? %>
+                <tr>
+                  <td>There are no sub-categories under this category.</td>
+                </tr>
+              <% else %>
+                <% sub_categories.each do |sub_cat| %>
+                  <tr>
+                    <td><%= sub_cat.name %></td>
+                    <td><%= link_to 'Delete', delete_sub_category_category_path(@category.id, :sub_cat_id => sub_cat.id), :method => 'delete', :confirm => 'Are you sure you want to delete this sub-category ?' %></td>
+                  </tr>
+                <% end %>
+              <% end %>
+            </table>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+

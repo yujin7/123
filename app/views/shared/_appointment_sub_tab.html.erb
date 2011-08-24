@@ -1,0 +1,11 @@
+<div class="guesttop">
+  <div class="guesttoplinks">
+    <%= link_to "Calendar", :class => (params[:action] == 'appointments_by_date' ? 'selected_subtab' :  'guestlink') %>
+  </div>
+  <div class="guesttoplinks">
+    <%= link_to "Find Appointment", appointments_path, :class => ((params[:action] == 'index' or params[:action] == 'search') ? 'selected_subtab' : 'guestlink')%>
+  </div>
+  <div class="guesttoplinks">
+    <%=link_to "Book Class", :class => 'guestlink' %>
+  </div>
+</div>

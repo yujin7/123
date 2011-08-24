@@ -1,0 +1,36 @@
+<div class="data" >
+  <div id="cash_register_message" style="background-color: #EFD9E1"></div>
+  <div class="datahead">
+    <div class="dataheaddiv" style="width: 100%; text-align: left; border: 0">
+      <%= select_tag :per_page, options_for_select([10, 20, 30, 50], params[:per_page]), :onchange => "reload_with_new_param('per_page', this.value)"%>
+    </div>
+  </div>
+  <% if @cash_register_entries.empty? %>
+    <div>There are no cash register entries in the database.</div>
+  <%else%>
+    <div class="datahead">
+      <div class="dataheadoptions" style="width:300px">
+        Date Entered
+      </div>
+      <div class="dataheaddiv" style="width:300px">
+        Total cash
+      </div>
+      <div class="dataheaddiv" style="width:241px" >
+        Entry created by
+      </div>
+    </div>
+    <% @cash_register_entries.each do |cash_register| %>
+      <div class="datahead" style="background-color: <%= cycle("#cce9ed","#f0f8fa") %>">
+        <div class="datarowoptions" style="width:300px">
+          <%= cash_register.cash_on_date.strftime("%a, %B %d, %Y at %l:%M %p") %>
+        </div>
+        <div class="dataheaddivwhite" style="width:300px">
+          $<%= cash_register.total_cash %>
+        </div>
+        <div class="databellowdiv" style="width:241px">
+          <%= cash_register.user_entered_cash %>
+        </div>
+      </div>
+    <% end %>
+  <%end%>
+</div>

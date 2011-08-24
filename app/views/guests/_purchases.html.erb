@@ -1,0 +1,56 @@
+<% if !payments.empty? %>
+
+  <div class="datahead">
+    <div class="dataheaddiv" style="width:120px">
+      Payment #
+    </div>
+    <div class="dataheaddiv" style="width:155px">
+      Package Name
+    </div>
+    <div class="dataheaddiv" style="width:100px">
+      Discount
+    </div>
+    <div class="dataheaddiv">
+      Services
+    </div>
+    <div class="dataheaddiv" style="width:150px">
+      Tax Amount
+    </div>
+    <div class="dataheaddiv" style="width:90px">
+      Gift Voucher
+    </div>
+    <div class="dataheaddiv" style="width:100px">
+      Amount
+    </div>
+  </div>
+  <% for payment in payments %>
+    <div class="datahead" style="background-color: <%= cycle("#cce9ed","#f0f8fa") %>;">
+      <div class="dataheaddivwhite" style="width:120px">
+        <%= link_to "PAYMENT-#{payment.id}", payment_path(payment) %>
+      </div>
+      <div class="databellowdiv" style="width:155px">
+        <%= payment.package.nil? ? "Unknown" : payment.package.name %>
+      </div>
+      <div class="dataheaddivwhite" style="width:100px">
+        <%= payment.discount.nil? ? "Unknown" : payment.discount %>
+      </div>
+      <div class="databellowdiv">
+        <%= payment.services.empty? ? "None" : payment.services.map{|r| [r.service_name]}.join(' , ') %>
+      </div>
+      <div class="dataheaddivwhite" style="width:150px">
+        <%= payment.taxable_amount.nil? ? "Unknown" : payment.taxable_amount %>
+      </div>
+      <div class="databellowdiv" style="width:90px">
+        <%= payment.gift_voucher.nil? ? "Unknown" : payment.gift_voucher.discount_amount %>
+      </div>
+      <div class="dataheaddivwhite" style="width:100px">
+        $<%= payment.total_price %>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <div style="padding: 50px;">
+    No purchases for this guest till now.
+  </div>
+
+<% end %>

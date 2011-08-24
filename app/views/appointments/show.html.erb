@@ -1,0 +1,124 @@
+
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/appointment_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render 'search_appointment' %>
+          <div class="midright">
+            <table >
+              <tr>
+                <td width="25%">
+                  <table>
+                    <td colspan="2">
+                      <b> Room Allotted: </b><%= @appointment.room.nil? ? "Unknown" : @appointment.room.name %>
+                    </td>
+                    <tr>
+                      <td colspan="2">
+                        <b>Status :</b><%= @appointment.status %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <b>Time In :</b><%= @appointment.time_in.to_datetime %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="3">
+                        <b>Time Out :</b><%= @appointment.time_out.to_datetime %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="3">
+                        <b>Before Service </b> Height :<%= @appointment.customer_height_before %> &nbsp; &nbsp; Weight:<%= @appointment.customer_weight_before %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="3">
+                        <b>After Service </b> Height :<%= @appointment.customer_height_after.nil? ? "Unknown" : @appointment.customer_height_after %> &nbsp;&nbsp; Weight : <%= @appointment.customer_weight_after.nil? ? "Unknown" : @appointment.customer_weight_after%>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td></td>
+                      <td>
+                        <%= link_to 'Delete', appointment_path(@appointment.id), :confirm => "Are you sure?", :method=>:delete, :class=>:destroy %>
+                        <%= button_to_function 'Cancel', "window.location.href= '#{appointments_path}'", :class => 'input_button' %>
+                      </td>
+                    </tr>
+
+
+                  </table>
+                </td>
+
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

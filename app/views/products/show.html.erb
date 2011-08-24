@@ -1,0 +1,95 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/product_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render '/shared/side_bar' %>
+          <div class="midright">
+            <table>
+              <tr align="left">
+                <td colspan="5">
+                  <b>  Name: </b>  <%= @product.name %>   
+                </td>
+              </tr >
+              <tr>
+                <td colspan="2">
+                  <b> Category: </b><%=@product.category.name %>
+                </td>
+              </tr>
+
+              <tr>
+                <td colspan="3">
+                  <b>Status : </b><%= @product.status%>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  <%= button_to_function 'Edit' ,  "window.location.href= '#{edit_product_path(@product)}'", :class => 'input_button' %>
+                  <%= button_to_function 'Cancel', "window.location.href= '#{products_path}'", :class => 'input_button' %>
+                  
+                </td>
+                <td style="padding-left: 100%">
+                  <%=  button_to_function 'New Inventory' ,  "window.location.href= '#{ new_product_inventory_path(@product.id)}'", :class => 'input_button' %>
+                </td>
+              </tr>
+            </table>
+            <div class="data">
+              <div class="datahead">
+                <div class="dataheaddiv"  style="width:150px; " >
+                  Inventory Name
+                </div>
+                <div class="dataheaddiv"  style="width:150px">
+                  Barcode
+                </div>
+                <div class="dataheaddiv"  style="width:100px">
+                  Retail Price
+                </div>
+                <div class="dataheaddiv"  style="width:100px">
+                  Cost Price
+                </div>
+                <div class="dataheaddiv"  style="width:150px">
+                  Stock Balance
+                </div>
+
+                <div class="dataheaddiv"  style="width:190px">
+                  Actions
+                </div>
+              </div>
+              <% @inventories.each do |inventory| %>
+                <div class="datahead"  style="background-color: <%= cycle("#cce9ed","#f0f8fa") %>">
+                  <div class="dataheaddivwhite" style="width:150px; padding-left: 5px" >
+                    <%= inventory.name %>
+                  </div>
+                  <div class="dataheaddivwhite" style="width:150px">
+                    <%= inventory.barcode %>
+                  </div>
+                  <div class="databellowdiv" style="width:100px">
+                    <%= inventory.retail_price %>
+                  </div>
+                  <div class="dataheaddivwhite"  style="width:100px">
+                    <%= inventory.cost_price %>
+                  </div>
+                  <div class="dataheaddivwhite"  style="width:150px">
+                    <%= inventory.stock_balance %>
+                  </div>
+                  <div class="databellowdiv"  style="width:190px; padding-left: 1px">
+                    <%= link_to "Edit", edit_product_inventory_path(@product.id,inventory) %>
+                    <%= link_to 'Delete',  product_inventory_path(@product.id, inventory), :confirm => "Are you sure?", :method=>:delete %>
+                  </div>
+                </div>
+              <%end%>
+            </div>
+
+
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+

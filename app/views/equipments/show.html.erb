@@ -1,0 +1,108 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/equipment_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <table cellpadding="0" cellspacing ="0" width="50%">
+              <tr>
+                <td colspan="2" style=" padding-top: 10px">
+                  <div class="dataheaddiv" style="width:400px; text-align: center;">
+                    <b style="font-size: 15px;">Equipment Details</b>
+                  </div>
+                  <br />
+                </td>
+              </tr>
+              <tr>
+                <td style="width:200px"><b>  Name: </b> </td>
+                <td><%= @equipment.name %>  </td>
+              </tr>
+              <tr>
+                <td style="width:200px"><b>  Code Number: </b> </td>
+                <td><%= @equipment.code_number %>  </td>
+              </tr>
+              <tr>
+                <td style="width:200px"><b> Total Number: </b> </td>
+                <td>
+                  <%= @equipment.total_number %>
+                </td>
+              </tr>
+              <tr>
+                <td style="width:200px"><b> Number out of Service: </b> </td>
+                <td>
+                  <div id="out_of_service_value">
+                    <%= @equipment.no_out_of_service %>
+                  </div>
+                  <div id="update_error" style="background-color:#EDEDED;"></div>
+                </td>
+              </tr>
+              <tr>
+                <td style="width:200px"><b> Status: </b> </td>
+                <td><%= @equipment.status %>  </td>
+              </tr>
+            </table>
+            <table cellpadding="0" cellspacing ="0" width="55%">
+              <tr>
+                <td colspan="3">
+                  <br /><br />
+                  <div class="dataheaddiv" style="width:500px; text-align: center;">
+                    <b style="font-size: 15px;">Equipment Assignments</b>
+                  </div>
+                </td>
+              </tr>
+              <% if @equipment.location_equipments.empty? %>
+                <tr style="background-color:#F2F2F2;width:100%">
+                  <td colspan="3" style="width:33%; color: #164E87; height: 25px">
+                    There are no locations this equipment is assigned.
+                  </td>
+                </tr>
+              <% else %>
+                <tr style="background-color:#F2F2F2;width:100%">
+                  <td style="width:28%; color: #164E87">Equipment Code</td>
+                  <td style="width:27%; color: #164E87">Location</td>
+                  <td style="width:35%; color: #164E87">Status</td>
+                </tr>
+                <% @equipment.location_equipments.each do |assigned_equip| %>
+                  <tr>
+                    <td colspan="3">
+                      <div class="datahead" style="background-color: <%= cycle("#cce9ed","#f0f8fa") %>;width:100%;">
+                        <div class="databellowdiv" style="width:25%">
+                          <%= assigned_equip.equipment_code_number %>
+                        </div>
+                        <div class="dataheaddivwhite" style="width:29%; text-align: left; padding-left: 25px">
+                          <%= assigned_equip.location.nil? ? "Unknown" : assigned_equip.location.name %>
+                        </div>
+                        <div class="databellowdiv" style="width:37%; text-align: left;">
+                          <div id="<%= assigned_equip.id.to_s %>_assign_update_status" style="float:right; width: 40px"></div>
+                          <%= select_tag :in_service, options_for_select([['In Service', true], ['Out Of Service', false]],  assigned_equip.in_service), :onchange => "update_location_equipment_status('#{ assigned_equip.id }', this.value)"  %>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                <% end %>
+              <% end %>
+            </table>
+            <table>
+              <tr>
+                <td >
+                  <br /> <br /> <br />
+                  <%= button_to_function 'Edit' ,  "window.location.href= '#{edit_equipment_path(@equipment)}'", :class => 'input_button' %>
+                </td>
+                <td>
+                  <br /> <br /> <br />
+                  <%= button_to_function 'Back', "window.location.href= '#{equipments_path}'", :class => 'input_button' %>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>

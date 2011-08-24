@@ -1,0 +1,196 @@
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#click").click(function(){
+      $("#advanced_search_tab").toggle();
+    });
+
+    $("#click_filter").click(function(){
+      $("#filter_guest_tab").toggle();
+    });
+  });
+</script>
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/guest_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+
+          <div class="midright" style="width: 100%">
+            <table cellpadding="0" cellspacing="0" width="100%" >
+              <tr>
+                <td valign="top" width="25%">
+                  <div style="background-color: #FFFFF7; color:#000000;font-size: 11px;margin-top: 10px;">
+                    <div>
+                      <div style="float:left"><b><%= @guest.name %>, <%= @guest.gender %>, <%= @guest.age %></b></div>
+                      <div style="float:right">
+                        <%= link_to "edit", edit_guest_path(@guest), :style => "color: #1DACB2" %>
+                      </div>
+
+                    </div>
+                    <div style="clear:both"></div>
+                    <div>
+                      Customer Since: <%= @guest.created_at.strftime("%d %b %Y %H:%M %p") %>
+                    </div>
+                    <div>
+                      Last visit: <%= @guest.updated_at.strftime("%d %b %Y %H:%M %p") %>
+                    </div>
+                    <div>
+                      <div style="float:left;wdith:150px">
+                        <%= image_tag @guest.avatar.url(:medium), :width => '90' %>
+                      </div>
+                      <div style="float:left;">
+                        <%= @guest.billing_address_one %>,<br />
+                        <%= @guest.billing_telephone %>,<br />
+                        <%= @guest.email %>,<br />
+                        ph:<%= @guest.shipping_telephone %>
+                      </div>
+                    </div>
+                    <div style="clear:both"></div>
+                    <br />
+                    <div>
+                      <div style="float:left"><b>Preference</b></div>
+                      <div style="float:right"><%= link_to "edit", edit_guest_path(@guest)+"#preferences", :style => "color: #1DACB2" %></div>
+                    </div>
+                    <div style="clear:both"></div>
+                    <hr />
+                    <div>
+                      Staff preference - <%= @guest.employee ? @guest.employee.name : "None" %> <br />
+                    </div>
+                    <br />
+                    <div>
+                      <div style="float:left"><b>Recent Customer Notes</b></div>
+                      <div style="float:right"><%= link_to "edit", notes_guest_path(@guest), :style => "color: #1DACB2" %></div>
+                    </div>
+                    <div style="clear:both"></div>
+                    <hr />
+                    <% for left_menu_customer_note in @guest.customer_notes.all(:limit => 5) %>
+                      <div>
+                        <span><%= left_menu_customer_note.note %></span><br />
+                        <span style="color: #999999"><%= left_menu_customer_note.created_at.strftime("%d %b, %Y %H:%M %P") %>, by <%= left_menu_customer_note.user ? left_menu_customer_note.user.full_name : "Unknown" %></span>
+                      </div>
+                    <% end %>
+                    <div style="clear:both"></div>
+                    <br />
+                    <div>
+                      <div style="float:left"><b>Billing</b></div>
+                      <div style="float:right"><%= link_to "edit", edit_guest_path(@guest)+"#billing", :style => "color: #1DACB2" %></div>
+                    </div>
+                    <div style="clear:both"></div>
+                    <hr />
+                    <div>
+                      Address1: <%= @guest.billing_address_one %> <br/>
+                      Address1: <%= @guest.billing_address_two %><br/>
+                      Street: <%= @guest.billing_street %><br/>
+                      City: <%= @guest.billing_city %><br/>
+                      Country: <%= @guest.billing_country %><br/>
+                      Pin Code: <%= @guest.billing_pin_code %><br/>
+                      Telephone: <%= @guest.billing_telephone %><br/>
+                      Mobile: <%= @guest.billing_mobile %><br/>
+                    </div>
+                    <div style="clear:both"></div>
+                    <% if guest_custom_fields = GuestCustomField.get_columns %>
+                      <br />
+                      <div>
+                        <div style="float:left"><b>Custom</b></div>
+                        <div style="float:right"><%= link_to "edit", edit_guest_path(@guest)+"#custom", :style => "color: #1DACB2" %></div>
+                      </div>
+                      <div style="clear:both"></div>
+                      <hr />
+                      <% guest_custom_field = @guest.guest_custom_field || GuestCustomField.new %>
+                      <% guest_custom_fields.each do |field_name, field_type| %>
+                        <div>
+                          <%= field_name.split('_').join(' ').to_s.capitalize %>:
+                          <%= guest_custom_field.display_field_value(field_name, field_type) %>
+                        </div>
+                      <% end %>
+                      <br/>
+                    <% end %>
+                  </div>
+                </td>
+                <td valign="top">
+                  <div class="midright">
+                    <div class="midrighttop">
+                      <div class="midrighttopleft"></div>
+                      <div class="midrighttopcenter">
+                        <div class="midrighttoplinks" style="width: 100%">
+                          <div style="float:right">
+                            <div class="midrighttoplinkdiv">
+                              <%= link_to 'Summary', guest_path(@guest), :class => ((params[:action] == 'show') ? 'selected_midrighttoplink' : 'midrighttoplink') %>
+                            </div>
+                            <div class="midrighttoplinkdiv">
+                              <%= link_to 'Profile', edit_guest_path(@guest), :class => ((params[:action] == 'edit' or params[:action] == 'update') ? 'selected_midrighttoplink' : 'midrighttoplink') %>
+                            </div>
+                            <div class="midrighttoplinkdiv">
+                              <%= link_to 'Appointments', appointments_guest_path(@guest), :class => ((params[:action] == 'appointments') ? 'selected_midrighttoplink' : 'midrighttoplink') %>
+                            </div>
+                            <div class="midrighttoplinkdiv">
+                              <%= link_to 'Purchases', purchases_guest_path(@guest), :class => ((params[:action] == 'purchases') ? 'selected_midrighttoplink' : 'midrighttoplink') %>
+                            </div>
+                            <div class="midrighttoplinkdiv">
+                              <%= link_to 'Notes', notes_guest_path(@guest), :class => ((params[:action] == 'notes') ? 'selected_midrighttoplink' : 'midrighttoplink') %>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="midrighttopright"></div>
+                    </div>
+                  </div>
+                  <div class="data" style="margin-left: 5px;">
+                    <% if params[:action] == 'show' %>
+                      <%= render :partial => "summary" %>
+                    <% elsif params[:action] == 'edit' or params[:action] == 'update' %>
+                      <%= render :partial => 'form' %>
+                    <% elsif params[:action] == 'appointments' %>
+                      <div class="datahead">
+                        <div class="dataheaddiv" style="width: 100%; text-align: left; border: 0">
+                          <div style="float:left">
+                            <%= select_tag :per_page, options_for_select([10, 20, 30, 50], params[:per_page]), :onchange => "reload_with_new_param('per_page', this.value)"  %>
+                          </div>
+                          <div style="float:right;padding-right: 10px;">
+                            <%= link_to "New Appointment", new_appointment_path, :style => "color:#FFFFFF;" %>
+                          </div>
+                        </div>
+                        <span class="dataheaddiv" style="width: 100%; text-align: left; border: 0;min-height: 0px;text-align: right;">
+                          <span style="padding-right: 10px;">
+                            <%= will_paginate @appointments  %>
+                          </span>
+
+                        </span>
+                      </div>
+                      <%= render :partial => 'appointments', :locals => {:appointments => @appointments} %>
+                    <% elsif params[:action] == 'notes' %>
+                      <%= render :partial => 'notes' %>
+                    <% elsif params[:action] == 'purchases' %>
+                      <div class="datahead">
+                        <div class="dataheaddiv" style="width: 100%; text-align: left; border: 0">
+                          <div style="float:left">
+                            <%= select_tag :per_page, options_for_select([10, 20, 30, 50], params[:per_page]), :onchange => "reload_with_new_param('per_page', this.value)"  %>
+                          </div>
+                          <div style="float:right;padding-right: 10px;">
+                            <%= link_to "New purchase", new_payment_path, :style => "color:#FFFFFF;" %>
+                          </div>
+                        </div>
+                        <span class="dataheaddiv" style="width: 100%; text-align: left; border: 0;min-height: 0px;text-align: right;">
+                          <span style="padding-right: 10px;">
+                            <%= will_paginate @payments  %>
+                          </span>
+                        </span>
+                      </div>
+                      <%= render :partial => 'purchases', :locals => {:payments => @payments} %>
+                    <% end %>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>

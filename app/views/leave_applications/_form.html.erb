@@ -1,0 +1,65 @@
+
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/employee_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render '/shared/side_bar' %>
+          <div class="midright">
+            <%= form_for [@employee, @leave_application] do |f| %>
+              <h3 style="color:#FFFFFF; padding-left:5%">Apply Leave</h3>
+              <table style="padding-left: 5%">
+                <tr>
+                  <td>Freom Date</td>
+                  <td>  <%= f.date_select :from %></td>
+                </tr>
+                <tr>
+                  <td>To Date</td>
+                  <td><%= f.date_select :to %></td>
+                </tr>
+                <tr>
+                  <td>Type Of Leave</td>
+                  <td><%= f.select :type_of_leave, options_for_select(['Annual','Time-Off','Unpaid']) %></td>
+                </tr>
+                <tr>
+                  <td>Reason For Leave</td>
+                  <td><%= f.text_area :reason_for_leave, :size => '25x3' %></td>
+                <div style='color: red;'><%= validation_errors @leave_application.errors['reason_for_leave'] %></div>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>
+                    <%= f.submit @leave_application.new_record? ? "Create"  : "Update", :class => 'input_button' %>
+                    <%= button_to_function 'Cancel', "window.location.href= '#{employees_path }'", :class => 'input_button' %>
+                  </td>
+                </tr>
+              </table>
+            <% end %>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

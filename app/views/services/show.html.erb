@@ -1,0 +1,101 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/service_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render '/shared/side_bar' %>
+          <div class="midright">
+            <table>
+              <tr>
+                <td>
+                  Service Name: </td>
+                <td>
+                  <%=@service.service_name.nil? ? "Unknown" : @service.service_name%>
+                </td>
+              </tr >
+              <td>
+                Category :</td>
+              <td> <%=@service.category.nil? ? "Unknown" : @service.category.name%>
+              </td>
+              <tr>
+                <td>
+                  Sub Category: </td>
+                <td><%= @service.sub_category.nil? ? "Unknown" : @service.sub_category.name %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Duration :</td>
+                <td> <%= @service.duration.nil? ? "Unknown" : @service.duration.strftime("%l hr %M mins ") %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Staff Recovery Time:</td>
+                <td>   <%= @service.staff_recovery_time.nil? ? "Unknown" :  @service.staff_recovery_time.strftime("%l hr %M mins") %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Room Recovery Time : </td>
+                <td> <%= @service.room_recovery_time.nil? ? "Unknown" : @service.room_recovery_time.strftime("%l hr %M mins") %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Status :
+                </td>
+                <td>
+                  <%= @service.status.nil? ? "Unknown" : @service.status%>
+                </td>
+              </tr>
+            </table>
+            <table>
+              <tr>
+                <td>
+                  <div class="dataheaddiv" style="width:500px; text-align: center; padding-left: 50px">
+                    <b style="font-size: 15px;">Additional Options</b>
+                  </div>
+                </td>
+              </tr>
+            </table>
+            <div id="delete_message"></div>
+            <div id="assigned_employees">
+              <%= render 'assigned_employees' %>
+            </div>
+            <div id="assigned_rooms">
+              <%= render 'assigned_rooms' %>
+            </div>
+            <div id="assigned_products">
+              <%= render 'assigned_products' %>
+            </div>
+            <div id="assigned_equipments">
+              <%= render 'assigned_equipments' %>
+            </div>
+            <table>
+              <tr>
+                <td>
+                </td>
+                <td>
+                  <%= button_to_function 'Edit' ,  "window.location.href= '#{edit_service_path(@service.id)}'", :class => 'input_button' %>
+                  <%= button_to_function 'Back', "window.location.href= '#{services_path}'", :class => 'input_button' %>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+

@@ -1,0 +1,44 @@
+<script>
+  $(function() {
+    $( "#datepicker" ).datepicker();
+  });
+</script>
+<table cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td colspan="3">
+      <%= link_to "Calendar", appointments_by_date_appointments_path %>&nbsp;
+      <%= link_to "Find Appointment", appointments_path  %>&nbsp;
+      <%=link_to "New Appointment", new_appointment_path%>&nbsp;
+      <%=link_to "Book Class/Workshop"%>&nbsp;
+      <hr />
+    </td>
+  </tr>
+  <tr>
+    <td width="20%">
+      <%= form_tag appointments_by_date_appointments_path, :method => :get do -%>
+        <div class="demo" >
+          <p>Date: <input name="selected_date" id="datepicker" type="text"/></p>
+        </div><!-- End demo -->
+        <%= submit_tag 'Submit' %>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td width="20%">
+    </td>
+  </tr>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

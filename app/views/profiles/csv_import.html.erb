@@ -1,0 +1,68 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/profile_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render '/shared/side_bar' %>
+          <div class="midright">
+            <div class="midrighttop">
+              <div class="midrighttopleft"></div>
+              <div class="midrighttopcenter">
+                <div class="midrighttoplinks">
+                  <div style="float:right">
+                    <div class="midrighttoplinkdiv">
+                      <%= link_to "New Profile" , new_profile_path,  :class => 'midrighttoplink'%>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <div class="midrighttopright"></div>
+            </div>
+            <div class="data" >
+              <div class="datahead">
+                <div  class="dataheaddiv" style="width:850px; text-align: left; border: 0; font-weight: bold;">
+                  <div id="file_upload">
+                    <%= form_tag  csv_import_profiles_path, :multipart => true do |f| %>
+                      <table cellpadding="2" cellspacing="2" width="100%">
+                        <tr>
+                          <td>
+                            <label for="dump_file">
+                              Select a CSV File in exact form given below::
+                            </label>
+                          </td>
+                          <td >
+                            <%= file_field_tag :file%>
+                          </td>
+                          <td><%= submit_tag 'Submit', :class => 'input_button' %></td>
+                        </tr>
+                      </table>
+                      <table style="background-color: #2369A5">
+                        <tr>
+                          <td><b><i>Format of csv file</i></b></td>
+                        </tr>
+                        <tr>
+                          <td style="padding-top: 10px">
+                            First_name | Last_name | Role_name | Date of birth | Status(Active/Inactive) | Residential address | Studio | Studio joined date | Studio assigned | Contact residence | Contact hp | email | Leave entitlement | Supervisor
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="font-weight: bold; padding-left:55%; padding-top: 11px">Link to Download empty Csv file &nbsp; <%= button_to_function 'Download', "window.location.href= '#{get_empty_csv_profiles_path}'", :class => 'input_button'  %></td>
+                        </tr>
+                      </table>
+                    <% end -%>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>

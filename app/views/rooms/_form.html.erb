@@ -1,0 +1,123 @@
+
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/room_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <%= form_for @room do |f| %>
+              <h3 style="color:#FFFFFF; padding-left:5%">New Room</h3>
+              <table style="padding-left: 5%">
+                <tr>
+                  <td> Room Name</td>
+                  <td><%= f.text_field :name, :size => '20x2'  %>
+                    <div style='color: red;'><%= validation_errors @room.errors['name'] %></div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Country</td>
+                  <td><%= country_select :country,'', ["Singapore"], {}, { :style => "width: 200px;", :onchange => "get_location_oulets(this.value, 'room_location_id')"} %></td>
+                </tr>
+
+                <tr>
+                  <td>Location Outlet</td>
+                  <% @locations = Location.all(:conditions => "country = 'Singapore'") %>
+                  <td><%= f.select :location_id, @locations.map {|r| [r.name,r.id] } %></td>
+                </tr>
+
+                <tr>
+                  <td>Service Name</td>
+                  <td>
+                    <%= f.select :service_ids, options_for_select(Service.all(:select => "service_name, id").map {|r| [r.service_name,r.id] }, (params[:room] ? params[:room][:service_ids] : @room.services.all(:select => "services.id").map{|l| [l.id]})), {}, {:multiple => true, :size => 3} %>
+                  </td>
+                </tr>
+
+
+                <tr>
+                  <td>Capacity</td>
+                  <td><%= f.text_field :capacity,:size => '20x2' %>
+                    <div style='color: red;' ><%= validation_errors @room.errors['capacity'] %></div>
+                  </td>
+                </tr>
+
+
+                <tr>
+                  <td>Description</td>
+                  <td><%= f.text_area :description, :size => '25x3' %>
+                    <div style='color: red;' ><%= validation_errors @room.errors['description'] %> </div>
+                  </td>
+                </tr>
+               
+                <tr>
+                  <td></td>
+                  <td><%= f.submit @room.new_record? ? "Create"  : "Update", :class => 'input_button' %>
+                    <%= button_to_function 'Cancel', "window.location.href= '#{rooms_path}'", :class => 'input_button' %>
+                  </td>
+                </tr>
+              </table>
+            <% end %>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Expressions International</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <%= stylesheet_link_tag 'print.css', :media => "print" %>
+    <%= stylesheet_link_tag 'style.css', 'application.css', 'jquery.notifyBar.css', 'basic.css', 'fullcalendar.css', 'jcalendar.css', 'jquery-ui.css', 'jquery.weekcalendar.css', :media => "all", :cache => true %>
+    <%=javascript_include_tag 'jquery', 'fullcalendar', 'gcal', 'jquery-ui', 'application', 'rails', 'jrails', 'images', 'jquery.notifyBar', 'menu-collapsed', 'jquery.simplemodal', 'init', :cache => "all" %>
+
+    <% if !flash[:error].nil? or !flash[:notice].nil? %>
+      <script>
+        $(function () {
+          $.notifyBar({
+            html: "<%= !flash[:error].nil? ? flash[:error] : flash[:notice] -%>",
+            cls: "<%= !flash[:error].nil? ? 'error' : 'success' -%>",
+            close: true,
+            delay: 2500,
+            animationSpeed: "normal"
+          });
+        });
+      </script>
+    <% end %>
+  </head>
+  <body>
+    <div id="mainhome">
+      <div class="top">
+        <div class="logo"></div>
+        <div class="topright">
+          <div class="toprightleft">Logged in as: <span style="color: #1DACB2"><%= current_user.login %></span></div>
+          <div class="toprightright">
+            <div class="toplink" style="padding-left: <%= (current_user.roles.include? Role.find_by_name('admin')) ? '4px' : '140px' %>">
+              <%= link_to "Inbox", "#"  %>
+            </div>
+            <% if current_user.is_admin? %>
+              <div class="topbar"></div>
+              <div class="toplink">
+                <%= link_to "System Settings" , taxtypes_path %>
+              </div>
+            <%end%>
+            <div class="topbar"></div>
+            <div class="toplink">
+              <%=link_to "Help", "#" %>
+            </div>
+            <div class="topbar"></div>
+            <div class="toplink">
+              <%=link_to "Logout", logout_path %>
+            </div>
+          </div>
+        </div>
+        <div class="search">
+          <div class="searchtext">Search <input type="text" class="searchtextbox" name="search" /></div>
+        </div>
+        <div class="topbottomright">
+          <%= current_user.last_login_at.strftime("Last login : %a, %B %d, %Y ") if !current_user.last_login_at.nil? %>
+        </div>
+      </div>
+      <div class="toplinks">
+        <% if current_user.is_admin? %>
+          <div class="linkalign">
+            <%= link_to "Dashboard", "#", :class => (params[:controller] == 'dashboard' ? 'active_tab' : 'toplink' ), :style => "color:#ffffff" %>
+          </div>
+          <div class="navseperator"></div>
+          <div class="linkalign">
+            <%= link_to "Appointments" , appointments_path,  :class => (params[:controller] == 'appointments' ? 'active_tab' : 'toplink' ), :style => "color:#ffffff" %>
+          </div>
+          <div class="navseperator"></div>
+          <div class="linkalign">
+            <%= link_to "Guests", guests_path, :class => (params[:controller] == 'guests' ? 'active_tab' : 'toplink' ), :style => "color:#ffffff" %>
+          </div>
+          <div class="navseperator"></div>
+          <div class="linkalign">
+            <%= link_to "Payments", payments_path, :class => ((params[:controller] == 'payments' or params[:controller] == 'gift_vouchers') ? 'active_tab' : 'toplink' ), :style => "color:#ffffff" %>
+          </div>
+          <div class="navseperator"></div>
+          <div class="linkalign">
+            <%= link_to "Operations", "#", :class => (params[:controller] == 'operations' ? 'active_tab' : 'toplink' ), :style => "color:#ffffff" %>
+          </div>
+          <div class="navseperator"></div>
+          <div class="linkalign">
+            <%= link_to "Marketing", "#", :class => (params[:controller] == 'marketing' ? 'active_tab' : 'toplink' ), :style => "color:#ffffff" %>
+          </div>
+          <div class="navseperator"></div>
+          <div class="linkalign">
+            <%= link_to "HR", profiles_path, :class => (params[:controller] == 'profiles' ? 'active_tab' : 'toplink' ), :style => "color:#ffffff"%>
+          </div>
+          <div class="navseperator"></div>
+          <div class="linkalign">
+            <%= link_to "Reports", "#", :class => (params[:controller] == 'reports' ? 'active_tab' : 'toplink' ), :style => "color:#ffffff" %>
+          </div>
+          <div class="navseperator"></div>
+          <div class="linkalign">
+            <%= link_to "Products", products_path, :class => (params[:controller] == 'products' ? 'active_tab' : 'toplink' ), :style => "color:#ffffff" %>
+          </div>
+        <%else%>
+          <div class="navseperator"></div>
+          <div class="linkalign1">
+            <%= link_to "Appointments" , appointments_path, :class => (params[:controller] == 'appointments' ? 'active_tab' : 'toplink' ), :style => "color:#ffffff" %>
+          </div>
+          <div class="navseperator"></div>
+          <div class="linkalign1">
+            <%= link_to "Guests", guests_path, :class => (params[:controller] == 'guests' ? 'active_tab' : 'toplink' ), :style => "color:#ffffff" %>
+          </div>
+          <div class="navseperator"></div>
+          <div class="linkalign1">
+            <%= link_to "Reports", "#", :class =>  'toplink'  %>
+          </div>
+        <%end%>
+      </div>
+      <div>
+        <%= yield %>
+      </div>
+      <div class="beforefooter"></div>
+      <div class="footer">
+        2011 Expressions International, All Rights Reserved&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#" class="foot">Privacy Policy</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#" class="foot">Report a Bug</a>
+      </div>
+    </div>
+  </body>
+</html>

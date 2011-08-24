@@ -1,0 +1,24 @@
+<%= form_tag(params[:action] == 'custom_fields' ? create_custom_field_guests_path : update_custom_field_guests_path, :remote => true) do  %>
+  <table>
+    <tr> 
+      <td></td>
+      <td>
+        <div id="custom_field_error"style='color: red;'></div>
+      </td>
+    </tr>
+    <tr>
+      <td>Field name</td>
+      <td><%= text_field_tag :field_name, params[:field_name], :size => '20x2'  %>
+      </td>
+    </tr>
+    <tr>
+      <td>Data type</td>
+      <td><%= select_tag :field_data_type, options_for_select(GuestCustomField::CUSTOM_FIELDS, params[:field_data_type])  %>
+        <div style='color: red;'></div></td>
+    </tr>
+    <tr>
+      <td></td>
+     <td><%= submit_tag "Add" %></td>
+    </tr>
+  </table>
+<% end %>

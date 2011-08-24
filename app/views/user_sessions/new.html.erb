@@ -1,0 +1,40 @@
+
+
+
+<%= form_for @user_session, :url => {:action => "create"} do |f| %>
+
+  <table class="logintab" border="0">
+    <tr>
+      <td>
+        <div class="logintext">Username</div>
+      </td>
+      <td>
+        <div class="logintextcol">:</div>
+        <%= f.text_field :login, :class => "textboxbg" %>
+        <div style='color: red; padding-left: 25px'><%= validation_errors @user_session.errors['login'] %></div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="logintext">Password</div>
+      </td>
+      <td>
+        <div class="logintextcol">:</div>
+        <%= f.password_field :password, :class => "textboxbg" %>
+        <div style='color: red;padding-left: 25px'><%= validation_errors @user_session.errors['password'] %></div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+
+      </td>
+      <td>
+        <div class="forgottext"><%= link_to "Register", signup_path %>  |  <%= link_to "Forgot Password?", new_password_reset_path %></div>
+        <div align="right">
+          <%= image_submit_tag "button_05.jpg", :onmouseout => "MM_swapImgRestore()", :onmouseover => "MM_swapImage('Image2','','/images/button_03.jpg',1)" %>
+  <%#*<a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image2','','/images/button_03.jpg',1)"><img src="/images/button_05.jpg" name="Image2" width="64" height="24" border="0" id="Image2" /></a>%>
+        </div>
+      </td>
+    </tr>
+  </table>
+<% end %>

@@ -1,0 +1,22 @@
+<table>
+  <tr>
+    <td colspan="2">
+      <b style="font-size: medium; color: #1DACB2"> Assigned Employees</b>
+      <% assigned_employees = @service.employees %>
+    </td>
+  </tr>
+  <% if assigned_employees.empty? %>
+    <tr>
+      <td colspan="2">
+        No employees are assigned to this service.
+      </td>
+    </tr>
+  <% else %>
+    <% assigned_employees.each do |emp| %>
+      <tr>
+        <td><%= emp.name %></td>
+        <td><%= link_to 'Delete', delete_selected_option_service_path(@service.id, :delete_id => emp.id, :delete_type => 'Employee'), :remote => true, :method => 'delete', :confirm => "Are you sure?", :style => "color: salmon"  %></td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>

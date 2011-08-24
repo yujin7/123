@@ -1,0 +1,134 @@
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#get_service_type").click(function(){
+      $("#service_type").show();
+    });
+    
+  });
+</script>
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/appointment_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render 'search_appointment' %>
+          <div class="midright">
+            <%= form_for @appointment do |f| %>
+            <h3 style="color:#FFFFFF; padding-left:5% ">New Appointment</h3>
+              <table style="padding-left:5%">
+                <tr>
+                  <td>Guest name</td>
+                  <% @guests = Guest.active.all(:select => "id, name") %>
+                  <td><%= f.select :guest_id, @guests.map {|r| [r.name,r.id] } %></td>
+                </tr>
+
+                <tr>
+                  <td>Time In</td>
+                  <td><%= f.datetime_select :time_in, :start_time => 8 %>
+                    <div style='color: red;'><%= validation_errors @appointment.errors['time_in'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Time Out</td>
+                  <td><%= f.datetime_select :time_out, :start_time => 8  %>
+                    <div style='color: red;'><%= validation_errors @appointment.errors['time_out'] %></div>
+                  </td>
+                </tr>
+                <tr>
+
+                  <td>Service or Package</td>
+                  <td><%= select_tag "service_enabled", options_for_select(['Service','Package']), :onchange => "get_service_type(this.value)" %>
+
+                    <div  id="service_type">
+                      Service:
+                      <%=f.select :service_id, options_for_select(Service.all(:select => "service_name, id").map {|r| [r.service_name,r.id] })%>
+                    </div>
+
+                    <div id="package_type"  style="display:none">
+                      Package :
+                      <%=f.select :package_id, options_for_select(Package.all(:select => "id, name").map {|r| [r.name,r.id] }) %>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Room</td>
+                  <% @rooms = Room.all %>
+                  <td><%= f.select :room_id, [["Select", ""]]+Room.all(:select => "name, id").map{|room|[room.name, room.id]} %>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Staff</td>
+                  <% @employees = Employee.all %>
+                  <td><%= f.select :employee_id, [["Select", ""]]+Employee.all(:select => "name, id").map{|employee|[employee.name, employee.id]}  %>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Status</td>
+                  <td><%= f.select :status, options_for_select(['Active','Inactive'].map{|status|[status.capitalize,status]},@appointment.status) %></td>
+                </tr>
+
+                <tr>
+                  <td>Customer Height(cms's)</td>
+                  <td><%= f.text_field :customer_height_before, :size => '10x2'  %>
+                    <div style='color: red;'><%= validation_errors @appointment.errors['customer_height_before'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Customer Weight(kg's)</td>
+                  <td><%= f.text_field :customer_weight_before, :size =>'10x2' %>
+                    <div style='color: red;'><%= validation_errors @appointment.errors['customer_weight_before'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Request</td>
+                  <td><%= f.text_area :special_requests ,:size => '30x2' %>
+                    <div style='color: red;'><%= validation_errors @appointment.errors['special_requests'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Comments</td>
+                  <td><%= f.text_area :comments,:size => '30x2'  %>
+                    <div style='color: red;'><%= validation_errors @appointment.errors['comments'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td><%= f.submit @appointment.new_record? ? "Create"  : "Update", :class => 'input_button' %>
+                    <%= button_to_function 'Cancel', "window.location.href= '#{appointments_path}'", :class => 'input_button' %>
+                  </td>
+                </tr>
+              </table>
+
+            <% end %>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

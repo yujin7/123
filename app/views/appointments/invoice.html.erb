@@ -1,0 +1,172 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/appointment_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render 'search_appointment' %>
+          <div class="midright">
+            <div class="midrighttop">
+              <div class="midrighttopleft"></div>
+              <div class="midrighttopcenter">
+                <div class="midrighttoplinks">
+                  <div style="float:right">
+                    <div class="midrighttoplinkdiv">
+                      <%= link_to "New Appointment" , new_appointment_path, :class => 'midrighttoplink' %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="midrighttopright"></div>
+            </div>
+            <div class="data" >
+              <% appointment_payments = @appointment.appointment_payments %>
+              <% if !appointment_payments.empty? %>
+                <div style="color: #fff">
+                  Payment has been already received for this appointment, balance due is $<%= appointment_payments.last.balance_due %>.
+                </div>
+              <% end %>
+              <% form_tag :action => :appointment_payment , :method=>:post  do %>
+
+                <table cellpadding="2" cellspacing="2">
+
+                  <tr>
+                    <td>
+                      <h2>Customer Information</h2>
+
+
+                      <table style="border: 0" cellpadding="2" cellspacing="2">
+                        <tr>
+                          <td>Customer name: </td>
+                          <td><%= text_field_tag "customer_name", @appointment.guest.name, :readonly => true, :style => "color: black"  %> </td>
+                        </tr>
+                        <tr>
+                          <td>Customer email:</td>
+                          <td><%= text_field_tag "customer_email", @appointment.guest.email, :readonly => true, :style => "color: black" %></td>
+                        </tr>
+                        <tr>
+                          <td>Billing Address 1:</td>
+                          <td><%= text_field_tag "billing_address1",@appointment.guest.billing_address_one, :readonly => true, :style => "color: black" %></td>
+                        </tr>
+                        <tr>
+                          <td>Billing Address 2:</td>
+                          <td><%= text_field_tag "billing_address2", @appointment.guest.billing_address_two, :readonly => true, :style => "color: black" %></td>
+                        </tr>
+                        <tr>
+                          <td>Customer Billing phone:</td>
+                          <td><%= text_field_tag "customer_billing_phone", @appointment.guest.billing_telephone, :readonly => true, :style => "color: black" %></td>
+                        </tr>
+                        <tr>
+                          <td>Date created:</td>
+                          <td><%= text_field_tag "date_created", @appointment.created_at.strftime("%a, %B %d, %Y "), :readonly => true, :style => "color: black" %></td>
+                        </tr>
+                        <tr>
+                          <% total = !appointment_payments.empty? ? appointment_payments.last.total : (!@appointment.service.nil? ? @appointment.service.rate.to_i : 0) + (!@appointment.package.nil? ? @appointment.package.total_price.to_i : 0) %>
+                          <td>Total:</td>
+                          <td><%= text_field_tag "total", total, :readonly => true, :style => "color: black" %></td>
+                        </tr>
+                        <tr>
+                          <td>Amount paid</td>
+                          <td>
+                            <div id="amount_paid_message" style="background-color:#EDEDED; color: red"></div>
+                            <%= !appointment_payments.empty? ? "Last payment :#{appointment_payments.last.amount_paid}" : '' %><br /><%= text_field_tag "amount_paid" %>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Balance Due</td>
+                          <td>
+                            <div id="balance_due_message" style="background-color:#EDEDED; color: red"></div>
+                            <%= !appointment_payments.empty? ? "Balance :#{appointment_payments.last.balance_due}" : '' %><br />
+                            <%= text_field_tag "balance_due" %>
+                          </td>
+                        </tr>
+                      </table>
+
+                    </td>
+                  </tr>
+                </table>
+                <table>
+                  <tr>
+                    <td>
+                      <h2>Payment Details</h2>
+                      <table cellpadding="2" cellspacing="2">
+
+                        <tr>
+                          <td valign="top"><b>Payment Mode</b></td>
+                          <td>
+                            <%= select_tag :payment_mode, options_for_select(['Cash', 'Card']), :onchange => "show_payment_type(this.value)" %>
+                            <div id="by_card" style="display: none">
+
+                              <div id="card_type">
+                                Card type: <%= select_tag :card_type, options_for_select(['AMEX', 'VISA', 'MASTER']) %>
+                              </div>
+                              <div id="number_for_card" >
+                                Card Number :<br/> <%= text_field_tag :card_number %><br/>
+                                Address1 <br/> <%= text_field_tag :address1 %><br/>
+                                Address2 <br/> <%= text_field_tag :address2 %><br/>
+                                Street  <br/><%= text_field_tag :street %><br/>
+                                City <br/> <%= text_field_tag :city %><br/>
+                                Phone1 <br/><%= text_field_tag :phone1 %><br/>
+                                Pin-code<br/><%= text_field_tag :pin_code %><br/>
+                                Country<br/><%=  country_select(:country, "", ["Singapore"], {}, { :style => "width: 200px;"}) %><br/>
+
+                              </div>
+                            </div>
+                            <div id="by_cash">
+                              Cash: <%= text_field_tag :cash %>
+                            </div>
+                          </td>
+                        </tr>
+
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+                <%= submit_tag "Proceed", :onclick => 'return validate_payment()', :class => 'input_button' %><%= button_to_function 'Cancel', "window.location.href= '#{appointments_path}'", :class => 'input_button' %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

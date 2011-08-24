@@ -1,0 +1,58 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/profile_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render '/shared/side_bar' %>
+          <div class="midright">
+            <table>
+              <tr>
+                <td colspan="5">
+                  <b> First Name: </b>  <%= @profile.first_name %>  
+                </td>
+              </tr >
+              <td colspan="2">
+                <b> Last Name: </b><%=  @profile.last_name %>
+              </td>
+              <tr>
+                <td colspan="2">
+                  <b> Role Name : </b> <%= @profile.role_name %>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  <b>Dtea of Birth : </b><%= @profile.date_of_birth%>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  <b>Status : </b><%= @profile.status%>
+                </td>
+              </tr>
+
+              <tr>
+                <td colspan="3">
+                  <b>Joined Date : </b><%= @profile.studio_joined_date%>
+                </td>
+              </tr>
+
+              <tr>
+                <td colspan="3">
+                  <%= button_to_function 'Edit' ,  "window.location.href= '#{edit_profile_path(@profile)}'", :class => 'input_button' %>
+                  <%= button_to_function 'Back', "window.location.href= '#{ profiles_path}'", :class => 'input_button' %>
+                </td>
+              </tr>
+            </table>
+
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+

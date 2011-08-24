@@ -1,0 +1,50 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/permission_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <table>
+              <tr>
+                <td colspan="5"> <b>Name : </b><%= @permission.name %></td>
+              </tr>
+              <tr>
+                <td >
+                  <%= button_to_function 'Edit' ,  "window.location.href= '#{edit_permission_path(@permission.id)}'", :class => 'input_button' %>
+                </td>
+                <td>
+                  <%= button_to_function 'Back', "window.location.href= '#{permissions_path}'", :class => 'input_button' %>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

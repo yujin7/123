@@ -1,0 +1,158 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/role_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render '/shared/side_bar' %>
+          <div class="midright">
+            <table width="100%" height="100%">
+              <tr>
+                <td colspan="5">
+                  <b>  Name: </b>  <%= @role.name %>
+
+
+                </td>
+              </tr>
+              <tr>
+                <td colspan="5">
+                  <b> Desription : </b><%= @role.description %>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="5">
+                  <b> Status : </b><%= @role.status %>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding-top:3%">
+                  <%= button_to_function "Edit Role" , "window.location.href= '#{edit_role_path(@role.id)}'", :class => 'input_button'   %>
+                </td>
+              </tr>
+            </table>
+            <h3>
+              <strong style="color:#1DACB2">Assigning Permissions to Users </strong>
+            </h3>
+            <%= form_tag(assign_permission_role_path, :method => :put) do %>
+              <table width="100%" height="100%">
+                <tr style="background-color: #1DACB2">
+                  <th>Tabs</th>
+                  <th></th>
+                  <th>View</th>
+                  <th>Add/Create</th>
+                  <th>Edit/Update</th>
+                  <th>Delete</th>
+                </tr>
+                <tr style="background-color: #CCE9ED">
+                  <td align="center" style="color:#000000">Appointments</td>
+                  <td></td>
+                  <% @permission.each do |perm| %>
+                    <td align="center">
+                      <%= check_box_tag  :"#{perm.name+'_appointments'}", 1 , (PermissionRole.exists?(:role_id => params[:id], :tab_id => ApplicationTab.find_by_name('appointments').id, :permission_id => perm.id) ? true : false) %>
+                    </td>
+                  <% end %>
+                </tr>
+                <tr style="background-color: #CCE9ED">
+                  <td align="center" style="color:#000000">Guest</td>
+                  <td></td>
+                  <% @permission.each do |perm| %>
+                    <td align="center">
+                      <%= check_box_tag  :"#{perm.name+'_guests'}", 1 , (PermissionRole.exists?(:role_id => params[:id], :tab_id => ApplicationTab.find_by_name('guests').id, :permission_id => perm.id) ? true : false) %>
+                    </td>
+                  <% end %>
+                </tr>
+                <tr style="background-color: #CCE9ED">
+                  <td></td>
+                  <td align="center" style="color:#000000">Summary</td>
+                  <% @permission.each do |perm| %>
+                    <td align="center">
+                      <%= check_box_tag  :"#{perm.name+'_summary'}", 1 , (PermissionRole.exists?(:role_id => params[:id], :tab_id => ApplicationTab.find_by_name('summary').id, :permission_id => perm.id) ? true : false) %>
+                    </td>
+                  <% end %>
+                </tr>
+                <tr style="background-color: #CCE9ED">
+                  <td></td>
+                  <td align="center" style="color:#000000">Profile</td>
+                  <% @permission.each do |perm| %>
+                    <td align="center">
+                      <%= check_box_tag  :"#{perm.name+'_profile'}", 1 , (PermissionRole.exists?(:role_id => params[:id], :tab_id => ApplicationTab.find_by_name('profile').id, :permission_id => perm.id) ? true : false) %>
+                    </td>
+                  <% end %>
+                </tr>
+                <tr style="background-color: #CCE9ED">
+                  <td></td>
+                  <td align="center" style="color:#000000">Appts</td>
+                  <% @permission.each do |perm| %>
+                    <td align="center">
+                      <%= check_box_tag  :"#{perm.name+'_appts'}", 1 , (PermissionRole.exists?(:role_id => params[:id], :tab_id => ApplicationTab.find_by_name('appts').id, :permission_id => perm.id) ? true : false) %>
+                    </td>
+                  <% end %>
+                </tr>
+                <tr style="background-color: #CCE9ED">
+                  <td></td>
+                  <td align="center" style="color:#000000">Products</td>
+                  <% @permission.each do |perm| %>
+                    <td align="center">
+                      <%= check_box_tag  :"#{perm.name+'_products'}", 1 , (PermissionRole.exists?(:role_id => params[:id], :tab_id => ApplicationTab.find_by_name('products').id, :permission_id => perm.id) ? true : false) %>
+                    </td>
+                  <% end %>
+                </tr>
+                <tr style="background-color: #CCE9ED">
+                  <td></td>
+                  <td align="center" style="color:#000000">Notes</td>
+                  <% @permission.each do |perm| %>
+                    <td align="center">
+                      <%= check_box_tag  :"#{perm.name+'_notes'}", 1 , (PermissionRole.exists?(:role_id => params[:id], :tab_id => ApplicationTab.find_by_name('notes').id, :permission_id => perm.id) ? true : false) %>
+                    </td>
+                  <% end %>
+                </tr>
+                <tr style="background-color: #CCE9ED">
+                  <td align="center" style="color:#000000">Ops</td>
+                  <td></td>
+                  <% @permission.each do |perm| %>
+                    <td align="center">
+                      <%= check_box_tag  :"#{perm.name+'_ops'}", 1 , (PermissionRole.exists?(:role_id => params[:id], :tab_id => ApplicationTab.find_by_name('ops').id, :permission_id => perm.id) ? true : false) %>
+                    </td>
+                  <% end %>
+                </tr>
+                <tr style="background-color: #CCE9ED">
+                  <td align="center" style="color:#000000">Settings</td>
+                  <td></td>
+                  <% @permission.each do |perm| %>
+                    <td align="center">
+                      <%= check_box_tag  :"#{perm.name+'_settings'}", 1 , (PermissionRole.exists?(:role_id => params[:id], :tab_id => ApplicationTab.find_by_name('settings').id, :permission_id => perm.id) ? true : false) %>
+                    </td>
+                  <% end %>
+                </tr>
+                <tr style="background-color: #CCE9ED">
+                  <td align="center" style="color:#000000">Employees</td>
+                  <td></td>
+                  <% @permission.each do |perm| %>
+                    <td align="center">
+                      <%= check_box_tag  :"#{perm.name+'_employee'}", 1 , (PermissionRole.exists?(:role_id => params[:id], :tab_id => ApplicationTab.find_by_name('employees').id, :permission_id => perm.id) ? true : false) %>
+                    </td>
+                  <% end %>
+                </tr>
+                <tr>
+                  <td colspan="6" style="padding-left: 60%; padding-top: 5%">
+                    <%= submit_tag 'Update', :class => 'input_button' %>
+                    <%= button_to_function 'Cancel', "window.location.href= '#{roles_path}'", :class => 'input_button' %>
+                  </td>
+                </tr>
+              </table>
+            <%end%>
+
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+

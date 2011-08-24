@@ -1,0 +1,19 @@
+
+<p>
+  <strong>Date Range:</strong>
+  <%= @leave_application.date_range %>
+</p>
+<p>
+  <strong>Type Of Leave:</strong>
+  <%= @leave_application.type_of_leave %>
+</p>
+<p>
+  <strong>Reason For Leave:</strong>
+  <%= @leave_application.reason_for_leave %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_leave_application_path(@leave_application) %> |
+  <%= link_to "Destroy", @leave_application, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", leave_applications_path %>
+</p>

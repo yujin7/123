@@ -1,0 +1,22 @@
+<div style="width: 100%; text-align: left; border: 0pt none;" class="dataheaddiv">
+  <div style="float:left">Recent appointments</div>
+  <div style="float:right;">
+    <%= link_to "Veiw All", appointments_guest_path(@guest), :style => "color:#FFFFFF;" %> |
+    <%= link_to "New Appointment", new_appointment_path, :style => "color:#FFFFFF;" %> |
+  </div>
+</div>
+
+<% recent_appointments = Appointment.recent_by_guest(@guest.id, 5) %>
+<%= render :partial => "appointments", :locals => {:appointments => recent_appointments} %>
+<div style="clear: both"><br/><br/></div>
+<%#= render :partial => "purchases", :locals => {:payments => recent_appointments} %>
+
+<div style="width: 100%; text-align: left; border: 0pt none;" class="dataheaddiv">
+  <div style="float:left">Recent Purchases</div>
+  <div style="float:right;">
+    <%= link_to "Veiw All", purchases_guest_path(@guest), :style => "color:#FFFFFF;" %> |
+    <%= link_to "New Purchase", new_payment_path, :style => "color:#FFFFFF;" %> |
+  </div>
+</div>
+<% recent_purchases = Payment.recent_by_guest(@guest.id, 5) %>
+<%= render :partial => "purchases", :locals => {:payments => recent_purchases} %>

@@ -1,0 +1,88 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/permission_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <%= form_for @permission do |f| %>
+              <table>
+                <tr>
+                  <td>Name</td>
+                  <td><%= f.text_field :name, :size => '20x2' %>
+                    <div style='color: red;'><%= validation_errors @permission.errors['name'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td><%= f.submit @permission.new_record? ? "Create"  : "Update", :class => 'input_button' %>
+                    <%= button_to_function 'Cancel', "window.location.href= '#{permissions_path}'", :class => 'input_button' %>
+                  </td>
+                </tr>
+              </table>
+            <% end %>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/permission_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render :partial => '/shared/side_bar' %>
+          <div class="midright">
+            <%= form_for @permission do |f| %>
+              <table border="1">
+                <tr>
+                  <td>Name</td>
+                  <td><%= f.text_field :name %>
+                    <div style='color: red;'><%= validation_errors @permission.errors['name'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><%= f.submit %></td>
+                  <td><%= link_to 'Cancel', permissions_path %></td>
+                </tr>
+              </table>
+            <% end %>
+          </div>
+          <div class="midbgright"></div>
+        </div>
+      </div>
+    </div>
+    <div class="rightcontentgradient"></div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+

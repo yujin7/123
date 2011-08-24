@@ -1,0 +1,133 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/equipment_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <%= form_for @equipment, :multiple => true do |f| %>
+           <h3 style="color:#FFFFFF; padding-left:5%">New Equipment</h3>
+              <table style="padding-left: 5%">
+                <tr>
+                  <td> Equipment Name</td>
+                  <td><%= f.text_field :name, :size => 20 %>
+                    <div style='color: red;'><%= validation_errors @equipment.errors['name'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td> Equipment Code</td>
+                  <td><%= f.text_field :code_number, :size => 20 %>
+                    <div style='color: red;'><%= validation_errors @equipment.errors['code_number'] %></div>
+                  </td>
+                </tr>
+                <% if @equipment.new_record? %>
+                  <tr>
+                    <td>Quantity</td>
+                    <td><%= f.text_field :total_number, :size => 8 %>
+                      <div style='color: red;' ><%= validation_errors @equipment.errors['total_number'] %>              </div>
+                      <div id="total_number_message" style="color:red; background-color: #EDEDED"></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Out of Service</td>
+                    <td><%= f.text_field :no_out_of_service, :size => 8 %>
+                      <div style='color: red;' ><%= validation_errors @equipment.errors['no_out_of_service'] %>              </div>
+                      <div id="out_of_service_message" style="color:red; background-color: #EDEDED"></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      <table>
+                        <tr>
+                          <th colspan="3">
+                            <div class="datahead" style="width:500px">
+                              <div class="dataheaddiv" style="width:500px; text-align: center">
+                                <b style="font-size: 15px;">Assign to locations</b>
+                              </div>
+                            </div>
+                          </th>
+                        </tr>
+                        <tr>
+                          <th>Location </th>
+                          <th>Quantity</th>
+                          <th>Out of service</th>
+                        </tr>
+                        <% location_ids = [] %>
+                        <% @locations.each do |location| %>
+                          <tr>
+                            <td colspan="3">
+                              <div id="<%= location.id %>_message" style="color:red; background-color: #EDEDED"></div>
+                              <div class="datahead" style="background-color: <%= cycle("#cce9ed","#f0f8fa") %>;width:100%;">
+                                <div class="databellowdiv" style="width:5%">
+                                  <%= check_box_tag :"#{location.id}_selected" %>
+                                </div>
+                                <div class="databellowdiv" style="width:20%">
+                                  <%= location.name.capitalize %>
+                                </div>
+                                <div class="dataheaddivwhite" style="width:36%">
+                                  <%= text_field_tag :"#{location.id}_quantity", '', :size => 8  %>
+                                </div>
+                                <div class="databellowdiv" style="width:37%">
+                                  <%= text_field_tag :"#{location.id}_out_of_service", '', :size => 8 %>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          <% location_ids << location.id %>
+                        <% end %>
+                      </table>
+                    </td>
+                  </tr>
+                <% end %>
+                <tr>
+                  <td>Description</td>
+                  <td><%= f.text_area :description, :size => '30x4' %>
+                    <div style='color: red;' ><%= validation_errors @equipment.errors['description'] %>              </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Special Notes</td>
+                  <td><%= f.text_area :special_notes,:size => '30x4' %>
+                    <div style='color: red;' ><%= validation_errors @equipment.errors['special_notes'] %>              </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td><%= f.submit @equipment.new_record? ? "Create"  : "Update", :onclick => "return validate_locations_selected(#{location_ids})", :class => 'input_button' %>
+                    <%= button_to_function 'Cancel', "window.location.href= '#{equipments_path}'", :class => 'input_button' %>
+                  </td>
+                </tr>
+              </table>
+            <% end %>
+
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

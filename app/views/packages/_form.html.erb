@@ -1,0 +1,142 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/package_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <%= form_for @package do |f| %>
+              <h3 style="color:#FFFFFF; padding-left:5%">New Package</h3>
+              <table  style="padding-left: 5%">
+                <tr>
+                  <td width="35%">Name</td>
+                  <td><%= f.text_field :name, :size => '20x2'  %>
+                    <div style='color: red;'><%= validation_errors @package.errors['name'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Description</td>
+                  <td><%= f.text_area :description, :size => '25x3' %>
+                    <div style='color: red;'><%= validation_errors @package.errors['description'] %></div>
+                  </td>
+                </tr>
+              </table >
+              <table style="padding-left: 5%">
+                <tr>
+                  <td>
+                    <div class="dataheaddiv" style="width:350px; text-align: center; padding-left: 50px">
+                      <b style="font-size: 15px;">Services </b>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="datahead" style="background-color:#EDEDED; width:400px">
+                      <div class="databellowdiv" style="width:45%">
+                        Service
+                      </div>
+                      <div class="dataheaddivwhite" style="width:40%">
+                        Quantity
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="height: 100px; overflow: scroll; width: 400px">
+                      <table>
+                        <% service_ids = [] %>
+                        <% Service .all.each do |service| %>
+                          <tr>
+                            <td>
+                              <div id="<%= service.id %>_message" style="color:red; background-color: #EDEDED; width: 550px"></div>
+                              <div class="datahead" style="background-color: <%= cycle("#cce9ed","#f0f8fa") %>;width:550px">
+                                <div class="databellowdiv" style="width:5%">
+                                  <%= check_box_tag :"#{service.id}_selected" %>
+                                </div>
+                                <div class="databellowdiv" style="width:20%">
+                                  <%= service.service_name.capitalize %>
+                                </div>
+                                <div class="dataheaddivwhite" style="width:36%">
+                                  <%= text_field_tag :"#{service.id}_quantity", '', :size => 8  %>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          <% service_ids << service.id %>
+                        <% end %>
+
+                      </table>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
+              <table style="padding-left: 5%">
+                <tr>
+                  <td width="35%">Discount</td>
+                  <td><%= f.text_field :discount, :size => '5x2'  %>%
+                    <div style='color: red;'><%= validation_errors @package.errors['discount'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Deposit</td>
+                  <td><%=  select_tag "selected_deposit" , options_for_select(['None','Full','Percentage'].map{|deposit| [deposit.capitalize,deposit]}, @package.deposit), :onchange => 'get_deposit_type(this.value)' %>
+                    <span id="percentage_field" style="display:none">
+                      <%= f.text_field :deposit, :size => 10 %>
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td><%= f.submit @package.new_record? ? "Create"  : "Update", :class => 'input_button' %>
+                    <%= button_to_function 'Cancel', "window.location.href= '#{packages_path}'", :class => 'input_button' %>
+                  </td>
+                </tr>
+              </table>
+            <% end %>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

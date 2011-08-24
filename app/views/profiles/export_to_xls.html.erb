@@ -1,0 +1,21 @@
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Location</th>
+    <th>Guest ID</th>
+    <th>Email</th>
+    <th>Phone</th>
+    <th>Status</th>
+  </tr>
+  <% @profiles.each do |profile| %>
+    <tr>
+      <td align="center"><%= profile.first_name %></td>
+      <td align="center"><%= profile.last_name %></td>
+      <td align="center"><%= profile.role_name %></td>
+      <td align="center"><%= profile.date_of_birth %></td>
+      <td align="center"><%= profile.status %></td>
+      <td align="center"><%= profile.studio_joined_date %></td>
+      <td align="center"><%= profile.email %></td>
+    </tr>
+  <% end %>
+</table>

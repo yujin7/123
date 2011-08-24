@@ -1,0 +1,110 @@
+<script>
+  $(function() {
+    $( "#datepicker" ).datepicker();
+  });
+</script>
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/payment_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <div class="midrighttop">
+              <div class="midrighttopleft"></div>
+              <div class="midrighttopcenter">
+                <div class="midrighttoplinks">
+                  <div style="float:right">
+                    <div class="midrighttoplinkdiv">
+                      <%= link_to_function "Search Register" , "$('#search_cash_register').show()",  :class => 'midrighttoplink'%>
+                    </div>
+                    <div class="midrighttoplinkdiv">
+                      <%= link_to_function "Today Register" , "$('#new_cash_register').show()",  :class => 'midrighttoplink'%>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="midrighttopright"></div>
+            </div>
+            <div id="search_cash_register" style="display: none">
+              <div class="dataheaddiv" style="width:850px; text-align: left; border: 0; font-weight: bold;" >
+                Search On Date
+              </div>
+              <div class="search_tab_right">
+                <div>
+                  <%= form_tag search_cash_register_payments_path, :remote => true, :multipart => true, :method => :get do |f| %>
+                    <div style="width:100%">
+                      <div>Date <%= text_field_tag :cash_on_date, '', :size => 10, :id => 'datepicker' %> <%= submit_tag "Search", :class => 'input_button' %>&nbsp;&nbsp;<%= link_to_function 'Cancel', "$('#search_cash_register').hide()", :style => 'color: #fff' %></div>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+            <div id="new_cash_register" style="display:none">
+              <div class="dataheaddiv" style="width:850px; text-align: left; border: 0; font-weight: bold;" >
+                Cash Register
+              </div>
+              <% if @today_register.empty? %>
+                <div class="search_tab_right">
+                  <%= form_for @cash_register, :remote => true, :url => new_entry_payments_path, :multipart => true do |f| %>
+                    <div style="width:100%">
+                      <div>Date of register: <%= f.text_field :cash_on_date, :value => Date.today.strftime("%d %b %Y"), :size => 10, :readonly => true %> &nbsp;&nbsp;Total Cash: $<%= f.text_field :total_cash, :value => @total_cash.first.total_cash.to_i > 0 ? @total_cash.first.total_cash : 0, :size => 15, :readonly => true %> &nbsp;&nbsp;<%= f.submit "Enter", :class => 'input_button' %> &nbsp;&nbsp;&nbsp;&nbsp;<%= link_to_function 'Cancel', "$('#new_cash_register').hide()", :style => 'color: #fff' %></div>
+                    </div>
+                  <% end %>
+                </div>
+              <% else %>
+                <div class="search_tab_right">
+                  You have already entered today's cash register.
+                </div>
+              <% end %>
+            </div>
+            <div id="cash_register_table">
+              <%= render 'cash_register_table' %>
+            </div>
+            <div style="clear: both; height: 10px"></div>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

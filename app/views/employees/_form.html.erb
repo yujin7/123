@@ -1,0 +1,136 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/employee_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <%= form_for @employee, :html => { :multipart => true } do |f| %>
+              <h3 style="color:#FFFFFF; padding-left:5%">New Employee</h3>
+              <table style="padding-left: 5%">
+                <tr>
+                  <td> Employee Name</td>
+                  <td><%= f.text_field :name  %>
+                    <div style='color: red;'><%= validation_errors @employee.errors['name'] %></div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td> Email</td>
+                  <td><%= f.text_field :email  %>
+                    <div style='color: red;'><%= validation_errors @employee.errors['email'] %></div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Gender</td>
+                  <td><%= f.radio_button :gender, "Male" %>Male<%= f.radio_button :gender, "Female" %>Female<div style='color: red;'><%= validation_errors @employee.errors['gender'] %></div></td>
+                </tr>
+                <tr>
+                  <td>Employee Type</td>
+                  <% @employee_types = EmployeeType.all %>
+                  <td><%= f.select :employee_type_id, [["Select", " "]]+EmployeeType.all(:select => "employee_type, id").map{|r| [r.employee_type,r.id]} %></td>
+                </tr>
+                <tr>
+                  <td>Location Outlet</td>
+                  <td>
+                    <%= f.select :location_ids, options_for_select(Location.all(:select => "name, id").map {|r| [r.name,r.id] }, (params[:employee] ? params[:employee][:location_ids] : @employee.locations.all(:select => "locations.id").map{|l| [l.id]})), {}, {:multiple => true, :size => 6, :style => 'min-width:100px'} %>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Services</td>
+                  <td>
+                    <%= f.select :service_ids, options_for_select(Service.all(:select => "service_name, id").map {|r| [r.service_name,r.id] }, (params[:employee] ? params[:employee][:service_ids] : @employee.services.all(:select => "services.id").map{|l| [l.id]})), {}, {:multiple => true, :size => 6, :style => 'min-width:100px'} %>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Address1</td>
+                  <td><%= f.text_field :address1  %>
+                    <div style='color: red;'><%= validation_errors @employee.errors['address1'] %></div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Address2</td>
+                  <td><%= f.text_field :address2  %>
+                    <div style='color: red;'><%= validation_errors @employee.errors['address2'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Street</td>
+                  <td><%= f.text_field :street  %>
+                    <div style='color: red;'><%= validation_errors @employee.errors['street'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>City</td>
+                  <td><%= f.text_field :city  %>
+                    <div style='color: red;'><%= validation_errors @employee.errors['city'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Country</td>
+                  <td><%= f.country_select :country, ["Singapore"], {}, { :style => "width: 200px;"} %>
+                    <div style='color: red;' ><%= validation_errors @employee.errors['country'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Pin Code</td>
+                  <td><%= f.text_field :pin_code %>
+                    <div style='color: red;'><%= validation_errors @employee.errors['pin_code'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Phone1</td>
+                  <td><%= f.text_field :phone1 %>
+                    <div style='color: red;'><%= validation_errors @employee.errors['phone1'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Phone2</td>
+                  <td><%= f.text_field :phone2 %>
+                    <div style='color: red;'><%= validation_errors @employee.errors['phone2'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Date of Birth</td>
+                  <td><%= f.date_select :date_of_birth, :prompt => { :day => 'Day', :month => 'Month',:year => 'Year' }, :start_year => 1900 %></td>
+                </tr>
+                <tr>
+                  <td>Photo</td>
+                  <td><%= f.file_field :avatar %></td>
+                </tr>
+                <tr>
+                  <td>Special Notes</td>
+                  <td><%= f.text_area :notes,:size => '40x4' %>
+                    <div style='color: red;' ><%= validation_errors @employee.errors['special_notes'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td><%= f.submit @employee.new_record? ? "Create"  : "Update", :class => 'input_button' %>
+                    <%= button_to_function 'Cancel', "window.location.href= '#{employees_path}'", :class => 'input_button' %>
+                  </td>
+                </tr>
+              </table>
+            <% end %>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+
+
+
+

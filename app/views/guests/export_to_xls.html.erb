@@ -1,0 +1,20 @@
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Location</th>
+    <th>Guest ID</th>
+    <th>Email</th>
+    <th>Phone</th>
+    <th>Status</th>
+  </tr>
+  <% @guests.each do |guest| %>
+    <tr>
+      <td align="center"><%= guest.name %></td>
+      <td align="center"><%= guest.location.name if !guest.location.nil? %></td>
+      <td align="center"><%= guest.id %></td>
+      <td align="center"><%= guest.email %></td>
+      <td align="center"><%= guest.billing_telephone %></td>
+      <td align="center"><%= guest.status %></td>
+    </tr>
+  <% end %>
+</table>

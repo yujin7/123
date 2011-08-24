@@ -1,0 +1,196 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/category_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <div class="midrighttop">
+              <div class="midrighttopleft"></div>
+              <div class="midrighttopcenter">
+                <div class="midrighttoplinks">
+                  <div style="float:right">
+                    <div class="midrighttoplinkdiv">
+                      <%= link_to "New Category",  new_category_path,  :class => 'midrighttoplink'%>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="midrighttopright"></div>
+            </div>
+            <div class="data" >
+              <div class="datahead">
+                <div class="dataheaddiv" style="width: 100%; text-align: left; border: 0">
+                  <%= select_tag :per_page, options_for_select([10, 20, 30, 50], params[:per_page]), :onchange => "reload_with_new_param('per_page', this.value)"  %>
+                </div>
+              </div>
+              <div class="datahead">
+                <div class="dataheadoptions" style="width:180px">
+                  Options
+                </div>
+                <div class="dataheadoptions" style="width:665px">
+                  Category Name
+                </div>
+              </div>
+              <% for category in @categories %>
+                <div class="datahead" style="background-color: <%= cycle("#cce9ed","#f0f8fa") %>">
+                  <div class="dataheaddivwhite" style="width:60px">
+                    <%= link_to 'Show' ,  (category) %>
+                  </div>
+                  <div class="dataheaddivwhite" style="width:60px">
+                    <%= link_to 'Edit' ,  edit_category_path(category)%>
+                  </div>
+                  <div class="dataheaddivwhite" style="width:60px">
+                    <%= link_to 'Delete' ,  (category), :confirm => 'Are you sure?', :method => :delete %>
+                  </div>
+                  <div class="datarowoptions" style="width:665px">
+                    <%= category.name.nil? ? "Unknown" : category.name %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+<<<<<<< .mine
+
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div class="midbgrepeat">
+      <div class="midbgleft"></div>
+      <div class="midcontent">
+        <div class="midleft"></div>
+        <div class="midright">
+          <div class="midrighttop">
+            <div class="midrighttopleft"></div>
+            <div class="midrighttopcenter">
+              <div class="midrighttoplinks">
+                <div class="midrighttoplinkdiv"><%= link_to "New Category", new_category_path , :class => 'midrighttoplink'%></div>
+              </div>
+            </div>
+          </div>
+          <div class="datahead">
+            <div class="dataheaddiv"  style="width: 100%; text-align:left; text-indent: 40px; border: 0">Name</div>
+          </div>
+          <% for category in @categories %>
+            <div class="datahead" style="background-color: <%= cycle("#cce9ed","#f0f8fa") %>">
+              <div class="dataheaddivwhite"><%= category.name %></div>
+              <div class="databellowdiv"><%= link_to "Show", category %></div>
+              <div class="dataheaddivwhite" ><%= link_to "Edit", edit_category_path(category) %></div>
+              <div class="databellowdiv"><%= link_to "Destroy", category, :confirm => 'Are you sure?', :method => :delete %></div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+=======
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> .r213

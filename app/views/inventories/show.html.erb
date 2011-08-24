@@ -1,0 +1,66 @@
+
+
+
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/product_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render '/shared/side_bar' %>
+          <div class="midright">
+            <table>
+              <tr>
+                <td colspan="5">
+                  <b>  Name: </b>  <%= @inventory.name %>
+                </td>
+              </tr >
+              <td colspan="2">
+                <b> Barcode: </b><%=  @inventory.barcode %>
+              </td>
+              <tr>
+                <td colspan="2">
+                  <b> Description : </b> <%= @inventory.description %>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  <b> Retail Price : </b><%= @inventory.retail_price %>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  <b> Cost Price : </b><%= @inventory.cost_price %>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  <b> Stock Balance : </b><%= @inventory.stock_balance %>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  <b>Status : </b><%= @membership.status%>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  <%= button_to_function 'Cancel', "window.location.href= '#{inventories_path}'", :class => 'input_button' %>
+                </td>
+              </tr>
+            </table>
+
+
+
+
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+

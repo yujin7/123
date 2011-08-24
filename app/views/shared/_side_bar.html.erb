@@ -1,0 +1,245 @@
+<div class="midleft" style="background-color: #164E87">
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $("#general_links_id").click(function(){
+        tab1 = $('#general_links_id').html();
+        if(tab1.match('minus')){
+          $('#general_links_id').html('<img src="/images/plus.png"/>')
+        }else{
+          $('#general_links_id').html('<img src="/images/minus.png"/>')
+        }
+        $("#general_links").toggle('normal');
+      });
+      
+      $("#room_links_id").click(function(){
+        tab1 = $('#room_links_id').html();
+        if(tab1.match('minus')){
+          $('#room_links_id').html('<img src="/images/plus.png"/>')
+        }else{
+          $('#room_links_id').html('<img src="/images/minus.png"/>')
+        }
+        $("#room_links").toggle('normal');
+      });
+     
+      $("#equipment_links_id").click(function(){
+        tab1 = $('#equipment_links_id').html();
+        if(tab1.match('minus')){
+          $('#equipment_links_id').html('<img src="/images/plus.png"/>')
+        }else{
+          $('#equipment_links_id').html('<img src="/images/minus.png"/>')
+        }
+        $("#equipment_links").toggle('normal');
+      });
+
+      $("#employee_links_id").click(function(){
+        tab1 = $('#employee_links_id').html();
+        if(tab1.match('minus')){
+          $('#employee_links_id').html('<img src="/images/plus.png"/>')
+        }else{
+          $('#employee_links_id').html('<img src="/images/minus.png"/>')
+        }
+        $("#employee_links").toggle('normal');
+      });
+
+
+      $("#login_links_id").click(function(){
+        tab1 = $('#login_links_id').html();
+        if(tab1.match('minus')){
+          $('#login_links_id').html('<img src="/images/plus.png"/>')
+        }else{
+          $('#login_links_id').html('<img src="/images/minus.png"/>')
+        }
+        $("#login_links").toggle('normal');
+      });
+
+
+      $("#services_links_id").click(function(){
+        tab1 = $('#services_links_id').html();
+        if(tab1.match('minus')){
+          $('#services_links_id').html('<img src="/images/plus.png"/>')
+        }else{
+          $('#services_links_id').html('<img src="/images/minus.png"/>')
+        }
+        $("#services_links").toggle('normal');
+      });
+
+
+      $("#packages_links_id").click(function(){
+        tab1 = $('#packages_links_id').html();
+        if(tab1.match('minus')){
+          $('#packages_links_id').html('<img src="/images/plus.png"/>')
+        }else{
+          $('#packages_links_id').html('<img src="/images/minus.png"/>')
+        }
+        $("#packages_links").toggle('normal');
+      });
+
+      $("#membership_links_id").click(function(){
+        tab1 = $('#membership_links_id').html();
+        if(tab1.match('minus')){
+          $('#membership_links_id').html('<img src="/images/plus.png"/>')
+        }else{
+          $('#membership_links_id').html('<img src="/images/minus.png"/>')
+        }
+        $("#membership_links").toggle('normal');
+      });
+
+
+      $("#csv_links_id").click(function(){
+        tab1 = $('#csv_links_id').html();
+        if(tab1.match('minus')){
+          $('#csv_links_id').html('<img src="/images/plus.png"/>')
+        }else{
+          $('#csv_links_id').html('<img src="/images/minus.png"/>')
+        }
+        $("#csv_links").toggle('normal');
+      });
+    });
+  </script>
+
+  <div id="general_click" style="padding-top: 20px; padding-left: 10px;cursor: pointer;">
+    <span id="general_links_id" style ="color:#C9C7C8"><img src='/images/minus.png'/></span>
+    <span><%= link_to 'General Settings', locations_path, :style => "color:#F6F6F6" %></span>
+  </div>
+
+  <div id="general_links" style="display: block">
+    <div style="padding-left:30px; padding-top: 5px;">
+      <div style="padding-left:20px; padding-top: 5px;">
+        <%= link_to "Location Info", location_path(current_user.location.id), :style => "color:#fff;#{params[:controller] == 'locations' and params[:action] == 'show' ? 'font-weight:bold' : ''}"  %>
+      </div>
+      <div style="padding-left:20px; padding-top: 5px;">
+        <%= link_to "Locations", locations_path, :style => "color:#F6F6F6;#{(params[:controller] == 'locations' and (params[:action] == 'index' or params[:action] == 'search' or params[:action] == 'create' )) ? 'font-weight:bold' : ''}"  %>
+      </div>
+
+      <div style="padding-left:20px; padding-top: 5px;">
+        <%=  link_to "Permission",  permissions_path, :style => "color:#F6F6F6;#{params[:controller] == 'permissions' ? 'font-weight:bold' : ''}" %>
+      </div>
+      <div style="padding-left:20px; padding-top: 5px;">
+        <%=  link_to "Tax Types",  taxtypes_path, :style => "color:#F6F6F6;#{params[:controller] == 'taxtypes' ? 'font-weight:bold' : ''}" %>
+      </div>
+      <div style="padding-left:20px; padding-top: 5px;" >
+        <%= link_to 'Roles', roles_path, :style => "color:#F6F6F6;#{(params[:controller] == 'roles' and (params[:action] == 'index' or params[:action] == 'search')) ? 'font-weight:bold' : ''}" %>
+      </div>
+      <div style="padding-left:20px; padding-top: 5px;">
+        <%=  link_to "New role", new_role_path, :style => "color:#F6F6F6;#{(params[:controller] == 'roles' and (params[:action] == 'new' or params[:action] == 'create')) ? 'font-weight:bold' : ''}" %>
+      </div>
+    </div>
+  </div>
+
+  <div id="room_click" style="padding-top: 20px;padding-left: 10px;cursor: pointer;">
+    <span id="room_links_id" style ="color:#fff"><img src='/images/minus.png'/></span>
+    <span> <%= link_to 'Rooms' , rooms_path, :style => "color:#F6F6F6;#{(params[:controller] == 'rooms' and (params[:action] == 'index' or params[:action] == 'search')) ? 'font-weight:bold' : ''}" %></span>
+  </div>
+
+  <div id="room_links" style="display: block">
+    <div style="padding-left:30px; padding-top: 5px;">
+      <div style="padding-left:20px;padding-top: 5px;">
+        <%= link_to "New Room", new_room_path, :style => "color:#F6F6F6;#{(params[:controller] == 'rooms' and (params[:action] == 'new' or params[:action] == 'create')) ? 'font-weight:bold' : ''}"  %>
+      </div>
+    </div>
+  </div>
+
+  <div id="equipment_click" style="padding-top: 20px;padding-left: 10px;cursor: pointer;">
+    <span id="equipment_links_id" style ="color:#fff"><img src='/images/minus.png'/></span>
+    <span> <%= link_to 'Equipment' , equipments_path, :style => "color:#F6F6F6;#{(params[:controller] == 'equipments' and (params[:action] == 'index' or params[:action] == 'search')) ? 'font-weight:bold' : ''}" %></span>
+  </div>
+
+  <div id="equipment_links" style="display: block">
+    <div style="padding-left:30px; padding-top: 5px;">
+      <div style="padding-left:20px;padding-top: 5px;">
+        <div>
+          <%= link_to "New Equipment", new_equipment_path, :style => "color:#F6F6F6;#{(params[:controller] == 'equipments' and (params[:action] == 'new' or params[:action] == 'create')) ? 'font-weight:bold' : ''}"  %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="employee_click" style="padding-top: 20px;padding-left: 10px;cursor: pointer;">
+    <span id="employee_links_id" style ="color:#fff"><img src='/images/minus.png'/></span>
+    <%= link_to 'Employees' , employees_path, :style => "color:#F6F6F6;#{(params[:controller] == 'employees' and (params[:action] == 'index' or params[:action] == 'search')) ? 'font-weight:bold' : ''}" %>
+  </div>
+
+  <div id="employee_links" style="display: block">
+    <div style="padding-left:30px; padding-top: 5px;">
+      <div style="padding-left:20px; padding-top: 5px;">
+        <div>
+          <%= link_to "New Employee", new_employee_path, :style => "color:#F6F6F6;#{(params[:controller] == 'employees' and (params[:action] == 'new' or params[:action] == 'create')) ? 'font-weight:bold' : ''}"  %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="login_click" style="padding-top: 20px;padding-left: 10px;cursor: pointer;">
+    <span id="login_links_id" style ="color:#fff"><img src='/images/minus.png'/></span>
+    <%= link_to 'Logins' , manage_role_users_path, :style => "color:#F6F6F6;#{(params[:controller] == 'users' and (params[:action] == 'manage_role')) ? 'font-weight:bold' : ''}" %>
+  </div>
+
+  <div id="login_links" style="display: block">
+    <div style="padding-left:30px; padding-top: 5px;">
+      <div style="padding-left:20px;padding-top: 5px;">
+        <%= link_to "New Login", new_user_users_path, :style => "color:#F6F6F6;#{(params[:controller] == 'users' and (params[:action] == 'new_user' or params[:action] == 'create_user')) ? 'font-weight:bold' : ''}"  %>
+      </div>
+    </div>
+  </div>
+
+  <div id="services_click" style="padding-top: 20px;padding-left: 10px;cursor: pointer;">
+    <span id="services_links_id" style ="color:#fff"><img src='/images/minus.png'/></span>
+    <%= link_to 'Services' , services_path, :style => "color:#F6F6F6;#{(params[:controller] == 'services' and (params[:action] == 'index' or params[:action] == 'search')) ? 'font-weight:bold' : ''}" %>
+  </div>
+  <div id="services_links" style="display: block">
+    <div style="padding-left:30px; padding-top: 5px;">
+      <div style="padding-left:20px;padding-top: 5px;" >
+        <%= link_to "New Service", new_service_path, :style => "color:#F6F6F6;#{(params[:controller] == 'services' and (params[:action] == 'new' or params[:action] == 'create')) ? 'font-weight:bold' : ''}"  %>
+      </div>
+      <div style="padding-left:20px;padding-top: 5px;">
+        <%= link_to 'List Categories', categories_path, :style => "color:#F6F6F6;#{(params[:controller] == 'categories' and (params[:action] == 'index' or params[:action] == 'search')) ? 'font-weight:bold' : ''}"  %>
+      </div>
+      <div style="padding-left:20px;padding-top: 5px;">
+        <%=  link_to "New Category", new_category_path, :style => "color:#F6F6F6;#{(params[:controller] == 'categories' and (params[:action] == 'new' or params[:action] == 'create')) ? 'font-weight:bold' : ''}" %>
+      </div>
+    </div>
+  </div>
+
+  <div id="packages_click" style="padding-top: 20px;padding-left: 10px;cursor: pointer;">
+    <span id="packages_links_id" style ="color:#fff"><img src='/images/minus.png'/></span>
+    <%= link_to 'Packages' , packages_path, :style => "color:#F6F6F6;#{(params[:controller] == 'packages' and (params[:action] == 'index' or params[:action] == 'search')) ? 'font-weight:bold' : ''}" %>
+  </div>
+  <div id="packages_links" style="display: block">
+    <div style="padding-left:30px; padding-top: 5px;">
+      <div style="padding-left:20px;padding-top: 5px;">
+        <%= link_to "New Package", new_package_path, :style => "color:#F6F6F6;#{(params[:controller] == 'packages' and (params[:action] == 'new' or params[:action] == 'create')) ? 'font-weight:bold' : ''}"  %>
+      </div>
+    </div>
+  </div>
+
+  <div id="membership_click" style="padding-top: 20px;padding-left: 10px;cursor: pointer;">
+    <span id="membership_links_id" style ="color:#fff"><img src='/images/minus.png'/></span>
+    <%= link_to 'Memberships' , memberships_path, :style => "color:#fff;#{(params[:controller] == 'memberships' and (params[:action] == 'index' or params[:action] == 'search')) ? 'font-weight:bold' : ''}" %>
+  </div>
+
+  <div id="membership_links" style="display: block">
+    <div style="padding-left:30px;padding-top: 5px;">
+      <div style="padding-left:20px;padding-top: 5px;">
+        <%= link_to "New Membership", new_membership_path, :style => "color:#F6F6F6;#{(params[:controller] == 'memberships' and (params[:action] == 'new' or params[:action] == 'create')) ? 'font-weight:bold' : ''}"  %>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="csv_click" style="padding-top: 20px;padding-left: 10px;cursor: pointer;">
+    <span id="csv_links_id" style ="color:#fff"><img src='/images/minus.png'/></span>
+    <span style="color:#F6F6F6">Csv Import</span>
+  </div>
+
+  <div id="csv_links" style="display: block">
+    <div style="padding-left:30px;padding-top: 5px;">
+      <div style="padding-left:20px;padding-top: 5px;">
+        <%= link_to "Csv Import for Guests",  csv_guest_form_guests_path, :style => "color:#F6F6F6;#{(params[:controller] == 'guests' and (params[:action] == 'csv_import' )) ? 'font-weight:bold' : ''}"  %>
+      </div>
+      <div style="padding-left:20px;padding-top: 5px;">
+        <%= link_to "Csv Import for Profiles",   csv_profile_form_profiles_path, :style => "color:#F6F6F6;#{(params[:controller] == 'profiles' and (params[:action] == 'csv_import' )) ? 'font-weight:bold' : ''}"  %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/payment_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <table cellpadding="0" cellspacing ="0" width="100%" >
+              <tr>
+                <td width="25%">
+                  <table>
+                    <tr>
+                      <td colspan="5">
+                        <b> Serial No: </b>  <%= @gift_voucher.serial_no %>
+                      </td>
+                    </tr >
+                    <td colspan="2">
+                      <b> Percentage Discount: </b><%= @gift_voucher.percentage_discount%>
+                    </td>
+                    <tr>
+                      <td colspan="2">
+                        <b> Discount Amount : </b> <%= @gift_voucher.discount_amount%>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <b>Validity :</b><%=  @gift_voucher.valid_upto.strftime("%a, %B %d, %Y at %l:%M %p") %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>
+                        <%= button_to_function 'Edit', "window.location.href= '#{ edit_gift_voucher_path(@gift_voucher)}'", :class => 'input_button' %>
+                        <%= button_to_function 'Back', "window.location.href= '#{gift_vouchers_path}'", :class => 'input_button' %>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+

@@ -1,0 +1,59 @@
+<table cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td colspan="3">
+      <%= link_to "Manage Role", roles_path %> |
+      <%= link_to "Logins", manage_role_users_path %> |
+      <%= link_to "Permissions", permissions_path %> |
+      <%= link_to "Manage Locations", locations_path %> |
+      <%= link_to "Manage Equipments", equipments_path %> |
+      <%= link_to "Manage Rooms", rooms_path %> |
+      <%= link_to "Manage Packages", packages_path %> |
+      <%= link_to "Manage Taxtype ", taxtypes_path %> |
+      <%= link_to "Manage Membership",   memberships_path%> |
+      <%= link_to "Services", services_path %> |
+       <%= link_to "Manage Staff", employees_path %>
+      <hr />
+    </td>
+  </tr>
+  <tr>
+    <td width="20%">
+      <b>Search Role List</b>
+      <br />
+      <div>
+        yet to display
+      </div>
+    </td>
+    <td>
+      <table width="100%" height="100%" border="2">
+        <tr>
+          <td>
+            <%= select_tag :per_page, options_for_select([10, 20, 30, 50], params[:per_page]), :onchange => "reload_with_new_param('per_page', this.value)" %>
+          </td>
+          <td colspan="8"  align="right">
+          </td>
+        </tr>
+        <% if @users.empty? %>
+          <tr>
+            <td colspan="2">
+              There are no other users in the system.
+            </td>
+          </tr>
+        <% else %>
+          <tr>
+            <th>Name</th>
+            <th>Role Assigned</th>
+          </tr>
+          <% @users.each do |user| %>
+            <tr align="center">
+              <td> <%= user.login %> </td>
+              <td>
+                <div id="name_<%= user.id %>"></div>
+                <%= select_tag :role_id, options_for_select(@roles.map{|role| [role.name, role.id]}, user.role.id), :onchange => "update_role_name('#{ user.id }', this.value)"  %>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </table>
+    </td>
+  </tr>
+</table>

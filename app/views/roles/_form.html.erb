@@ -1,0 +1,77 @@
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#click").click(function(){
+      $("#advanced_search_tab").toggle();
+    });
+  });
+</script>
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/role_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <%= form_for @role do |f| %>
+              <h3 style="color:#FFFFFF; padding-left:5%">New Role</h3>
+              <table style="padding-left: 5%">
+                <tr>
+                  <td>Name</td>
+                  <td><%= f.text_field :name, :size => '20x2'  %>
+                    <div style='color: red;'><%= validation_errors @role.errors['name'] %></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Description</td>
+                  <td><%= f.text_area :description, :size => '25x3'%>
+                    <div style='color: red;'><%= validation_errors @role.errors['description'] %></div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td></td>
+                  <td><%= f.submit @role.new_record? ? "Create"  : "Update", :class => 'input_button' %>
+                    <%= button_to_function 'Cancel', "window.location.href= '#{roles_path}'", :class => 'input_button' %>
+                  </td>
+                </tr>
+              </table>
+            <% end %>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

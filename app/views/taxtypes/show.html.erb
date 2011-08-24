@@ -1,0 +1,40 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/taxtype_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <table>
+              <tr>
+                <td colspan="5">
+                  Name:   <%=@taxtype.name.nil? ? "Unknown" : @taxtype.name%>
+                </td>
+              </tr >
+              <td colspan="2">
+                Rate : <%=@taxtype.rate.nil? ? "Unknown" : @taxtype.rate%>
+              </td>
+              <tr>
+                <td colspan="3">
+                  Status : <%=@taxtype.status.nil? ? "Unknown" : @taxtype.status %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <%= button_to_function 'Edit' ,  "window.location.href= '#{edit_taxtype_path(@taxtype)}'", :class => 'input_button' %>
+                  <%= button_to_function 'Back', "window.location.href= '#{taxtypes_path}'", :class => 'input_button' %>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+

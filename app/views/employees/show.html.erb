@@ -1,0 +1,106 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/employee_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <table >
+              <tr>
+                <td width="20%">
+                  <table>
+                    <tr>
+                      <td colspan="6">
+                        <b>  Name: </b>  <%=  @employee.name.nil? ? "Unknown" : @employee.name %> &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;
+                      </td>
+                    </tr >
+                    <tr>
+                        <%= image_tag @employee.avatar.url(:thumb) %>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <b> Email: </b><%=   @employee.email.nil? ? "Unknown" :  @employee.email %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <b> Country : </b> <%=   @employee.country.nil? ? "Unknown" : @employee.country  %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="3">
+                        <b>Status : </b><%= @employee.status.nil? ? "Unknown" : @employee.status  %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td >
+                        <%= button_to_function 'Edit' ,  "window.location.href= '#{edit_employee_path(@employee)}'", :class => 'input_button' %>
+                      </td>
+                      <td>
+                        <%= button_to_function 'Back', "window.location.href= '#{employees_path}'", :class => 'input_button' %>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+            <div style="padding-left: 80%" >
+              <%=  button_to_function 'Apply Leave' ,  "window.location.href= '#{new_employee_leave_application_path(@employee.id)}'", :class => 'input_button' %>
+            </div>
+            <div class="data">
+              <div class="datahead">
+                <div class="dataheaddiv"  style="width:150px" >
+                  From Date
+                </div>
+                <div class="dataheaddiv"  style="width:150px">
+                  To Date
+                </div>
+                <div class="dataheaddiv"  style="width:150px">
+                  Type of Leave
+                </div>
+                <div class="dataheaddiv"  style="width:150px">
+                  Leave Status
+                </div>
+                <div class="dataheaddiv"  style="width:240px">
+                  Options
+                </div>
+              </div>
+              <% @leave_applications.each do |leave_application| %>
+                <div class="datahead"  style="background-color: <%= cycle("#cce9ed","#f0f8fa") %>">
+                  <div class="dataheaddivwhite" style="width:150px" >
+                    <%= leave_application.from.nil? ? "Unknown" : leave_application.from  %>
+                  </div>
+                  <div class="dataheaddivwhite" style="width:150px">
+                    <%= leave_application.to.nil? ? "Unknown" : leave_application.to %>
+                  </div>
+                  <div class="databellowdiv" style="width:150px">
+                    <%= leave_application.type_of_leave.nil? ? "Unknown" : leave_application.type_of_leave  %>
+                  </div>
+                  <div class="dataheaddivwhite"  style="width:150px">
+                    <%= leave_application.leave_approval == "pending_approval" ? "Pending approval" : leave_application.leave_approval.capitalize %>
+                  </div>
+                  <div class="databellowdiv"  style="width:240px">
+                    <%= link_to image_tag("edit.gif", :border => "0px"), edit_employee_leave_application_path(@employee.id,leave_application) %>
+                    <%= link_to image_tag("no.gif", :border => "0px"), employee_leave_application_path(@employee.id,leave_application), :confirm => "Are you sure?", :method=>:delete %>
+                  </div>
+                </div>
+              <%end%>
+            </div>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+
+

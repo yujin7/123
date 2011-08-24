@@ -1,0 +1,70 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/payment_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <%= form_for @gift_voucher, :html => { :multipart => true } do |f| %>
+              <h3 style="color:#FFFFFF; padding-left:5%">Gift Voucher</h3>
+              <table style="padding-left: 5%">
+                <tr>
+                  <td>Serial No</td>
+                  <td><%= f.text_field :serial_no, :size => '15x2' %></td>
+                </tr>
+                <tr>
+                  <td>Percentage Discount</td>
+                  <td><%= f.text_field :percentage_discount, :size => '3' %> %</td>
+                </tr>
+                <tr>
+                  <td>Discount Amount</td>
+                  <td>$<%= f.text_field :discount_amount, :size => '8x2' %></td>
+                </tr>
+                <tr>
+                  <td>Validity</td>
+                  <td><%= f.datetime_select :valid_upto %></td>
+                </tr>
+
+                <tr>
+                  <td></td>
+                  <td><%= f.submit @gift_voucher.new_record? ? "Create"  : "Update", :class => 'input_button' %>
+                    <%= button_to_function 'Cancel', "window.location.href= '#{gift_vouchers_path}'", :class => 'input_button' %>
+                  </td>
+                </tr>
+              </table>
+            <% end %>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

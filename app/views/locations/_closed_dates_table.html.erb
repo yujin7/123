@@ -1,0 +1,20 @@
+<% if @location_closed_dates.empty? %>
+  <div class="datahead" style="background-color:#cce9ed;width:80.4%;">
+    There are no closed dates for this location right now.
+  </div>
+<% else %>
+  <% @location_closed_dates.each do |location_closed_date| %>
+    <div class="datahead" style="background-color: <%= cycle("#cce9ed","#f0f8fa") %>;width:80.4%;">
+      <div class="databellowdiv" style="width:25%">
+        <%= location_closed_date.closed_date.to_datetime.strftime('%d %b, %Y') %>
+      </div>
+      <div class="dataheaddivwhite" style="width:36%">
+        <%= location_closed_date.description %>
+      </div>
+      <div class="databellowdiv" style="width:37%">
+        <%= link_to 'Update', edit_closed_date_location_path(@location.id, :closed_date_id => location_closed_date.id), :remote => true %>&nbsp;&nbsp;&nbsp;
+        <%= link_to 'Delete', delete_closed_date_location_path(@location.id, :closed_date_id => location_closed_date.id), :remote => true, :method => :delete, :confirm => 'Are you sure you want to delete this closed date for this location?' %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

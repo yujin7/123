@@ -1,0 +1,26 @@
+<div class="midleft">
+  <div class="searchimg">
+    Search Appointments List
+  </div>
+  <div class="midbgsearchrepeat">
+    <%= form_tag(search_appointments_path, :method=>'post', :multipart => true) do %>
+      <div>
+        <div>
+          <div class="guest">
+            <p> Name : <%= text_field_tag "name", params[:name] %> </p>
+            <p> Email : <%= text_field_tag "email", params[:email] %></p>
+            <p>Billing Phone  Number : <%= text_field_tag "phone", params[:phone] %></p>
+            <p>Status : <%= select_tag :status,  options_for_select(["Active" ,"Inactive"],params[:status])  %></p>
+            <p>Records per page : <%= select_tag :records_per_page,  options_for_select([10, 20, 30, 50],params[:records_per_page])  %></p>
+            <p></p>
+          </div>
+          <br/>
+          <div style="padding-left:20px">
+            <%= submit_tag 'Submit', :class => "button"%>
+          </div>
+        <%end%>
+      </div>
+    </div>
+    <div class="midleftbottom"></div>
+  </div>
+</div>

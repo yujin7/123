@@ -1,0 +1,28 @@
+<div class="datahead" style="width: 100%">
+  <div class="dataheaddiv" style="width: 50%">
+    Field name
+  </div>
+  <div class="dataheaddiv" style="width: 49.7%">
+    Field type
+  </div>
+</div>
+<% i = 1 %>
+<% GuestCustomField.get_columns.each do |field_name, field_type| %>
+  <div class="datahead" style="background-color: <%= cycle("#cce9ed","#f0f8fa") %>;">
+    <div class="dataheaddivwhite" style="width: 50%">
+      <div id="field_name_<%= i %>">
+        <%= field_name %> <%#= link_to_function "edit", "jQuery('#field_name_#{i}').hide();jQuery('#edit_field_name_#{i}').show();" %>
+      </div>
+      <div id="edit_field_name_<%= i %>" style="display:none">
+
+      </div>
+    </div>
+    <div class="databellowdiv" style="width: 20%">
+      <%= field_type %>
+    </div>
+    <div class="dataheaddivwhite" style="width: 30%">
+      <%= link_to 'delete', destroy_custom_field_guest_path(field_name), :confirm => "Are you sure? This will delete information assinged to this filed for all guests", :method => :delete, :remote => true %>
+    </div>
+  </div>
+  <% i += 1 %>
+<% end %>

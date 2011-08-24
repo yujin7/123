@@ -1,0 +1,96 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/profile_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <div class="midrighttop">
+              <div class="midrighttopleft"></div>
+              <div class="midrighttopcenter">
+                <div class="midrighttoplinks">
+                  <div style="float:right">
+                  </div>
+                </div>
+              </div>
+              <div class="midrighttopright"></div>
+            </div>
+            <%= form_tag("/leave_applications/delete_selected", :method => :delete) do %>
+              <div class="data" style="padding-top: 10px">
+                <div class="datahead">
+                  <div class="dataheaddiv" style="width: 20%; text-align: left; border: 0">
+                    <%= select_tag :per_page, options_for_select([10, 20, 30, 50], params[:per_page]), :onchange => "reload_with_new_param('per_page', this.value)"  %>
+                  </div>
+                  <div class="dataheaddiv" style="width: 79.8%; text-align: left; border: 0">
+                    <%= will_paginate @leave_applications %>
+                  </div>
+                </div>
+                <div class="datahead">
+                  <div class="dataheadoptions">
+                    <input type="checkbox" id="total_leaves" onclick="select_all_leaves(<%= @leave_applications.length %>)"/>
+                  </div>
+                  <div class="dataheaddiv">
+                    Employee
+  <%# if params[:by] == 'ASC' %>
+  <%#= link_to image_tag("uparrow.gif", :width => "8", :height => "9", :border => "0"), :action => 'index', :order => 'first_name', :by => 'DESC' %>
+  <%# else %>
+  <%#= link_to image_tag("arrow.gif", :width => "8", :height => "9", :border => "0"), :action => 'index', :order => 'first_name', :by => 'ASC' %>
+  <%# end %>
+                  </div>
+                  <div class="dataheaddiv" style="width:190px">
+                    Duration
+                  </div>
+                  <div class="dataheaddiv">
+                    Type
+                  </div>
+                  <div class="dataheaddiv" style="width:190px">
+                    Reason
+                  </div>
+                  <div class="dataheaddiv" style="width:170px">
+                    Status
+                  </div>
+                </div>
+                <% i = 0 %>
+                <% @leave_applications.each do |application|  %>
+                  <div class="datahead" style="background-color: <%= cycle("#cce9ed","#f0f8fa") %>">
+                    <div class="datarowoptions">
+                      <input type="checkbox" name="leave_ids[]" id="leave_<%= i %>" value="<%= application.id %>"/>
+                    </div>
+                    <div class="dataheaddivwhite">
+                      <%= link_to Employee.find(application.id).name ,employees_path(application.id)%>
+                    </div>
+                    <div class="databellowdiv" style="width:190px">
+                      <%= application.from.strftime("%b %d, %Y") %> - <%= application.to.strftime("%b %d, %Y") %>
+                    </div>
+                    <div class="databellowdiv">
+                      <%= application.type_of_leave %>
+                    </div>
+                    <div class="databellowdiv" style="width:190px">
+                      <%= application.reason_for_leave %>
+                    </div>
+                    <div class="databellowdiv" style="width:170px">
+                      <div id="status_<%=  application.id %>"></div>
+                      <% if current_user.login == "admin" %>
+                        <%= select_tag :leave_approval, options_for_select([['Approved', 'approved'], ['Pending approval', 'pending_approval']],  application.leave_approval), :onchange => "update_leave_status('#{application.id }', this.value)"  %>
+                      <% else %>
+                        <%= application.leave_approval ? "Approved" : "Pending approval" %>
+                      <% end %>
+                    </div>
+                  </div>
+                  <% i += 1 %>
+                <% end %>
+              </div>
+              <div style="clear: both; height: 10px"></div>
+              <%= submit_tag 'Delete', :onclick => "return validate_leaves_to_delete(#{@leave_applications.length})", :class => 'input_button'  %>
+            <% end %>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>

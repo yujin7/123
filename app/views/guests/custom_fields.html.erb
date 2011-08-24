@@ -1,0 +1,38 @@
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#click").click(function(){
+      $("#advanced_search_tab").toggle();
+    });
+    $("#click_filter").click(function(){
+      $("#filter_guest_tab").toggle();
+    });
+  });
+</script>
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/guest_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render 'search_filter_guest_tab' %>
+
+          <div class="midright">
+            <div style="padding-left: 30px">
+              <div style="font-size: 15px;color:#FFFFFF"> Add new custom field to guest module</div>
+              <div id="custom_field_form">
+                <%= render :partial => "custom_field_form" %>
+              </div>
+            </div>
+            <div id="custom_field_list">
+              <%= render :partial => "custom_field_list" %>
+            </div>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>

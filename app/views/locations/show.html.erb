@@ -1,0 +1,208 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/location_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <table >
+              <tr>
+                <td>
+                  <table>
+                    <tr>
+                      <td>
+                        <div class="datahead" style="width:600px">
+                          <div class="dataheaddiv" style="width:600px; text-align: center">
+                            <b style="font-size: 15px;">Location Details</b>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                  <table>
+                    <tr>
+                      <td>
+                        <b>  Name: </b>
+                      </td>
+                      <td>
+                        <%= @location.name.nil? ? "Unknown" : @location.name %>
+                      </td>
+                    </tr >
+                    <td>
+                      <b> Addres1: </b></td>
+                    <td><%=@location.address1.nil? ? "Unknown" : @location.address1 %>
+                    </td>
+                    <tr>
+                      <td>
+                        <b> Address2: </b> </td>
+                      <td><%= @location.address2.nil? ? "Unknown" : @location.address2 %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <b>Street :</b></td>
+                      <td><%= @location.street.nil? ? "Unknown" : @location.street %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <b>City :</b></td>
+                      <td><%= @location.city.nil? ? "Unknown" : @location.city %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <b>Post Code :</b></td>
+                      <td><%= @location.post_code.nil? ? "Unknown" : @location.post_code %>
+
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <b>Country :</b></td>
+                      <td><%= @location.country.nil? ? "Unknown" : @location.country %>
+
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <b>Phone1 :</b></td>
+                      <td><%= @location.phone1.nil? ? "Unknown" : @location.phone1%>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <b>Phone2 :</b></td>
+                      <td><%= @location.phone2.nil? ? "Unknown" : @location.phone2%>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <b>Fax :</b></td>
+                      <td><%= @location.fax.nil? ? "Unknown" : @location.fax%>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <b>Status :</b></td>
+                      <td><%= @location.status.nil? ? "Unknown" : @location.status%>
+                      </td>
+                    </tr>
+                  </table>
+                  <table>
+                    <tr>
+                      <td colspan="2">
+                        <div id="operation_hours_table">
+                          <%= render :partial => 'operation_hours' %>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2"><br /><br />
+                        <b style="font-size:15px">Closed Dates</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to 'Edit', closed_dates_location_path(@location.id), :style => 'color: #fff', :title => "Add Closed dates." %><br /><br />
+                        <table>
+                          <% if @location_closed_dates.empty? %>
+                            <tr>
+                              <td colspan="2">There are no closed dates right now.</td>
+                            </tr>
+                          <% else %>
+                            <div class="datahead" style="width:600px">
+                              <div class="dataheaddiv" style="width:100px">
+                                Closed Date
+                              </div>
+                              <div class="dataheaddiv" style="width:200px">
+                                Description
+                              </div>
+                            </div>
+                            <% @location_closed_dates.each do |closed_date| %>
+                              <div class="datahead" style="background-color: <%= cycle("#cce9ed","#f0f8fa") %>;width:302px;">
+                                <div class="databellowdiv" style="width:100px">
+                                  <%= closed_date.closed_date.to_datetime.strftime('%d %b, %Y') %>
+                                </div>
+                                <div class="dataheaddivwhite" style="width:200px">
+                                  <%= closed_date.description %>
+                                </div>
+                              </div>
+                            <% end %>
+                          <% end %>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: right">
+                        <br/><br/>
+                        <%= button_to_function 'Edit' ,  "window.location.href= '#{edit_location_path(@location)}'", :class => 'input_button' %>
+                      </td>
+                      <td>
+                        <br/><br/>
+                        <%= button_to_function 'Back', "window.location.href= '#{locations_path}'", :class => 'input_button' %>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,84 @@
+<script>
+  $(function() {
+    $( "#datepicker" ).datepicker();
+  });
+</script>
+
+
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/appointment_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render 'search_appointment' %>
+          <div class="midright">
+            <table>
+              <tr>
+                <td>
+                  <table>
+                    <tr>
+                      <td width="20%" valign="top">
+                        <%= form_tag appointments_by_date_appointments_path, :method => :get do -%>
+                          <div class="demo" >
+                            <p>Date: <input name="selected_date" id="datepicker" type="text" value="<%= params[:selected_date] %>"/></p>
+                          </div><!-- End demo -->
+                          <%= submit_tag 'Submit' %>
+                          <%= link_to 'Cancel', appointments_path %>
+                        <% end %>
+                      </td>
+                      <td width="80%">
+                        <%= render :partial => '/events/index' %>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

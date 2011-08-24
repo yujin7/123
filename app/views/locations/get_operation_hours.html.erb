@@ -1,0 +1,75 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/location_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render "/shared/side_bar" %>
+          <div class="midright">
+            <%= form_tag create_operation_hours_location_path(@location.id) do |f| %>
+              <table>
+                <tr>
+                  <td colspan="4" align="center">
+                    <br /><b>Create New Location:</b> Step(2 of 2)<br /><br />
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="4" align="center">
+                    <br />Set regular schedule.<br /><br />
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>Open Time</td>
+                  <td>Close Time</td>
+                  <td></td>
+                </tr>
+                <% (0..6).each do |operating_day| %>
+                  <tr>
+                    <td><%= WEEK_DAYS[operating_day] %></td>
+                    <td>
+                      <select id="<%= WEEK_DAYS[operating_day].to_s %>_open" name="<%= WEEK_DAYS[operating_day].to_s %>_open_time">
+                        <% (00..23).each do |hour| %>
+                          <% ['00', '15', '30', '45'].each do |minute| %>
+                            <% display_hour = (hour > 12 ? ((12+hour)-24) : (hour == 00 ? 12 : hour)) %>
+                            <option value="<%= Date.today.strftime('%m/%d/%Y') %> <%= (hour.to_s.length == 1 ? '0'+hour.to_s : hour.to_s)+':'+minute.to_s %>"><%= display_hour.to_s+':'+minute.to_s+' '+(hour > 12 ? 'PM' : 'AM') %></option>
+                          <% end %>
+                        <% end %>
+                        <option value="<%= Date.today.strftime('%m/%d/%Y')+' 23:59' %>">11:59 PM</option>
+                      </select>
+                    </td>
+                    <td>
+                      <select id="<%= WEEK_DAYS[operating_day].to_s %>_close" name="<%= WEEK_DAYS[operating_day].to_s %>_close_time">
+                        <% (00..23).each do |hour| %>
+                          <% ['00', '15', '30', '45'].each do |minute| %>
+                            <% display_hour = (hour > 12 ? ((12+hour)-24) : (hour == 00 ? 12 : hour)) %>
+                            <option value="<%= Date.today.strftime('%m/%d/%Y') %> <%= (hour.to_s.length == 1 ? '0'+hour.to_s : hour.to_s)+':'+minute.to_s %>"><%= display_hour.to_s+':'+minute.to_s+' '+(hour > 12 ? 'PM' : 'AM') %></option>
+                          <% end %>
+                        <% end %>
+                        <option value="<%= Date.today.strftime('%m/%d/%Y')+' 23:59' %>">11:59 PM</option>
+                      </select>
+                    </td>
+                    <td>
+                      <% if WEEK_DAYS[operating_day].to_s != 'Sunday' %>
+                        <%= link_to_function 'Copy previous day', "copy_previous_day_time('#{WEEK_DAYS[operating_day].to_s}', '#{WEEK_DAYS[operating_day - 1].to_s}')", :style => 'color:#fff' %>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+                <tr>
+                  <td><br /></td>
+                  <td colspan="2"><br /><br /><%= submit_tag "Save", :class => 'input_button' %><%= button_to_function 'Cancel', "window.location.href= '#{locations_path}'", :class => 'input_button' %>
+                  </td><td></td>
+                </tr>
+              </table>
+            <% end %>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>

@@ -1,0 +1,114 @@
+
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/payment_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render '/shared/side_bar' %>
+          <div class="midright">
+
+            <table width="50%">
+              <tr>
+                <td>
+                  <b>  Assigned Employee : </b> </td>
+                <td>
+                  <%= !@payment.employee.nil? ? @payment.employee.name : 'Unknown'  %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <b>  Package : </b> </td>
+                <td>
+                  <%= !@payment.package.nil? ? @payment.package.name : 'Unknown'  %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <b>  Gift Voucher Used : </b> </td>
+                <td>
+                  <%= !@payment.gift_voucher.nil? ? @payment.gift_voucher.serial_no : 'Unknown'  %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <b>  Payment Mode : </b> </td>
+                <td>
+                  <%= @payment.payment_mode %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <b>  Taxable Amount : </b> </td>
+                <td>
+                  <%= @payment.taxable_amount %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <b>  Remarks : </b> </td>
+                <td>
+                  <%= @payment.remarks.nil? ? "Unknown" : @payment.remarks%>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <b> Status : </b></td>
+                <td><%= @payment.status.nil? ? "Unknown" : @payment.status %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <b> Payment On : </b></td>
+                <td><%= @payment.created_at.strftime("%a, %B %d, %Y at %l:%M %p") %>
+                </td>
+              </tr>
+            </table>
+            <table>
+              <tr>
+                <td colspan="4">
+                  <br /><br />
+                  <b style="font-size: medium; color: #1DACB2"> Products Used</b>
+                  <% assigned_products = @payment.payment_products %>
+                </td>
+              </tr>
+              <% if assigned_products.empty? %>
+                <tr>
+                  <td colspan="3">
+                    No products have been billed in this payment.
+                  </td>
+                </tr>
+              <% else %>
+                <tr>
+                  <th>Product</th>
+                  <th>Quantity</th>
+                  <th>Cost</th>
+                </tr>
+                <% assigned_products.each do |product| %>
+                  <tr>
+                    <td><%= product.product.nil? ? 'Name Unknown' : product.product.name %></td>
+                    <td><%= product.quantity %></td>
+                    <td>$<%= product.product_cost %></td>
+                  </tr>
+                <% end %>
+              <% end %>
+            </table>
+            <table>
+              <tr>
+                <td>
+                  <%= button_to_function 'Back', "window.location.href= '#{payments_path}'", :class => 'input_button' %>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+

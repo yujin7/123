@@ -1,0 +1,11 @@
+<div class="guesttop">
+  <div class="guesttoplinks">
+    <%= link_to "Manage Guests", guests_path, :class => ((params[:action] == 'index' or params[:action] == 'search') ? 'selected_subtab' : 'guestlink') %>
+  </div>
+<%#*<div class="guesttoplinks">%>
+<%#= link_to "Find Duplicates", guests_path, :class => ((params[:action] == 'find_duplicates') ? 'selected_subtab' : 'guestlink') %>
+<%#*</div>%>
+  <div class="guesttoplinks">
+    <%=link_to "Custom Fields", custom_fields_guests_path, :class => ((params[:action] == 'custom_fields') ? 'selected_subtab' : 'guestlink') %>
+  </div>
+</div>

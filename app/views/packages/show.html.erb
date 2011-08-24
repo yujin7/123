@@ -1,0 +1,59 @@
+<div class="contentmiddle">
+  <div class="leftcontentgradient"></div>
+  <div class="centercontentgradient">
+    <div id="guestmain">
+      <%= render 'shared/package_sub_tab' %>
+      <div class="midbgrepeat">
+        <div class="midbgleft"></div>
+        <div class="midcontent">
+          <%= render 'shared/side_bar' %>
+          <div class="midright">
+            <table width="100%" height="100%">
+              <tr>
+                <td colspan="5">
+                  <b>  Name: </b>  <%= @package.name.nil? ? "Unknown" :  @package.name%> 
+                </td>
+              </tr>
+              <tr>
+                <td colspan="5">
+                  <b> Description : </b><%= @package.description.nil? ? "Unknown" : @package.description%>
+                </td>
+              </tr>
+
+              <tr>
+                <td colspan="5">
+                  <b> Discount : </b><%= @package.discount.nil? ? "Unknown" : @package.discount%>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="5">
+                  <b> Status : </b><%= @package.status.nil? ? "Unknown" : @package.status%>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <%= button_to_function 'Edit' ,  "window.location.href= '#{edit_package_path(@package.id)}'", :class => 'input_button' %>
+                  <%= button_to_function 'Back', "window.location.href= '#{packages_path}'", :class => 'input_button' %>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="midbgright"></div>
+      </div>
+    </div>
+  </div>
+  <div class="rightcontentgradient"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+

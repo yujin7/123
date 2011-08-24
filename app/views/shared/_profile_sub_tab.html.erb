@@ -1,0 +1,8 @@
+<div class="guesttop">
+  <div class="guesttoplinks">
+    <%= link_to "Manage Profiles", profiles_path,  :class => (((params[:controller] == 'profiles') and (params[:action] == 'index' or params[:action] == 'search' or params[:action] == 'new' or params[:action] == 'create' or params[:action] == 'show')) ? 'selected_subtab' : 'guestlink')%>
+  </div>
+  <div class="guesttoplinks">
+    <%= link_to "Manage Leaves", leave_applications_path, :class =>  'guestlink' %>
+  </div>
+</div>

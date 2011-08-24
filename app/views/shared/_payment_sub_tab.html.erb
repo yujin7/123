@@ -1,0 +1,13 @@
+<div class="guesttop">
+  <div class="guesttoplinks">
+    <%= link_to "Manage Payments", payments_path, :class => (params[:controller] == 'payments' ? 'selected_subtab' : 'guestlink') %>
+  </div>
+  <div class="guesttoplinks">
+    <%= link_to "Gift Vouchers", gift_vouchers_path, :class =>  (params[:controller] == 'gift_vouchers' ? 'selected_subtab' : 'guestlink') %>
+  </div>
+  <div class="guesttoplinks">
+    <%= link_to "Cash Register", cash_register_payments_path, :class =>  ((params[:controller] == 'payments' and (params[:action] == 'cash_register' or params[:action] == 'new_entry')) ? 'selected_subtab' : 'guestlink') %>
+  </div>
+</div>
+
+
